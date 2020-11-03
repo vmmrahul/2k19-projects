@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Search Furniture</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'ui/jquery-ui.css' %}">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    {% include "indexheaderfiles.html" %}
+    <style>
+        .mySlides {
+            display: none;
+        }
+
+        .textstyles {
+            margin-top: 50px;
+            color: #a71d2a
+        }
+
+        .button {
+            padding: 15px 30px;
+            font-size: 20px;
+            text-align: center;
+            cursor: pointer;
+            outline: none;
+            color: #fff;
+            background-color: #af110e;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+        }
+
+        .button:hover {
+            background-color: #3e8e41
+        }
+
+        .button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+
+
+    </style>
+</head>
+<body>
+{% if request.session.mobile %}
+    {% include 'indexnavbaruser.html' %}
+{% elif not request.session.mobile %}
+    {% include 'indexnavigation.html' %}
+{% endif %}
+<div class="container">
+    <h1 class="text-center text-black-50 text-capitalize"><u><b></b></u></h1>
+    <div class="card">
+        <div class="row">
+            <div class="col-sm-6">
+                {% for foo in photo %}
+                    <div class="w3-display-container mySlides">
+                        <img src="{% static 'media/' %}{{ foo.photo1 }}" style="width:100%; height: 600px">
+                    </div>
+                {% endfor %}
+                <button class="w3-button w3-display-left w3-black" onclick="plusDivs(-1)">&#10094;</button>
+                <button class="w3-button w3-display-right w3-black" onclick="plusDivs(1)">&#10095;</button>
+            </div>
+            <div class="col-sm-6">
+                <div style="padding-left: 50px">
+                    <h4 style="margin-top: 50px;color: #a71d2a" class="font-weight-bold"><span class="h3">Title:</span>
+                        <span class="text-dark"> {{ furniture.0.title }}</span></h4>
+                    <h4 style="margin-top: 20px;color: #a71d2a" class="font-weight-bold"><span class="h3">Weight:</span>
+                        <span class="text-dark"> {{ furniture.0.weight }}</span></h4>
+                    <h4 style="margin-top: 20px;color: #a71d2a" class="font-weight-bold"><span
+                            class="h3">Dimensions:</span>
+                        <span class="text-dark"> {{ furniture.0.dimensions }}</span></h4>
+                    <h4 style="margin-top: 20px;color: #a71d2a" class="font-weight-bold"><span class="h3">Quantity Available:</span>
+                        <span class="text-dark"> {{ furniture.0.Qtyavailable }}</span></h4>
+                    <h4 style="margin-top: 20px;color: #a71d2a" class="font-weight-bold"><span
+                            class="h3">Per Day Rent:</span> <span
+                            class="text-dark"> {{ furniture.0.perdayrent }}</span></h4>
+                    <h4 style="margin-top: 20px;color: #a71d2a" class="font-weight-bold"><span
+                            class="h3">Per Month Rent:</span> <span
+                            class="text-dark"> {{ furniture.0.permonthrent }}</span></h4>
+                    <h4 style="margin-top: 20px;color: #a71d2a" class="font-weight-bold"><span
+                            class="h3">Half Year Rent:</span> <span
+                            class="text-dark"> {{ furniture.0.halfyearrent }}</span></h4>
+                </div>
+                <div class="text-center">
+                    <button style="margin-top:40px" class="btn btn-warning form-control w-50" onclick="openmodal()"><strong>Add Cart</strong>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var slideIndex = 1;
+    showDivs(slideIndex);
+
+    function plusDivs(n) {
+        showDivs(slideIndex += n);
+    }
+
+    function showDivs(n) {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        if (n > x.length) {
+            slideIndex = 1
+        }
+        if (n < 1) {
+            slideIndex = x.length
+        }
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        x[slideIndex - 1].style.display = "block";
+    }
+</script>
+
+<div class="container">
+    <div class="text-center">
+        <h3 style="color: #a71d2a"><u>Related Items</u></h3>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        {% for foo in allfurniture %}
+            <div class="col-sm-3 mt-5">
+                <div class="card">
+                    <div class="card-header text-center bg-white">
+                        <img src="{% static "media/" %}{{ foo.coverphoto }}" alt="" width="150px" height="200px">
+                    </div>
+                    <div class="card-body">
+                        <span>{{ foo.title }}</span>
+                    </div>
+                    <div class="card-footer">
+                        <form action="searchfurnituredetails1" method="get">
+                            <input type="hidden" value="{{ foo.id }}" id="id" name="id">
+                            <input type="hidden" value="{{ foo.catname }}" id="catname" name="catname">
+                            <button type="submit" class="btn btn-danger">show Detail</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Fill Details</h4>
+                <button type="button" class="close" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body">
+                <form id="cart" action="">
+                    <div class="form-group">
+                        <input type="hidden" id="fid" name="fid" value="{{ furniture.0.id }}">
+                        <label for="renttype">Select Rent Type</label>
+                        <select id="renttype" class="form-control" onchange="displayblog(this.value)">
+                            <option value="">--Choose Rent Type--</option>
+                            <option value="perdayrent">PerDayRent</option>
+                            <option value="permonthrent">PerMonthRent</option>
+                            <option value="halfyearrent">HalfYearRent</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="chosedays">
+                        <label for="dachosedaymonth">chose Month</label>
+                        <select name="chosedaymonth" id="chosedaymonth" class="form-control"></select>
+                    </div>
+                    <div class="form-group" id="dateday">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label for="from">From</label>
+                                <input type="text" readonly placeholder="Choose Date" data-msg-required="*"
+                                       data-rule-required="true" id="from"
+                                       class="form-control datepicker">
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="to">To</label>
+                                <input type="text" readonly placeholder="Choose Date" data-msg-required="*"
+                                       data-rule-required="true" id="to"
+                                       class="form-control datepicker" onchange="GetDays()">
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="day">No of Day</label>
+                                <input type="text" readonly placeholder="day" data-msg-required="*"
+                                       data-rule-required="true" id="day"
+                                       class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quantity">Select Quantity</label>
+                        <select id="qty" class="form-control" onchange="qtychange()">
+                            <option>chose Qty</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="totalprice">total price</label>
+                        <input type="text" readonly class="form-control" id="totalprice" name="totalprice">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" value="Save To Cart" onclick="addtocart()" class="btn btn-success">Add To
+                            Cart <i class="fas fa-cart-plus ml-2"></i></button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'indexfooter.html' %}
+{% include 'jsfiles.html' %}
+<script src="{% static 'myjs/addtocart.js' %}"></script>
+<script src="{% static 'myjs/addtocartmodal.js' %}"></script>
+<script>
+    $(function () {
+        $('.datepicker').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+    });
+    $(document).ready(function () {
+
+        document.getElementById('dateday').style.display = 'None';
+        document.getElementById('chosedays').style.display = 'None';
+    });
+
+    function openmodal() {
+        {#document.getElementById('fid').value = id;#}
+        $('#myModal').modal('show');
+    }
+</script>
+</body>
+</html>

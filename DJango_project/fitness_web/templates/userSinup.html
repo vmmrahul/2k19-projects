@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SignUp</title>
+    {% load static %}
+    <style>
+        body {
+            background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url("{% static 'images/victor-freitas-WvDYdXDzkhs-unsplash.jpg' %}") fixed no-repeat center/cover;
+            color: white;
+        }</style>
+    {% include 'userheaderfile.html' %}
+    <style>
+        .error {
+            color: red !important;
+        }
+    </style>
+</head>
+<body>
+{% include 'userNavbar.html' %}
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="text-center">
+        <h1 class="text-white">SignUp</h1>
+        <hr style="background: white">
+    </div>
+    <div style="color: white">
+        <form id="signup">
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" required id="email" class="form-control" placeholder="Email"
+                               data-rule-required="true">
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" required id="password" class="form-control"
+                                       placeholder="Password"
+                                       data-rule-required="true">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="confirmpassword">Confirm Password</label>
+                                <input type="password" data-rule-equalto="#password" name="confirmpassword" required
+                                       id="confirmpassword" class="form-control"
+                                       placeholder="Password"
+                                       data-rule-required="true">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="age">Age</label>
+                                <input type="number" name="age" required id="age" class="form-control"
+                                       placeholder="Age" maxlength="100" minlength="1"
+                                       data-rule-required="true">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="height">Height</label>
+                                <input type="number" name="height" required id="height" class="form-control"
+                                       placeholder="height in CM"
+                                       data-rule-required="true">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="weight">Weight</label>
+                                <input type="number" name="weight" required id="weight" class="form-control"
+                                       placeholder="Weight"
+                                       data-rule-required="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" required class="form-control" placeholder="Name"
+                               data-rule-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile">Mobile</label>
+                        <input type="number" name="mobile" id="mobile" required class="form-control"
+                               placeholder="Mobile"
+                               maxlength="10" minlength="10"
+                               data-rule-required="true">
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="waiste">Waiste</label>
+                                <input type="number" name="waiste" required id="waiste" class="form-control"
+                                       placeholder="Waiste"
+                                       data-rule-required="true">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="biceps">Biceps</label>
+                                <input type="number" name="Biceps" required id="Biceps" class="form-control"
+                                       placeholder="Biceps"
+                                       data-rule-required="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <button type="button" onclick="signup()" class="btn btn-outline-primary w-25">Submit</button>
+            </div>
+            <div class="form-group" id="result">
+
+            </div>
+        </form>
+    </div>
+</div>
+
+{% include 'userfoot.html' %}
+{% include 'userfooter.html' %}
+{% include 'footer.html' %}
+<script>
+    function signup() {
+        if ($("#signup").valid()) {
+            {#alert('done')#}
+            var formsiddata = document.getElementById('signup');
+            var formdata = new FormData();
+            for (var i = 0; i < formsiddata.length; i++) {
+                if ("file" == formsiddata[i].type) {
+                    formdata.append(formsiddata[i].name, formsiddata[i].files[0])
+                } else {
+                    formdata.append(formsiddata[i].name, formsiddata[i].value)
+                }
+            }
+            var xml = new XMLHttpRequest();
+            xml.onreadystatechange = function () {
+                if (this.status == 200 && this.readyState == 4) {
+                    var output = this.response;
+                    alert(output);
+                    var s = "";
+                    if (output == 'Sucess') {
+                        document.getElementById('signup').reset();
+                        s += `
+                        <div class="alert alert-success">
+                                <strong>Sucess !!</strong>
+                        </div>`
+                    } else {
+                        s += `
+                        <div class="alert alert-success">
+                                <strong>Fail Due to some Problem !!</strong>
+                        </div>`
+                    }
+                    document.getElementById('result').innerHTML = s;
+
+                }
+            };
+            xml.open('POST', 'signupAction', true);
+            xml.send(formdata);
+        }
+    }
+</script>
+</body>
+</html>

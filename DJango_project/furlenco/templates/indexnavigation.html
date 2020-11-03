@@ -1,0 +1,53 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+<section class="w3l-bootstrap-header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary py-lg-2 py-2 px-sm-0 px-2">
+        <div class="container">
+            <a class="navbar-brand" href="/"><span class="fa fa-home"></span> Furl Hunter</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#portfolio">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="searchfurniture1" class="nav-link">Furniture</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="usersignup1" class="nav-link">SignUp</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="userlogin" class="nav-link">Login</a>
+                    </li>
+                </ul>
+                <div class="form-inline">
+                    <a href="showcartproducat" class="btn scroll btn-light"><i class="fas fa-shopping-cart"
+                                                                               id="cartvalue"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</section>
+<script src="{% static "js/jquery-3.4.1.min.js" %}"></script>
+<script>
+    $(document).ready(function () {
+        var s = ({{ request.session.addtocart | safe }}).length;
+        document.getElementById('cartvalue').innerHTML = s;
+    });
+</script>

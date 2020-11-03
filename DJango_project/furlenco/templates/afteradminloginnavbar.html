@@ -1,0 +1,62 @@
+{#<div class="container-fluid">#}
+{#    <nav class="py-4 d-lg-flex nav-menu">#}
+{#        <div id="logo">#}
+{#            <h1><a href="/"><span class="fa fa-gg" aria-hidden="true"></span>Rentomojo</a></h1>#}
+{#        </div>#}
+{#        <label for="drop" class="toggle">Menu</label>#}
+{#        <input type="checkbox" id="drop"/>#}
+{#        <ul class="menu mt-2 ml-auto">#}
+{#            <li><a href="/">Home</a></li>#}
+{#            <li>#}
+{#                <!-- First Tier Drop Down -->#}
+{#                <a href="#">Admin <span class="fa fa-angle-down" aria-hidden="true"></span></a>#}
+{#                <input type="checkbox" id="drop-2"/>#}
+{#                <ul class="inner-ul">#}
+{#                    <li><a class="scroll" href="addadmin">Add Admin</a></li>#}
+{#                    <li><a class="scroll" href="addcategory">Add Category</a></li>#}
+{#                    <li><a class="scroll" href="addfurniture">Add Furniture</a></li>#}
+{#                    <li><a class="scroll" href="showfurniture">Show Furniture</a></li>#}
+{#                    <li><a href="adminlogout" class="">Logout</a></li>#}
+{#                </ul>#}
+{#    </nav>#}
+{#    <!-- //nav -->#}
+{#</div>#}
+
+
+{% load static %}
+<section class="w3l-bootstrap-header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary py-lg-2 py-2 px-sm-0 px-2">
+        <div class="container">
+            <a class="navbar-brand" href="/"><span class="fa fa-home"></span> Furl Hunter</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="addadmin">Admin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="addcategory">category</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="addfurniture">Furniture</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="showfurniture">Search Furniture</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="adminlogout" class="nav-link">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</section>
+<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+<script src="{% static "js/jquery-3.4.1.min.js" %}"></script>

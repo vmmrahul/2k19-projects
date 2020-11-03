@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Show Furniture</title>
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+    <link href="{% static "fontawesome-free-5.11.2-web/css/all.css" %}" rel="stylesheet">
+    {% include "indexheaderfiles.html" %}
+</head>
+<body>
+{% include "afteradminloginnavbar.html" %}
+<div class="container">
+    <div class="container">
+        <br><br>
+        <h1 class="text-center">Furniture</h1>
+        <hr>
+        <div class="form-group">
+            <label for="category">Select Furniture Category</label>
+            <select data-required class="form-control" name="catname" id="catname" onchange="select(value)">
+                <option value="">----Select Option----</option>
+                {% for foo in ar %}
+                    <option value="{{ foo }}">{{ foo }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="container table-responsive " id="furnituretable"></div>
+
+    <div class="modal" id="editfurniture">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title">Edit Furniture</h1>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="editvalid">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="title">Enter Title</label>
+                            <input type="hidden" id="furnitureid" name="furnitureid">
+                            <input type="text" data-rule-required="true" id="title" class="form-control" name="title">
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Select Furniture Category</label>
+                            <select data-required class="form-control" name="catname" id="catname">
+                                <option value="">----Select Option----</option>
+                                {% for foo in ar %}
+                                    <option value="{{ foo }}">{{ foo }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="weight">Enter Weight</label>
+                            <input type="text" data-rule-required="true" id="weight" class="form-control" name="weight">
+                        </div>
+                        <div class="form-group">
+                            <label for="dimensions">Enter Dimensions</label>
+                            <input type="text" data-rule-required="true" id="dimensions" class="form-control"
+                                   name="dimensions">
+                        </div>
+                        <div class="form-group">
+                            <label for="coverphoto">Choose CoverPhoto</label>
+                            <input type="file" data-rule-required="true" id="coverphoto" class="form-control"
+                                   name="coverphoto">
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Enter Quantity</label>
+                            <input type="text" data-rule-required="true" id="quantity" class="form-control"
+                                   name="quantity">
+                        </div>
+                        <div class="form-group">
+                            <label for="perdayrent">Enter PerDayRent</label>
+                            <input type="text" data-rule-required="true" id="perdayrent" class="form-control"
+                                   name="perdayrent">
+                        </div>
+                        <div class="form-group">
+                            <label for="permonthrent">Enter PerMonthRent</label>
+                            <input type="text" data-rule-required="true" class="form-control" name="permonthrent"
+                                   id="permonthrent">
+                        </div>
+                        <div class="form-group">
+                            <label for="halfyearrent">Enter HalfYearRent</label>
+                            <input type="text" data-rule-required="true" class="form-control" name="halfyearrent"
+                                   id="halfyearrent">
+                        </div>
+                        <div class="form-group mt-3">
+                            <input type="button" onclick="editfurnitureaction()" value="Edit" class=" btn btn-warning">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% include 'jsfiles.html' %}
+<script src="{% static 'myjs/furniture.js' %}"></script>
+</body>
+</html>

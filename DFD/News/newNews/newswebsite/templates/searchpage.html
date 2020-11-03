@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>The News Paper - News &amp; Lifestyle Magazine Template</title>
+    <link rel="stylesheet" href="{% static 'website/style.css' %}">
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'img/core-img/favicon.ico' %}">
+
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="{% static 'scss/style.scss' %}">
+
+</head>
+<body>
+{% if request.session.user_email %}
+    {% include 'indexnavigationuser.html' %}
+{% elif not request.session.user_email %}
+    {% include 'navexmple.html' %}
+{% endif %}
+<div class="popular-news-area section-padding-80-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-12">
+                <div class="section-heading">
+                        <h6>Results Related To Your Search...</h6>
+                </div>
+                <div class="row">
+                    <!-- Single Post -->
+                    {% for foo in ar %}
+                        <div class="col-12 col-md-4">
+                            <div class="single-blog-post style-3">
+                                <div class="post-thumb">
+                                    <a href="{{ foo.newsid }}"><img src="{% static 'media/' %}{{ foo.photo }}" alt=""></a>
+                                </div>
+                                <div class="post-data">
+                                    <a href="{{ foo.newsid }}" class="post-title">
+                                        <h6>{{ foo.newstitle }}</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr style="background: #ffc107">
+{% include 'indexfooter.html' %}
+</body>
+</html>

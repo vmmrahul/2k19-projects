@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+    <script src="{% static "js/jquery-3.4.1.js" %}"></script>
+    <script src="{% static "js/popper.js" %}"></script>
+    <script src="{% static "js/bootstrap.js" %}"></script>
+    <script src="{% static "dist/jquery.validate.js" %}"></script>
+    <link href="{% static "ui/jquery-ui.css" %}" rel="stylesheet">
+    <script src="{% static "ui/jquery-ui.js" %}"></script>
+    <style>
+        .error
+        {
+            color: red;
+        }
+    </style>
+    <script>
+        function forget() {
+          $("mymodal").modal('show');
+
+        }
+
+        function adminrecoverpassword() {
+            if($('#recover').valid()){
+                var adminforgetdata=new FormData();
+                adminforgetdata.append('mobile',document.getElementById("mobile").value);
+                var xmlhttp=new XMLHttpRequest();
+                xmlhttp.onreadystatechange=function () {
+                    if(this.status==200 & this.readyState==4)
+                    {
+                        var response=this.responseText;
+                        if(response=="success")
+                        {
+                            window.location.href="adminlogin";
+                        }
+                        else
+                        {
+                            document.getElementById("ans1").innerHTML="Incorrect Mobile Number";
+                        }
+                    }
+
+                };
+                xmlhttp.open("POST","forgotadmin",true);
+                xmlhttp.send(adminforgetdata);
+            }
+
+        }
+
+
+        function adminlogin() {
+            if($('#adminloginvalid').valid())
+            {
+                var adminlogindata=new FormData();
+                adminlogindata.append('email',document.getElementById("email").value);
+                adminlogindata.append('password',document.getElementById("password").value);
+                var xmlhttp=new XMLHttpRequest();
+                xmlhttp.onreadystatechange=function () {
+                    if(this.readyState==4 & this.status==200)
+                    {
+                        var response=this.responseText;
+                        if(response=="success")
+                        {
+                            window.location.href="admindashboard";
+                        }
+                        else
+                        {
+                            document.getElementById("ans").innerHTML="Invalid email or password";
+                        }
+                    }
+
+                };
+                xmlhttp.open("POST","checkadminlogin",true);
+                xmlhttp.send(adminlogindata);
+            }
+
+        }
+
+    </script>
+</head>
+<body>
+<div class="container" style="margin-top: 100px;">
+    <form action="" method="post" id="adminloginvalid">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-sm-4">
+
+            </div>
+            <div class="col-sm-4">
+                <div class="page-header" style="color: #ff6b6b";><h1 class="text-center">Admin Login</h1></div>
+                <div class="form-group" style="margin-top: 40px;">
+                    <label for="email">Enter Email</label>
+                    <input type="email" data-rule-required="true" class="form-control" name="email" id="email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Enter Password</label>
+                    <input type="password" data-rule-required="true" class="form-control" name="password" id="password">
+                </div>
+                <div class="form-group">
+                    <input type="button" class="btn btn-success form-control" value="Login" onclick="adminlogin()">
+                    <br>
+                    <a onclick="forget()" data-toggle="modal" href="#myModal" style=" margin-left: 220px">Forgot
+                        Password?</a>
+                </div>
+                <br>
+                <br>
+                <h3 id="ans" style="color: crimson"></h3>
+
+            </div>
+
+            <div class="col-sm-4">
+
+            </div>
+        </div>
+    </form>
+
+</div>
+
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" style="text-align: left">Recover Password</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" id="recover">
+                    {% csrf_token %}
+                    <div class="container-fluid">
+                        <div class="form-group">
+                            <label>Enter Mobile</label>
+                            <input type="text" id="mobile" minlength="10" maxlength="10" data-rule-number="true" name="mobile" data-rule-required="true" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="button" class="btn btn-success" value="Recover" onclick="adminrecoverpassword()">
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+            </div>
+            <h4 id="ans1" style="color: crimson"></h4>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

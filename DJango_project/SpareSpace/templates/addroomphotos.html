@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    {% include 'indexheaderfiles.html' %}
+    <link href="{% static "css/bootstrap.css" %}" rel='stylesheet' type='text/css'/>
+
+
+    <script>
+        function addroomphotos1() {
+                if($('#addroomphotosisvalid').valid()) {
+                    var addroomphotosdata= new FormData();
+                    addroomphotosdata.append('roomid',document.getElementById("roomid").value);
+                    addroomphotosdata.append('photo',document.getElementById("photo").files[0]);
+                    addroomphotosdata.append('description',document.getElementById("description").value);
+                    var xmlhttp=new XMLHttpRequest();
+                    xmlhttp.onreadystatechange=function () {
+                    if(this.readyState==4 & this.status==200){
+                        var response=this.responseText;
+                        if(response=="success")
+                        {
+                            window.location.href="viewrooms";
+                        }
+
+                    }
+                };
+                xmlhttp.open("POST","addroomphotos",true);
+                xmlhttp.send(addroomphotosdata);
+
+                }
+                }
+    </script>
+</head>
+<body>
+{% include 'navbarhost.html' %}
+<div class="container">
+    <form action="" id="addroomphotosisvalid">
+                {#                {% csrf_token %}#}
+                <div class="form-group">
+                    <label>Room Id</label>
+                    <input type="text" id="roomid" name="roomid" value="{{ ar }}" readonly class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="file">Add Photo</label>
+                    <input type="file" id="photo" name="photo" value="photo"  id="photo" data-rule-required="true">
+
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="description" name="description"  placeholder="Enter Description" class="form-control" data-rule-required="true"></textarea>
+                </div>
+
+                <div class="form-group text-center">
+                    <button type="button" class="btn btn-primary" onclick="addroomphotos1()">Add</button>
+
+                </div>
+            </form>
+
+
+    <div class="row">
+    {% for row in ar1 %}
+        <div class="col-sm-4 mt-5">
+        <div class="card bg-white">
+            <div class="card-body text-center">
+                <img src="{% static "media/" %}{{ row.photo }}" alt="" width="100%" height="200px">
+                <p>{{ row.description }}</p>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-sm-6">
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <form action="deleteroomphoto" method="get">
+                            <input type="hidden" value="{{ row.pid }}" id="id" name="id">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    {% endfor %}
+</div>
+
+
+
+</div>
+
+</body>
+</html>

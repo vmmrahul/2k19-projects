@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Contact</title>
+    {% include 'indexheaderfiles.html' %}
+</head>
+<body>
+{% include 'indexnavigation.html' %}
+<section class="contact py-5" id="contact" style="background-color: #faad83">
+    <div class="container pb-5">
+        <div class="header py-lg-5 pb-3 text-center">
+            <h3 class="tittle mb-lg-5 mb-3"> Contact Us<span>.</span></h3>
+        </div>
+        <ul class="list-unstyled row text-left mb-lg-5 mb-3">
+            <li class="col-lg-4 adress-info">
+                <div class="row">
+                    <div class="col-md-3 text-lg-center adress-icon">
+                        <span class="fa fa-map-marker"></span>
+                    </div>
+                    <div class="col-md-9 text-left">
+                        <h6 style="color: #ff8a09">Location</h6>
+                        <p>The company name
+                            <br>New York City. </p>
+                    </div>
+                </div>
+            </li>
+            <li class="col-lg-4 adress-info">
+                <div class="row">
+                    <div class="col-md-3 text-lg-center adress-icon">
+                        <span class="fa fa-envelope-open-o"></span>
+                    </div>
+                    <div class="col-md-9 text-left">
+                        <h6 style="color: #ff8a09">Email</h6>
+                        <a href="mailto:info@example.com">mail@example.com</a>
+                        <br>
+                        <a href="mailto:info@example.com">mail2@example.com</a>
+                    </div>
+                </div>
+            </li>
+            <li class="col-lg-4 adress-info">
+                <div class="row">
+                    <div class="col-md-3 text-lg-center adress-icon">
+                        <span class="fa fa-mobile"></span>
+                    </div>
+                    <div class="col-md-9 text-left">
+                        <h6 style="color: #ff8a09">Phone Number</h6>
+                        <p>+ 1234567890</p>
+                        <p>+ 0987654321</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="contact-form mx-auto text-left mt-lg-5 mt-4">
+            <form name="contactform" id="contactform1" method="post" action="#">
+                <div class="row">
+                    <div class="col-lg-4 con-gd">
+                        <div class="form-group" data-aos="fade-up">
+                            <label>Name *</label>
+                            <input type="text" class="form-control" id="name" placeholder="" name="name" required="">
+                        </div>
+                    </div>
+                    <div class="col-lg-4 con-gd">
+                        <div class="form-group" data-aos="fade-up">
+                            <label>Email *</label>
+                            <input type="email" class="form-control" id="email" placeholder="" name="email" required="">
+                        </div>
+                    </div>
+                    <div class="col-lg-4 con-gd">
+                        <div class="form-group" data-aos="fade-up">
+                            <label>Phone No. *</label>
+                            <input type="text" class="form-control" id="phone" placeholder="" name="phone" required="">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group mb-5">
+                    <label>How can we help?</label>
+                    <textarea name="issues" class="form-control" id="iq" placeholder="" required=""></textarea>
+                </div>
+                <div class="contact-page">
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div class="map mt-md-5 mt-4">
+
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d108704.20942039383!2d74.80007942620813!3d31.63367119473407!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391964aa569e7355%3A0xeea2605bee84ef7d!2sAmritsar%2C%20Punjab!5e0!3m2!1sen!2sin!4v1571987492768!5m2!1sen!2sin"
+                    width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+        </div>
+    </div>
+</section>
+{% include 'indexfooter.html' %}
+</body>
+</html>

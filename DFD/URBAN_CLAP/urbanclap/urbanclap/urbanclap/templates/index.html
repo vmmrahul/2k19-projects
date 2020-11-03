@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    {% load static  %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8"/>
+    <meta name="keywords"
+          content="Upshot Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    {#    <link href="{% static "css/searchbar.css" %}" rel="stylesheet">#}
+    {% include 'headerfiles.html' %}
+    {% include 'indexheader.html' %}
+    <style>
+        .myinput {
+            width: 30%;
+            height: 52px;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+        .btnstyle{
+            height: 52px;
+            color: whitesmoke;
+            background-color:rgba(220,52,149,0.87);
+            border-color: rgba(220,52,149,0.87) ;
+        }
+
+    </style>
+    <script src="{% static 'myjs/indexjs.js' %}"></script>
+</head>
+<body>
+
+
+<!-- mian-content -->
+<div class="main-banner" id="home">
+    <div class="bg-overlay">
+        {% if request.session.serviceprovideremail %}
+            {% include 'navbarSP.html' %}
+        {% elif request.session.useremail %}
+            {% include 'navbarUser.html' %}
+        {% elif not request.session.serviceprovideremail %}
+            {% include 'navigationbarindex.html' %}
+        {% endif %}
+        <div class="container">
+            <div class="banner-info">
+                <h3>1 Spot Services For Your Convenience </h3>
+            </div>
+            <div >
+                <form action="getserviceprovider" method="POST">{% csrf_token %}
+                    <select name="catname" id="catname" class="myinput" onchange="searchcity(this.value)">
+                        <option value="">Select Category</option>
+                        {% for foo in catname %}
+                            <option value="{{ foo }}">{{ foo }}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="city" id="city" class="myinput">
+                        <option value="">Select City</option>
+                    </select>
+                    <button type="button" onclick="go()" class="myinput btnstyle" >Get Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- about -->
+<section class="about py-5" id="about">
+    <div class="container py-md-4">
+        <div class="row py-md-5">
+            <div class="col-lg-4 about-left-w3pvt offset-lg-1 mt-lg-4">
+                <div class="main-img">
+                    <img src="{% static "images/bath.jpg" %}" alt="" class="img-fluid pos-aboimg">
+                    <img src="{% static "images/interior.jpg" %}" alt="" class="img-fluid pos-aboimg2">
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-7 about-right offset-xl-1">
+                <h4 class="sub-tittle">About Us</h4>
+                <h3 class="title-w3pvt pr-lg-5 mt-2">ServeMeGood-Where You Can Find Any Service on Single Platform</h3>
+                <p class="my-4">We don't want to push our ideas on to customers, we simply want to make what they
+                    want.</p>
+                <a href="#services" class="btn button-style-2 mt-sm-5 mt-4">Read More</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- //about -->
+
+<!-- facts -->
+<section class="facts pt-5" id="stats">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 pt-5">
+                <div class="inner-heading">
+                    <h3 class="title-w3pvt my-md-4"> Why Choose Us</h3>
+                    <p class="mt-md-0 mt-2">People will forget what you said, people will forget what you did, but
+                        people will never forget how you made them feel.</p>
+                </div>
+                <div class="row mt-5 fact-grid-main">
+                    <div class="col-sm-4 stats-grid">
+                        <span class="fa fa-trophy"></span>
+                        <span>250</span>
+                        <h4>Experienced Barbers</h4>
+                    </div>
+                    <div class="col-sm-4 stats-grid">
+                        <span class="fa fa-scissors"></span>
+                        <span>50+</span>
+                        <h4>Amazing Hairstyles</h4>
+                    </div>
+                    <div class="col-sm-4 stats-grid">
+                        <span class="fa fa-smile-o"></span>
+                        <span>2000+</span>
+                        <h4>Satisfied clients</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 text-lg-right">
+                <img src="{% static "images/g3.jpg" %}" class="img-fluid" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+<!-- //facts -->
+<!-- /services -->
+<section class="mid-sec py-5" id="services">
+    <div class="container py-lg-5">
+        <div class="title-desc text-center">
+            <h3 class="title-w3pvt text-capitalize mb-md-5 mb-4">Our Services</h3>
+        </div>
+        <div class="row middile-inner-con mt-md-3">
+            <div class="col-lg-4 benifit-content mt-lg-2">
+                <div class="row">
+                    <div class="col-md-4 benifit-icon-content">
+                        <div class="benifit-icon">
+                            <span class="fa fa-paint-brush" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-8 benifit-w3layouts-info">
+                        <h4 class="mb-3">Beauty&Salon</h4>
+                        <p>With A Good Makeup Brush , Every Woman Can Be An Artist</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-4 benifit-content mt-lg-2">
+                <div class="row">
+                    <div class="col-md-4 benifit-icon-content">
+                        <div class="benifit-icon">
+                            <span class="fa fa-television" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-8 benifit-w3layouts-info">
+                        <h4 class="mb-3">Electronics</h4>
+                        <p>The Science Of Today is Technology Of Tommorrow</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 benifit-content mt-lg-2">
+                <div class="row">
+                    <div class="col-md-4 benifit-icon-content">
+                        <div class="benifit-icon">
+                            <span class="fa fa-home" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-8 benifit-w3layouts-info">
+                        <h4 class="mb-3">Home Shifting</h4>
+                        <p>Home-Where Love Resides,Memories Are Created & Laughter never Ends</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row middile-inner-con mt-md-4">
+            <div class="col-lg-4 benifit-content mt-lg-2">
+                <div class="row">
+                    <div class="col-md-4 benifit-icon-content">
+                        <div class="benifit-icon">
+                            <span class="fa fa-heart" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-8 benifit-w3layouts-info">
+                        <h4 class="mb-3">Health &Wellness</h4>
+                        <p>Exercise-A Tribute to the Heart</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 benifit-content mt-lg-2">
+                <div class="row">
+                    <div class="col-md-4 benifit-icon-content">
+                        <div class="benifit-icon">
+                            <span class="fa fa-camera" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-8 benifit-w3layouts-info">
+                        <h4 class="mb-3">Photography</h4>
+                        <p>Photography-The Memories Of Our Life</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 benifit-content mt-lg-2">
+                <div class="row">
+                    <div class="col-md-4 benifit-icon-content">
+                        <div class="benifit-icon">
+                            <span class="fa fa-home" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-8 benifit-w3layouts-info">
+                        <h4 class="mb-3">Home Decor</h4>
+                        <p>Home- Where The Happiness Begins</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--//services -->
+<!-- team -->
+<section class="team py-5" id="team">
+    <div class="container py-md-5">
+        <div class="title-desc text-center">
+            <h3 class="title-w3pvt text-capitalize mb-md-5 mb-4">Our Professional Team</h3>
+        </div>
+        <div class="row team-grid">
+            <div class="col-lg-3 col-sm-6">
+                <div class="box13">
+                    <img src="{% static "images/yoga.jpg" %}" class="img-fluid" alt=""/>
+                    <div class="box-content">
+                        <h3 class="title">Williamson</h3>
+                        <span class="post">role in detail</span>
+                        <ul class="social">
+                            <li><a href="#"><span class="fa fa-facebook"></span></a></li>
+                            <li><a href="#"><span class="fa fa-twitter"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 mt-sm-0 mt-4">
+                <div class="box13">
+                    <img src="{% static "images/yoga2.jpg" %}" class="img-fluid" alt="" width="300px"
+                         height="500px">
+                    <div class="box-content">
+                        <h3 class="title">Kristiana</h3>
+                        <span class="post">role in detail</span>
+                        <ul class="social">
+                            <li><a href="#"><span class="fa fa-facebook"></span></a></li>
+                            <li><a href="#"><span class="fa fa-twitter"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 mt-lg-0 mt-4">
+                <div class="box13">
+                    <img src="{% static "images/mensalon.jpg" %}" class="img-fluid" alt=""/>
+                    <div class="box-content">
+                        <h3 class="title">Rossie Doe</h3>
+                        <span class="post">role in detail</span>
+                        <ul class="social">
+                            <li><a href="#"><span class="fa fa-facebook"></span></a></li>
+                            <li><a href="#"><span class="fa fa-twitter"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 mt-lg-0 mt-4">
+                <div class="box13">
+                    <img src="{% static "images/t.jpg" %}" class="img-fluid" alt=""/>
+                    <div class="box-content">
+                        <h3 class="title">Sara Lee</h3>
+                        <span class="post">role in detail</span>
+                        <ul class="social">
+                            <li><a href="#"><span class="fa fa-facebook"></span></a></li>
+                            <li><a href="#"><span class="fa fa-twitter"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- //team -->
+
+<!-- Gallery -->
+<div class="gallery py-5" id="gallery">
+    <div class="container-fluid py-md-5">
+        <div class="title-desc text-center">
+            <h3 class="title-w3pvt text-capitalize mb-lg-5 mb-4">Latest Collections</h3>
+        </div>
+        <div class="row news-grids no-gutters text-center">
+            <div class="col-md-3 gal-img my-4">
+                <a href="#gal1"><img src="{% static "images/g1.jpg" %}" alt="Gallery Image" class="img-fluid"></a>
+            </div>
+            <div class="col-md-6">
+                <div class="row no-gutters">
+                    <div class="col-md-6 gal-img">
+                        <a href="#gal2"><img src="{% static "images/g2.jpg" %}" alt="Gallery Image"
+                                             class="img-fluid"></a>
+                    </div>
+                    <div class="col-md-6 gal-img">
+                        <a href="#gal3"><img src="{% static "images/g3.jpg" %}" alt="Gallery Image"
+                                             class="img-fluid"></a>
+                    </div>
+                    <div class="col-md-6 gal-img">
+                        <a href="#gal4"><img src="{% static "images/g4.jpg" %}" alt="Gallery Image"
+                                             class="img-fluid"></a>
+                    </div>
+                    <div class="col-md-6 gal-img">
+                        <a href="#gal5"><img src="{% static "images/g5.jpg" %}" alt="Gallery Image"
+                                             class="img-fluid"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 gal-img my-4">
+                <a href="#gal6"><img src="{% static "images/photography2.jpg" %}" alt="Gallery Image" style="height: 500px" class="img-fluid"></a>
+            </div>
+        </div>
+        <!-- gallery popups -->
+        <!-- popup-->
+        <div id="gal1" class="pop-overlay animate">
+            <div class="popup">
+                <img src="{% static "images/g1.jpg" %}" alt="Popup Image" class="img-fluid"/>
+                <p class="mt-4">Nulla viverra pharetra se, eget pulvinar neque pharetra ac int. placerat placerat
+                    dolor.</p>
+                <a class="close" href="#gallery">&times;</a>
+            </div>
+        </div>
+        <!-- //popup -->
+        <!-- popup-->
+        <div id="gal2" class="pop-overlay animate">
+            <div class="popup">
+                <img src="{% static "images/g2.jpg" %}" alt="Popup Image" class="img-fluid"/>
+                <p class="mt-4">Nulla viverra pharetra se, eget pulvinar neque pharetra ac int. placerat placerat
+                    dolor.</p>
+                <a class="close" href="#gallery">&times;</a>
+            </div>
+        </div>
+        <!-- //popup -->
+        <!-- popup-->
+        <div id="gal3" class="pop-overlay animate">
+            <div class="popup">
+                <img src="{% static "images/g3.jpg" %}" alt="Popup Image" class="img-fluid"/>
+                <p class="mt-4">Nulla viverra pharetra se, eget pulvinar neque pharetra ac int. placerat placerat
+                    dolor.</p>
+                <a class="close" href="#gallery">&times;</a>
+            </div>
+        </div>
+        <!-- //popup3 -->
+        <!-- popup-->
+        <div id="gal4" class="pop-overlay animate">
+            <div class="popup">
+                <img src="{% static "images/g4.jpg" %}" alt="Popup Image" class="img-fluid"/>
+                <p class="mt-4">Nulla viverra pharetra se, eget pulvinar neque pharetra ac int. placerat placerat
+                    dolor.</p>
+                <a class="close" href="#gallery">&times;</a>
+            </div>
+        </div>
+        <!-- //popup -->
+        <!-- popup-->
+        <div id="gal5" class="pop-overlay animate">
+            <div class="popup">
+                <img src="{% static "images/g5.jpg" %}" alt="Popup Image" class="img-fluid"/>
+                <p class="mt-4">Nulla viverra pharetra se, eget pulvinar neque pharetra ac int. placerat placerat
+                    dolor.</p>
+                <a class="close" href="#gallery">&times;</a>
+            </div>
+        </div>
+        <!-- //popup -->
+        <!-- popup-->
+        <div id="gal6" class="pop-overlay animate">
+            <div class="popup">
+                <img src="{% static "images/g6.jpg" %}" alt="Popup Image" class="img-fluid"/>
+                <p class="mt-4">Nulla viverra pharetra se, eget pulvinar neque pharetra ac int. placerat placerat
+                    dolor.</p>
+                <a class="close" href="#gallery">&times;</a>
+            </div>
+        </div>
+        <!-- //popup -->
+        <!-- //gallery popups -->
+    </div>
+</div>
+<!-- //gallery -->
+
+<!-- contact -->
+<!-- //contact -->
+{% include 'indexfooter.html' %}
+</body>
+
+</html>

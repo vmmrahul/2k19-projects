@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>show product</title>
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+    {% include 'indexheaderfile.html' %}
+</head>
+<body>
+{% if request.session.Email %}
+    {% include 'indexnavigationlogin.html' %}
+{% elif not request.session.Email %}
+    {% include 'indexnavigation.html' %}
+{% endif %}
+
+<div class="container-fluid" style="margin-top: 100px">
+    <div class="text-center">
+        <h1><u>Cart</u></h1>
+    </div>
+</div>
+<div class="container" style="margin-top: 30px">
+    <div class="table-responsive">
+        <table class="table table-hover" >
+            <thead>
+            <tr class="bg-dark text-white text-center">
+                <th>P.No</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>photo</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody class="text-center">
+            {% for foo in datalist %}
+                <tr>
+                    <td>{{ foo.bookid }}</td>
+                    <td>{{ foo.title }}</td>
+                    <td>{{ foo.price }}</td>
+                    <td>{{ foo.qty }}</td>
+                    <td><img src="{% static 'media/' %}{{ foo.photo }}" alt="" width="100" height="100"></td>
+                    <td>
+                        <a href="delete_from_cart?bookid={{ foo.bookid }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr class="bg-warning text-white">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="text-right"><h4>Total :-</h4></td>
+                <td><h5>{{ total }}/-</h5></td>
+                <td class="text-right">
+                    {% if total > 0 %}
+                        <a href="processtopay" class=" btn btn-success"><strong>Process to Pay</strong></a>
+                    {% else %}
+                        <a href="/" class="btn btn-success"><strong>Continue Shopping</strong></a>
+                    {% endif %}
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+        <div class="text-center" style="height: 180px">
+            <a href="/" class="btn btn-outline-primary mb-2"><strong>Continue Shopping</strong></a>
+        </div>
+    </div>
+</div>
+
+{% include "indexfooter.html" %}
+</body>
+</html>

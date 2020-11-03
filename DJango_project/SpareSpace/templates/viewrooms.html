@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.11.2-web/css/all.css' %}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8"/>
+    <meta name="keywords"
+          content="Land Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <script>
+        function editroom(roomid) {
+            var xmlhttp=new XMLHttpRequest();
+            xmlhttp.onreadystatechange=function () {
+                if(this.status==200 & this.readyState==4)
+                {
+                    var output=JSON.parse(this.response);
+                    {#alert(output);#}
+                    var roomid=output["roomid"];
+                    var roomname=output["roomname"];
+                    var area=output["area"];
+                    var description=output["description"];
+                    var coverphoto=output["coverphoto"];
+                    var tariffsingle=output["tariffsingle"];
+                    var tariffdouble=output["tariffdouble"];
+                    var extraperson=output["extraperson"];
+                    document.getElementById("roomid").value=roomid;
+                    document.getElementById("roomname").value=roomname;
+                    document.getElementById("area").value=area;
+                    document.getElementById("description").value=description;
+                    document.getElementById("image").src="static/media/"+coverphoto;
+                    document.getElementById("tariffsingle").value=tariffsingle;
+                    document.getElementById("tariffdouble").value=tariffdouble;
+                    document.getElementById("extraperson").value=extraperson;
+                    $("editroom").modal('show');
+                }
+
+            };
+            xmlhttp.open('GET',"/editrooms?q="+roomid);
+            xmlhttp.send();
+
+        }
+
+        function saveroom()
+        {
+            var changeroom=new FormData();
+            changeroom.append('roomid',document.getElementById("roomid").value);
+            changeroom.append('roomname',document.getElementById("roomname").value);
+            changeroom.append('area',document.getElementById("area").value);
+            changeroom.append('description',document.getElementById("description").value);
+            changeroom.append('coverphoto',document.getElementById("photo").files[0]);
+            changeroom.append('tariffsingle',document.getElementById("tariffsingle").value);
+            changeroom.append('tariffdouble',document.getElementById("tariffdouble").value);
+            changeroom.append('extraperson',document.getElementById("extraperson").value);
+            var xmlhttp=new XMLHttpRequest();
+            xmlhttp.onreadystatechange=function () {
+                if(this.status==200 & this.readyState==4)
+                {
+                    var output=this.responseText;
+                    if(output=="success")
+                    {
+                        window.location.href="viewrooms";
+                    }
+                }
+            };
+             xmlhttp.open("POST","saverooms",true);
+             xmlhttp.send(changeroom);
+        }
+
+        function confirmdelete(roomid) {
+           var result=confirm("Are you sure you want to delete the space?");
+           if(result)
+           {
+               window.location.href='removerooms?q='+roomid;
+           }
+        }
+
+    </script>
+
+    <!-- //Meta tag Keywords -->
+    {% include 'indexheaderfiles.html' %}
+    {% load static %}
+</head>
+<body>
+{% include 'navbarhost.html' %}
+   <div class="container table-responsive">
+       <table class="table" >
+       <thead>
+       <tr>
+{#           <th>Room Id</th>#}
+           <th>Room&nbsp;Name</th>
+           <th>Area</th>
+{#           <th>Description</th>#}
+           <th>Coverphoto</th>
+           <th>Tariffsingle</th>
+           <th>Tariffdouble</th>
+           <th>Extraperson</th>
+{#           <th>Rating</th>#}
+{#           <th>Count</th>#}
+           <th>Category</th>
+       </tr>
+       </thead>
+          {% for p in ar %}
+              <tr>
+{#              <td>{{ p.roomid }}</td>#}
+              <td><a href="viewroomdetails?q={{ p.roomid }}">{{ p.roomname }}</a></td>
+              <td>{{ p.area }}</td>
+{#              <td>{{ p.description }}</td>#}
+              <td><img src="{% static "media/" %}{{ p.coverphoto }}" style="width: 50px; height: 50px"></td>
+              <td>{{ p.tariffsingle }}</td>
+              <td>{{ p.tariffdouble }}</td>
+              <td>{{ p.extraperson }}</td>
+{#              <td>{{ p.rating }}</td>#}
+{#              <td>{{ p.count }}</td>#}
+               <td>{{ p.category }}</td>
+              <td><a onclick="confirmdelete('{{ p.roomid }}')"><img style="width: 25px; height: 25px" src="{% static "myphotos/d1.jpg" %}" ></a></td>
+              <td><a onclick="editroom('{{ p.roomid }}')" data-toggle="modal" href="#editroom"><img src="{% static "myphotos/e1.jpeg" %}" style="height: 25px; width: 25px"></a></td>
+              <td><a href="insertphotos?q={{ p.roomid }}"><i style="width: 30px; height: 30px;"  class="fa fa-image fa-3x"></i></a></td>
+              </tr>
+          {% endfor %}
+
+      </table>
+   </div>
+
+<div class="modal fade" id="editroom" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" style="text-align: left">Edit Space</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+        </div>
+        <div class="modal-body">
+            <form action="" id="editroomvalid">
+                <div class="form-group">
+                    <label>Room Id</label>
+                    <input  type="text" id="roomid" name="roomid"
+                           class="form-control" data-rule-required="true" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Room Name</label>
+                    <input  type="text" id="roomname" name="roomname"  placeholder="Enter Room Name"
+                           class="form-control" data-rule-required="true">
+                </div>
+                <div class="form-group">
+                    <label for="area">Area</label>
+                    <input type="text" id="area" name="area" placeholder="Enter Area" class="form-control" data-rule-required="true">
+
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea  id="description" name="description" placeholder="Enter Description" class="form-control" data-rule-required="true"></textarea>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6">
+                           <label for="file">Upload Coverphoto</label>
+                           <input type="file" id="photo" name="photo" value="photo" required id="photo" data-rule-required="true">
+                        </div>
+                        <div class="col-sm-6">
+                            <img  id="image" style="width: 30px;height: 30px ">
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="form-group">
+                    <label>Tariffsingle</label>
+                    <input type="text" id="tariffsingle" name="tariffsingle" placeholder="Enter Tariffsingle" class="form-control" data-rule-required="true" data-rule-number="true">
+                </div>
+
+                <div class="form-group">
+                   <label>Tariffdouble</label>
+                    <input type="text" id="tariffdouble" name="tariffdouble" placeholder="Enter Tariffdouble" class="form-control" data-rule-required="true" data-rule-number="true">
+                </div>
+
+                <div class="form-group">
+                   <label>Tariff for Extraperson</label>
+                    <input type="text" id="extraperson" name="extraperson" placeholder="Enter Tariff for Extraperson" class="form-control" data-rule-required="true" data-rule-number="true">
+                </div>
+                <div class="form-group text-center">
+
+                    <button type="button" class="btn btn-primary" onclick="saveroom()">Submit</button>
+                    <h1 id="ans"></h1>
+                </div>
+
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+{% include 'indexfooter.html' %}
+</body>
+</html>

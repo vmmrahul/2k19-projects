@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="{% static 'myjs/book.js' %}"></script>
+    {% include 'indexheaderfile.html' %}
+    <title>Signup</title>
+    <style>
+        body {
+            background: url("{% static '' %}");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+
+        .labelwork {
+            font-family: cursive;
+            padding: 0;
+            margin: 0;
+            font-weight: bold;
+            font-size: 130%;
+            color: #ff8b8d;
+        }
+        #formstyle {
+            background: linear-gradient(transparent 5%, darkgrey);
+            border-radius: 20px;
+            border: 5px double rgba(255, 0, 0, 0.3);
+            box-sizing: border-box;
+            box-shadow: 13px 19px 7px rgba(0,0,255,0.5);
+            filter: blur(0.6);
+            margin-top:140px !important;
+        }
+
+    </style>
+
+
+</head>
+<body>
+{% if not request.session.Email %}
+    {% include 'indexnavigation.html' %}
+{% elif request.session.Email %}
+    {% include 'indexnavigationlogin.html' %}
+{% endif %}
+
+<div class="container w-50 mt-sm-5" id="formstyle">
+    <form method="post" enctype="multipart/form-data">
+        <h1 class="text-center">Sign-Up</h1>
+        <hr class="bg-danger">
+        {% csrf_token %}
+        <div class="form-group">
+        <label for="id" class="labelwork">enter email</label>
+        <input type="email" required class="form-control" id="id" name="email">
+        </div>
+        <div class="form-group">
+            <label for="password" class="labelwork"> enter password </label>
+            <input type="password" class="form-control" id="password" name="password" data-rule-required="true"
+                   data-msg-required="enter password" minlength="8">
+        </div>
+
+        <div class="form-group">
+            <label for="" class="labelwork"> enter confirmpassword </label>
+            <input type="password" data-rule-equalto="#password"
+                   data-msg-equalto="password and confirmpassword must be same" data-rule-required="true"
+                   data-msg-required="enter confirm password" class="form-control" id="confirmpassword"
+                   name="confirmpassword">
+        </div>
+
+        <div class="form-group">
+            <label for="" class="labelwork"> enter name </label>
+            <input type="text" class="form-control" id="name" name="name">
+        </div>
+        <div class="form-group">
+            <label for="" class="labelwork"> enter address </label>
+            <input type="text" class="form-control" id="address" name="address">
+        </div>
+        <div class="form-group">
+            <label for="" class="labelwork"> enter state </label>
+            <input type="text" class="form-control" id="state" name="state">
+        </div>
+        <div class="form-group">
+            <label for="" class="labelwork"> enter mobileno </label>
+            <input type="text" class="form-control" id="mobileno" name="mobileno">
+        </div>
+        <div class="form-group">
+            <label for="" class="labelwork"> enter photo</label>
+            <input type="file" name="photo" id="photo" class="form-control">
+        </div>
+        <div class="form-group">
+            <input type="button" class="form-control btn-success" value="Submit" onclick="signup()">
+        </div>
+    </form>
+</div>
+</body>
+</html>

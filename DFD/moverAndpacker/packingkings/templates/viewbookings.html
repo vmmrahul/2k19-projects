@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    {% include "headerfiles.html" %}
+    <link href="https://fonts.googleapis.com/css?family=Ultra&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="{% static "fontawesome-free-5.11.2-web/css/all.css" %}">
+<style>
+      h3,label{
+
+          font-family: 'Ultra', serif; ;
+            color: #005ba4;
+        }
+
+</style>
+
+</head>
+<body>
+{% include "navigationadmin.html" %}
+    <div class="container">
+    <h3 class="text-center" style="margin-top: 50px;">BOOKINGS</h3><br>
+    <div class="table-responsive">
+        <table class="table">
+        <tr>
+            <th>BOOKING ID</th>
+            <th>BOOKERNAME</th>
+            <th>MOBILE</th>
+            <th>EMAIL</th>
+            <th>VIEW DETAILS</th>
+            <th>SEND REQUEST</th>
+        </tr>
+            {% for row in ar %}
+            <tr>
+                <td>{{ row.bookingid  }}</td>
+                <td>{{ row.bookername  }}</td>
+                <td>{{ row.mobile  }}</td>
+                <td>{{ row.email  }}</td>
+                <td><a href="viewbookingdetails?q={{ row.bookingid }}" class="btn btn-success">View Details </a></td>
+                <td><a href="sendratingmsgandemail?mobile={{ row.mobile }}&email={{ row.email }}&bookingid={{ row.bookingid }}" class="btn btn-success">Send Request</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Exercise</title>
+    {% load static %}
+    {% include 'headerfile.html' %}
+</head>
+<body>
+{% include 'adminNavbarhead.html' %}
+<div class="container">
+    <div class="text-center">
+        <h2>View Exercise</h2>
+        <hr style="background: black">
+    </div>
+    {#    {{ data }}#}
+    <div class="table-responsive">
+        <table class="table table-light table-hover myTable">
+            <thead class="text-center">
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Calories Burnt</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for foo in data %}
+                <tr>
+                    <td>{{ foo.title }}</td>
+                    <td>{{ foo.description }}</td>
+                    <td>{{ foo.caloriesburnt }}</td>
+                    <td><a href="deleteExercise?id={{ foo.id }}" class="text-danger" onclick="return confirm('are you sure to delete this?')"><i class="fa fa-trash"></i></a></td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% include 'adminNaverfooter.html' %}
+{% include 'footer.html' %}
+<script src="{% static 'myjs/adminNavbar.js' %}"></script>
+</body>
+</html>

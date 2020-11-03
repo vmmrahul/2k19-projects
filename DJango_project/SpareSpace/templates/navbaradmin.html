@@ -1,0 +1,133 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="admindashboard">SpareSpace</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="admindashboard">Home<span class="sr-only">(current)</span></a>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Admin
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+{#          <a class="dropdown-item" href="addadmin">Add Administrator</a>#}
+          <a class="dropdown-item" href="viewadmin">View All Administrators</a>
+          <a class="dropdown-item" href="#changepass" onclick="change('{{ request.session.adminemail }}')" data-toggle="modal">Change Password</a>
+        </div>
+      </li>
+
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Category
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="addcategory">Add Category</a>
+          <a class="dropdown-item" href="showcategory">View Category</a>
+
+        </div>
+      </li>
+
+         <li class="nav-item">
+        <a class="nav-link" href="viewhost">View Host</a>
+        </li>
+
+         <li class="nav-item">
+        <a class="nav-link" href="logout"><b>Logout</b><span class="sr-only">(current)</span></a>
+      </li>
+
+    </ul>
+  </div>
+</nav>
+
+
+<script>
+        function change() {
+            $("changepass").modal('show');
+
+        }
+        function changepassword() {
+            if($('#form').valid())
+            {
+                var changepassworddata=new FormData();
+                changepassworddata.append('email',document.getElementById("email").value);
+                changepassworddata.append('oldpassword',document.getElementById("oldpassword").value);
+                changepassworddata.append('newpassword',document.getElementById("newpassword").value);
+                changepassworddata.append('confirmpassword',document.getElementById("confirmpassword").value);
+                var xmlhttp=new XMLHttpRequest();
+                xmlhttp.onreadystatechange=function () {
+                    if(this.readyState==4 & this.status==200)
+                    {
+                        var response=this.responseText;
+                        if(response=="success")
+                        {
+                            window.location.href="adminlogin";
+                        }
+                        else if(response=="failed due to wrong old password")
+                        {
+                            document.getElementById("ans").innerHTML="old password incorrect!!";
+                        }
+                        else
+                        {
+                            window.location.href="adminlogin";
+                        }
+                    }
+
+                };
+                xmlhttp.open("POST","adminchangepassword",true);
+                xmlhttp.send(changepassworddata);
+
+            }
+
+        }
+    </script>
+
+
+
+<div class="modal fade" id="changepass" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" style="text-align: left">Edit Admin</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+        </div>
+        <div class="modal-body">
+            <form action="" id="form">
+           {% csrf_token %}
+               <div class="form-group">
+                   <label>Email</label>
+                   <input type="text" readonly class="form-control" value="{{ request.session.adminemail }}" id="email" name="email">
+               </div>
+               <div class="form-group">
+                 <label>Enter old password</label>
+                 <input type="password" data-rule-required="true" class="form-control" name="oldpassword" id="oldpassword">
+               </div>
+               <div class="form-group">
+                   <label>Enter New Password</label>
+                   <input type="password" data-rule-required="true" class="form-control" name="newpassword" id="newpassword">
+               </div>
+               <div class="form-group">
+                   <label>Confirm New Password</label>
+                   <input type="password" data-rule-required="true" class="form-control" id="confirmpassword" name="cnewpassword" data-rule-equalto="#newpassword">
+               </div>
+               <div class="form-group">
+                   <input type="button" class="btn btn-success" value="Change" onclick="changepassword()">
+               </div>
+
+              <h3 id="ans"></h3>
+            </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>

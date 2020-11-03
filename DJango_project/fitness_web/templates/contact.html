@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Contact</title>
+    {% load static %}
+    {% include 'userheaderfile.html' %}
+</head>
+<body>
+{% include 'userNavbar.html' %}
+
+<section class="contact-sec" id="contact">
+    <div class="container">
+        <h2>Get in Touch <small>Our work is the presentation of our capabilities.</small></h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="exampleName">Name</label>
+                    <input type="text" class="form-control" id="exampleName" aria-describedby="emailHelp">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="examplePhone">Phone Number</label>
+                    <input type="text" class="form-control" id="examplePhone" aria-describedby="emailHelp">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                        else.</small></div>
+            </div>
+            <div class="col-md-12">
+                <label for="exampleTextarea">Enter your Message</label>
+                <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+            </div>
+            <div class="col-md-12 text-xs-center action-block"><a href="#" class="btn btn-capsul btn-aqua">Submit</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% include 'userfoot.html' %}
+{% include 'userfooter.html' %}
+</body>
+</html>

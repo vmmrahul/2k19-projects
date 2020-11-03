@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+{#    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">#}
+    {% include "headerfiles.html" %}
+    <style>
+        .error
+        {
+            color: red;
+        }
+    </style>
+    <script>
+        function insertadmin()
+        {
+            if($('#addadmin').valid()){
+                var adminsignupdata=new FormData();
+                adminsignupdata.append('email',document.getElementById("email").value);
+                adminsignupdata.append('password',document.getElementById("password").value);
+                adminsignupdata.append('type',document.getElementById("type").value);
+                adminsignupdata.append('mobile',document.getElementById("mobile").value);
+                var xmlhttp=new XMLHttpRequest();
+                xmlhttp.onreadystatechange=function () {
+                    if(this.readyState==4 & this.status==200)
+                    {
+                        var response=this.responseText;
+                        if(response=="success")
+                        {
+                            window.location.href="adminlogin";
+                        }
+                        else
+                        {
+                            document.getElementById("ans").innerHTML="Email Already exists";
+                        }
+                    }
+
+                };
+                xmlhttp.open("POST","add",true);
+                xmlhttp.send(adminsignupdata);
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+
+    <form action="" method="post" id="addadmin">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-sm-4">
+
+            </div>
+
+            <div class="col-sm-4">
+                <br>
+                <br>
+                <div class="page-link" style="border: none">
+                    <h1 class="text-center">Admin Signup</h1>
+                </div>
+                <br>
+                <br>
+                <div class=" row form-group">
+                    <label><b>Enter Email</b></label>
+                    <input type="email" id="email" name="email" class="form-control" data-rule-required="true">
+                </div>
+                <div class=" row form-group">
+                    <label><b>Enter Password</b></label>
+                    <input type="password" id="password" name="password" class="form-control" data-rule-required="true">
+                </div>
+                <div class=" row form-group">
+                    <label><b>Select Type</b></label>
+                    <select id="type" name="type" class="form-control" data-rule-required="true">
+                        <option value="">Select Type</option>
+                        <option value="subadmin">SubAdmin</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div class=" row form-group">
+                    <label><b>Enter Mobile</b></label>
+                    <input type="text" minlength="10" maxlength="10" id="mobile" name="mobile" class="form-control" data-rule-required="true" data-rule-number="true">
+                </div>
+                <div class=" row ">
+                    <input type="button" value="Signup" class= "btn btn-success" onclick="insertadmin()">
+                </div>
+                <h3 id="ans" style="color: crimson"></h3>
+            </div>
+            <div class="col-sm-4">
+
+            </div>
+        </div>
+    </form>
+
+</div>
+</body>
+</html>

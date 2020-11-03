@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    {% load static %}
+    <style>
+        body {
+            background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url("{% static 'images/victor-freitas-WvDYdXDzkhs-unsplash.jpg' %}") fixed no-repeat center/cover;
+            color: white;
+        }</style>
+    {% include 'userheaderfile.html' %}
+    <style>
+        .error {
+            color: red !important;
+        }
+    </style>
+</head>
+<body>
+{% include 'userNavbar.html' %}
+<br>
+<br>
+<br>
+<br>
+
+<div class="container" style="color: white">
+    <div class="text-center">
+        <h1 class="text-white">Login</h1>
+        <hr style="background: white">
+    </div>
+    <div class="row">
+        <div class="col-sm-6 offset-3">
+            <form action="userlogin" method="post">{% csrf_token %}
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" id="email" class="form-control" placeholder="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Password"
+                           required>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-outline-success w-25">Login</button>
+                </div>
+                {% if result %}
+                    <div class="alert text-center alert-danger">
+                        invalid Email or password
+                    </div>
+                {% endif %}
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+{% include 'userfoot.html' %}
+{% include 'userfooter.html' %}
+{% include 'footer.html' %}
+</body>
+</html>

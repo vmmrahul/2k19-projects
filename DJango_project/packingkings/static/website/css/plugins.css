@@ -1,0 +1,41 @@
+/*Bootstrap CSS*/
+@import "bootstrap.min.css";
+
+/*FontAwesome*/
+@import "font-awesome.min.css";
+@import "fontawesome.min.css";
+
+/* Meanmenu*/
+@import "meanmenu.css";
+
+/* Animate*/
+@import "animate.min.css";
+
+/* Fancybox*/
+@import "jquery.fancybox.min.css";
+
+/* Slick*/
+@import "slick.css";
+@import "slick-theme.css";
+
+/*Icofont css*/
+@import "icofont.min.css";
+
+/*Box css*/
+@import "boxicons.min.css";
+
+/*magnific popup css*/
+@import "magnific-popup.css";
+
+/*Owl Slider*/
+@import "owl.carousel.min.css";
+
+/*Flaticon css*/
+@import "flaticon.css";
+
+/*Themify css*/
+@import "themify-icons.css";
+
+
+
+

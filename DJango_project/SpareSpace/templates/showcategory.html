@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+  {% include 'headerfiles.html' %}
+  {% include "navbaradmin.html" %}
+      <table class="table table-responsive">
+          {% for p in ar %}
+              <tr>
+              <td>{{ p.cname }}</td>
+              <td>{{ p.description }}</td>
+               <td><img src="{%static "media/"%}{{ p.photo }}" style="width: 100px; height: 100px"></td>
+              <td><a href="removecategory?q={{ p.cname }}"><img style="width: 25px; height: 25px" src="{% static "myphotos/d1.jpg" %}" ></a></td>
+              <td><a href="editcategory?q={{ p.cname }}"><img src="{% static "myphotos/e1.jpeg" %}" style="height: 25px; width: 25px"></a></td>
+              </tr>
+          {% endfor %}
+      </table>
+  </div>
+</body>
+</html>

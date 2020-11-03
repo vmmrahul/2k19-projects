@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>User Signup</title>
+    {% include 'indexheaderfiles.html' %}
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.11.2-web/css/all.css' %}">
+    {% include "jsfiles.html" %}
+    <style>
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
+            url("{% static 'media/fur1.jpg' %}") fixed no-repeat center center/cover;
+            height: 100vh;
+        {#opacity: 0.5;#}
+        }
+    </style>
+</head>
+<body>
+<header style="color: white;">
+    {% include 'indexnavigation.html' %}
+    <br><br><br><br>
+    <div style="background: rgba(0,0,0,0.5);padding: 5%">
+        <div class="container-fluid">
+            <div class="">
+                <div class="text-center"><h1>User SignUp</h1>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 offset-sm-3">
+                    <div id="sendotp">
+                        <div class="form-group">
+                            <i class="fa fa-mobile-alt text-black-50 fa-2x">Mobile</i>
+                            <input type="tel" placeholder="Enter Mobile Number" id="mobile" name="mobile" minlength="10"
+                                   maxlength="10"
+                                   data-rule-required="true" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="button" onclick="sendotp()" value="SendOtp" class="btn btn-info">
+                        </div>
+                    </div>
+                    <div id="confirmotp">
+                        <div class="form-group">
+                            <i class="fa fa-envelope text-black-50 fa-2x"> OTP</i>
+                            <input type="number" placeholder="Enter Otp" name="sendotp" id="sendotp"
+                                   data-rule-required="true" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-success" onclick="verifyotp()">Verify</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <script src="{% static 'myjs/usersignup.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            document.getElementById('confirmotp').style.display = "none"
+
+        })
+    </script>
+</header>
+</body>
+</html>

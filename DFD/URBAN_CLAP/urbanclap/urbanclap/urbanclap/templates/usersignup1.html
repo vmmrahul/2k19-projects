@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    {% load static  %}
+    <meta charset="UTF-8">
+    <title>User signup1</title>
+    {% include 'headerfiles.html' %}
+    {% include 'jsfiles.html' %}
+    <script src="{% static 'myjs/usersignup.js' %}"></script>
+    <style>
+        header {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, .4), rgba(0, 0, 0, .5)), url("{% static 'images/g5.jpg' %}") no-repeat center center/cover;
+        }
+    </style>
+</head>
+<body>
+{% include "indexheader.html" %}
+{% if request.session.useremail %}
+    {% include 'navbarUser.html' %}
+{% elif not request.session.useremail %}
+    {% include 'navigationbarindex.html' %}
+{% endif %}
+<div class="container" style="margin-top: 130px">
+
+    <div class="jumbotron">
+        <div class="text-center"><h1>OTP</h1></div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 offset-sm-3">
+            <div id="sendotp">
+                <div class="form-group">
+                    <label>Mobile Number:</label>
+                    <input type="tel" name="mobile" id="mobile" minlength="10" maxlength="10" data-rule-required="true"
+                           class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="button" onclick="sendotp()" value="Send Otp" class="btn btn-info">
+                </div>
+            </div>
+            <div id="confirmotp">
+                <div class="form-group">
+
+
+                    <label>Enter OTP:</label>
+                    <input type="number" name="sendotp" id="sendotp" data-rule-required="true" class="form-control">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-success" onclick="verifyotp()">Verify</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% include 'footer.html' %}
+<script>
+    $(document).ready(function () {
+        document.getElementById('confirmotp').style.display = "none"
+    })
+</script>
+</body>
+</html>

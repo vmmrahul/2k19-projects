@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Host Signup</title>
+
+    <script>
+
+
+        function hostsignup() {
+            var hostsignupdata=new FormData();
+            hostsignupdata.append('name',document.getElementById("name").value);
+            hostsignupdata.append('email',document.getElementById("email").value);
+            hostsignupdata.append('password',document.getElementById("password").value);
+            hostsignupdata.append('city',document.getElementById("city").value);
+            hostsignupdata.append('mobile',document.getElementById("mobile").value);
+            hostsignupdata.append('photo',document.getElementById("photo").files[0]);
+            hostsignupdata.append('description',document.getElementById("description").value);
+            hostsignupdata.append('location',document.getElementById("location").value);
+            var xmlhttp=new XMLHttpRequest();
+            xmlhttp.onreadystatechange=function () {
+                if(this.status==200 & this.readyState==4){
+                      var output=this.responseText;
+                      if(output=="success")
+                      {
+                          document.getElementById("ans").innerHTML="Host Signup Successful";
+                      }
+                      else
+                      {
+                          document.getElementById("ans").innerHTML="Host Already Exist";
+                      }
+                }
+            };
+            xmlhttp.open('POST',"inserthost",true);
+            xmlhttp.send(hostsignupdata);
+        }
+
+    </script>
+  {% include 'indexheaderfiles.html' %}
+</head>
+<body>
+
+{% include 'indexnavbarpublic.html' %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 offset-sm-3">
+            <form action="" id="hostsignupvalid">
+{#                {% csrf_token %}#}
+                <div style="margin-top: 100px" >
+                    <h1 class="text-center">Host Signup</h1>
+                </div>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input required type="text" id="name" name="name" placeholder="Enter name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input required type="email" id="email" name="email" placeholder="Enter Email" class="form-control">
+
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter Password" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="name">Select City</label>
+                    <select name="city" id="city" class="form-control">
+                        <option value="amritsar">Amritsar</option>
+                        <option value="jalandhar">Jalandhar</option>
+                        <option value="ludhiana">Ludhiana</option>
+                        <option value="chandigarh">Chandigarh</option>
+                    </select>
+
+                </div>
+                <div class="form-group">
+                    <label for="mobile">Enter Mobile</label>
+                    <input type="tel" id="mobile" name="mobile" placeholder="Mobile" class="form-control">
+                </div>
+
+                <div class="form-group">
+
+                    <label for="file">Upload Photo</label>
+                    <input type="file" name="photo" value="photo" required id="photo" >
+
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Enter Description</label>
+                    <textarea name="description" class="form-control" id="description"></textarea>
+                </div>
+
+                     <div class="form-group">
+
+                           <label for="location">Location</label>
+                           <input type="text" name="location" placeholder="Enter Location" id="location" class="form-control">
+                     </div>
+
+
+                <div class="form-group text-center">
+
+                    <input type="button" class="btn btn-primary" onclick="hostsignup()" value="Signup">
+                    <h1 id="ans"></h1>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% include 'indexfooter.html' %}
+</body>
+</html>

@@ -1,0 +1,106 @@
+{% load static %}
+<!-- footer -->
+<section class="w3l-footer-29-main" id="footer">
+    <div class="footer-29 py-5">
+        <div class="container pb-lg-3">
+            <div class="row footer-top-29">
+                <div class="col-lg-4 col-md-6 footer-list-29 footer-1 mt-md-4">
+                    <h6 class="footer-title-29">Contact Us</h6>
+                    <ul>
+                        <li>
+                            <p><span class="fa fa-map-marker"></span> Couch hunter, 208 Trainer Avenue street, Illinois,
+                                UK - 62617</p>
+                        </li>
+                        <li><a href="tel:+44 99 555 42"><span class="fa fa-phone"></span> +44 99 555 42</a></li>
+                        <li><a href="mailto:mailid@mail.com" class="mail"><span class="fa fa-envelope-open-o"></span>
+                            mailid@mail.com</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 footer-list-29 footer-2 mt-4">
+                    <ul>
+                        <h6 class="footer-title-29">Explore More</h6>
+                        <li><a href="#url">Mattress Size Guide</a></li>
+                        <li><a href="#url">Instructions</a></li>
+                        <li><a href="#url">FAQ's</a></li>
+                        <li><a href="#url">Instructions</a></li>
+                        <li><a href="#url">Buy Bed Online</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6 footer-list-29 footer-3 mt-4">
+                    <div class="properties">
+                        <h6 class="footer-title-29">Recent Post</h6>
+                        <a class="d-grid twitter-feed" href="/">
+                            <img src="{% static 'assets/images/e8.jpg' %}" class="img-fluid rounded" alt="">
+                            <p>The more you know,
+                                The better you sleep</p>
+                        </a>
+                        <a class="d-grid twitter-feed" href="/">
+                            <img src="{% static 'assets/images/e9.jpg' %}" class="img-fluid rounded" alt="">
+                            <p>Know more about the science behind great sleep.</p>
+                        </a>
+                        <a class="d-grid twitter-feed" href="/">
+                            <img src="{% static 'assets/images/e10.jpg' %}" class="img-fluid rounded" alt="">
+                            <p>Doloremque velit sapien labore eius itna</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 footer-list-29 footer-4 mt-4">
+                    <ul>
+                        <h6 class="footer-title-29">Quick Links</h6>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- move top -->
+    <button onclick="topFunction()" id="movetop" class="bg-primary" title="Go to top">
+        <span class="fa fa-angle-up"></span>
+    </button>
+    <script>
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function () {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("movetop").style.display = "block";
+            } else {
+                document.getElementById("movetop").style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+    <!-- /move top -->
+</section>
+<!-- // footer -->
+
+<!-- jQuery -->
+<script src="{% static 'assets/js/jquery-3.4.1.slim.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+
+<!-- disable body scroll which navbar is in active -->
+<script>
+    $(function () {
+        $('.navbar-toggler').click(function () {
+            $('body').toggleClass('noscroll');
+        })
+    });
+</script>
+<!-- disable body scroll which navbar is in active -->
+
+<!-- jQuery-Photo-filter-lightbox-portfolio-plugin -->
+<script src="{% static 'assets/js/jquery-1.7.2.js' %}"></script>
+<script src="{% static 'assets/js/jquery.quicksand.js' %}"></script>
+<script src="{% static 'assets/js/script.js' %}"></script>
+<script src="{% static 'assets/js/jquery.prettyPhoto.js' %}"></script>
+<!-- jQuery-Photo-filter-lightbox-portfolio-plugin -->

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load staticfiles %}
+        <link href="https://fonts.googleapis.com/css?family=Ultra&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static "fontawesome-free-5.11.2-web/css/all.css" %}">
+    <style>
+        .error
+        {
+             color: red;
+        }
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, .2)), url("{% static "images/x21.jpg" %}") fixed no-repeat center center/cover;
+        }
+        h3,label{
+            font-family: 'Ultra', serif;
+            color: #005ba4;
+        }
+       {# tr:hover td#}
+       {#{background: #34ce57;}#}
+    </style>
+    <script>
+        function confirmdelete(id) {
+            var result = confirm("Are You Sure to Delete the Package ?");
+            if(result)
+            {
+                window.location.href = 'deletepackages?q='+id;
+            }
+        }
+        function editpackages(id) {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if(this.status == 200 & this.readyState==4)
+                {
+                    var output = JSON.parse(this.response);
+                    var packagename = output["packagename"];
+                    var description= output["description"];
+                    var price = output["price"];
+                    document.getElementById("packagename").value = packagename;
+                    document.getElementById("description").value = description;
+                    document.getElementById("price").value = price;
+                    $("mymodal").modal('show');
+                }
+            };
+            xmlhttp.open('GET',"/editpackages?q="+id);
+            xmlhttp.send();
+        }
+        function updatepackages() {
+            if($('#updatepackages').valid())
+            {
+                var updatepackagedata = new FormData();
+                updatepackagedata.append('packagename',document.getElementById("packagename").value);
+                updatepackagedata.append('description',document.getElementById("description").value);
+                updatepackagedata.append('price',document.getElementById("price").value);
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function ()
+                {
+                    if(this.status==200 & this.readyState==4)
+                    {
+                        var response = this.responseText;
+                        if(response=='success')
+                        {
+                            window.location.href="viewpackages";
+                        }
+                    }
+                };
+                xmlhttp.open("POST","updatepackages",true);
+                xmlhttp.send(updatepackagedata);
+            }
+
+        }
+    </script>
+</head>
+
+  {% include "navigationadmin.html" %}
+  {% include "headerfiles.html" %}
+   <div class="container">
+   <h3 class="text-center " style="margin-top: 20px;">PACKAGES</h3>
+{#   <select id="sourcestate" name="sourcestate">#}
+{#       <option></option>#}
+{#       <option></option>#}
+{#   </select>#}
+{#   <input type="search" > #}
+   <div class="table-responsive">
+       <table class="table table-hover table-dark text-center">
+       <tr style="color: lightgreen">
+           <th>Package Name</th>
+           <th>Description</th>
+           <th>Source State</th>
+           <th>Source City</th>
+           <th>Destination State</th>
+           <th>Destination City</th>
+           <th>Price</th>
+           <th>Edit</th>
+           <th>Delete</th>
+       </tr>
+           {% for row in ar %}
+               <tr>
+               <td>{{ row.packagename }}</td>
+               <td>{{ row.description }}</td>
+               <td>{{ row.state }}</td>
+               <td>{{ row.sourcecity }}</td>
+               <td>{{ row.state1 }}</td>
+               <td>{{ row.destinationcity }}</td>
+               <td>{{ row.price }}</td>
+               <td><a onclick="editpackages('{{ row.packagename }}')" data-toggle="modal" href="#mymodal" ><i class="fas fa-edit fa-2x" style="color: lightgreen"></i> </a></td>
+{#               <td><a href="editpackages?q={{ row.packagename }}"> </td>#}
+               <td><a class="bg-transparent" onclick="confirmdelete('{{ row.packagename }}')"><i class="fas fa-trash fa-2x" style="color: red"></i></a></td>
+               </tr>
+           {% endfor %}
+       </table>
+   </div>
+   </div>
+<div class="modal fade" id="mymodal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" style="font-family:'Ultra',cursive">Edit Package</h4>
+                <button type="button" class="close" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body">
+                <form action="" id="updatepackages">
+                    {% csrf_token %}
+                  <div class="form-group">
+                      <label for="packagename">Package Name</label>
+                      <input type="text" id="packagename" readonly data-rule-required="true" name="packagename" class="form-control">
+                  </div>
+                 <div class="form-group">
+                     <label for="description">Description</label>
+                       <textarea name="description" id="description" data-rule-required="true" class="form-control"> </textarea>
+                 </div>
+                <div class="form-group">
+                    <label for="price">Price</label>
+                      <input type="text" id="price" data-rule-required="true" data-rule-number="true" name="price" class="form-control" >
+                </div>
+                <div class="form-group">
+                   <input type="button"  value="Edit"  onclick="updatepackages()" class="btn btn-success form-control col-sm-6 offset-sm-3">
+                </div>
+               </form>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+</body>
+</html>

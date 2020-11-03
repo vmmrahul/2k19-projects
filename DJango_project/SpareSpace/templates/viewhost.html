@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+</head>
+<body>
+{% include 'headerfiles.html' %}
+{% include 'navbaradmin.html' %}
+     <div class="container table-responsive">
+     <div class="page-header">
+         <h1 style="text-align: center">View Pending Host</h1>
+     </div>
+         <table class="table" border="4">
+
+         <tr>
+             <th>Name</th>
+             <th>Email</th>
+             <th>City</th>
+              <th>Mobile</th>
+              <th>Photo</th>
+              <th>Description</th>
+              <th>location</th>
+             <th>Status</th>
+         </tr>
+
+
+
+              {% for row in ar.0 %}
+                 <tr>
+                  <td>{{ row.hostname }}</td>
+                  <td>{{ row.email }}</td>
+                  <td>{{ row.city }}</td>
+                  <td>{{ row.mobile }}</td>
+                  <td><img src="{%static "media/"%}{{ row.photo }}" style="width: 100px; height: 100px"></td>
+                  <td>{{ row.description }}</td>
+                  <td>{{ row.location }}</td>
+                  <td><a  href="activehost?q={{ row.hid }}">Active Host</a></td>
+{#                  <td><a onclick="confirmdelete('{{ p.email }}')"><img style="width: 25px; height: 25px" src="{% static "myphotos/d1.jpg" %}" ></a></td>#}
+
+                 </tr>
+              {% endfor %}
+
+
+         </table>
+
+      <div class="page-header">
+         <h1 style="text-align: center">View Active Host</h1>
+     </div>
+         <table class="table" border="4">
+
+         <tr>
+             <th>Name</th>
+             <th>Email</th>
+             <th>City</th>
+              <th>Mobile</th>
+              <th>Photo</th>
+              <th>Description</th>
+              <th>location</th>
+              <th>Status</th>
+             <th>View&nbsp;Space</th>
+         </tr>
+
+
+
+              {% for row in ar.1 %}
+                 <tr>
+                  <td>{{ row.hostname }}</td>
+                  <td>{{ row.email }}</td>
+                  <td>{{ row.city }}</td>
+                  <td>{{ row.mobile }}</td>
+                  <td><img src="{%static "media/"%}{{ row.photo }}" style="width: 100px; height: 100px"></td>
+                  <td>{{ row.description }}</td>
+                  <td>{{ row.location }}</td>
+                  <td><a  href="pendinghost?q={{ row.hid }}">Block Host</a></td>
+                  <td><a  href="viewspace?q={{ row.hid }}">View Space</a></td>
+{#                  <td><a onclick="confirmdelete('{{ p.email }}')"><img style="width: 25px; height: 25px" src="{% static "myphotos/d1.jpg" %}" ></a></td>#}
+                  </tr>
+              {% endfor %}
+
+
+         </table>
+     </div>
+
+</body>
+</html>

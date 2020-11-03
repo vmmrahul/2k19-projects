@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Bookings</title>
+    {% include "headerfiles.html" %}
+    {% include 'indexheader.html' %}
+</head>
+<body>
+{% if request.session.useremail %}
+    {% include 'navbarUser.html' %}
+    {% elif not request.session.useremail %}
+    {% include 'navigationbarindex.html' %}
+{% endif %}
+<div class="container-fluid" style="margin-top: 150px">
+<h1 style="text-align: center;color: #00BCD4">Your Pending Bookings</h1>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="bg-light">
+            <tr>
+                <th>Booking Id</th>
+                <th>User Email</th>
+                <th>User Mobile</th>
+                <th>ServiceProvider Email</th>
+                <th>ServiceProvider Mobile</th>
+                <th>Booking</th>
+                <th>Timing</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody id="viewbooking">
+            {% for foo in msg.0 %}
+                <tr>
+                <td>{{ foo.bid }}</td>
+                <td>{{ foo.email }}</td>
+                <td>{{ foo.mobile }}</td>
+                <td>{{ foo.spemail }}</td>
+                <td>{{ foo.spmobile }}</td>
+                <td>{{ foo.business }}</td>
+                <td>{{ foo.timefrom }} - {{ foo.timeto }}</td>
+                <td>{{ foo.status }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div><h1 style="text-align: center;color: #00BCD4">Your Approved Bookings</h1>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="bg-light">
+            <tr>
+                <th>Booking Id</th>
+                <th>User Email</th>
+                <th>User Mobile</th>
+                <th>ServiceProvider Email</th>
+                <th>ServiceProvider Mobile</th>
+                <th>Booking</th>
+                <th>Timings</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody id="viewbooking">
+            {% for foo in msg.1 %}
+                <tr>
+                <td>{{ foo.bid }}</td>
+                <td>{{ foo.email }}</td>
+                <td>{{ foo.mobile }}</td>
+                <td>{{ foo.spemail }}</td>
+                <td>{{ foo.spmobile }}</td>
+                <td>{{ foo.business }}</td>
+                <td>{{ foo.timefrom }} - {{ foo.timeto }}</td>
+                <td>{{ foo.status }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

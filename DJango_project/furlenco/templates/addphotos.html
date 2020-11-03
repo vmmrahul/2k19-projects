@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+    <link href="{% static "fontawesome-free-5.11.2-web/css/all.css" %}" rel="stylesheet">
+</head>
+<body>
+{% include "afteradminloginnavbar.html" %}
+<br><br>
+<div class="container">
+<h1 class="text-center">Add Furniture Photos</h1>
+<hr>
+
+    <form action="insertphotos" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="furnitureid">Furniture ID</label>
+            <input type="text" id="furnitureid" name="furnitureid" class="form-control" value="{{ furnitureid }}"
+                   readonly>
+        </div>
+        <div class="form-group">
+            <label for="photo">Select Photo</label>
+            <input type="file" data-rule-required="true" id="photo" name="photo" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="remarks">Add Remarks</label>
+            <input type="text" data-rule-required="true" id="remarks" name="remarks" class="form-control">
+        </div>
+        <br>
+        <div class="form-group text-center">
+            <input type="submit" value="Add" class="btn w-50 btn-success">
+        </div>
+    </form>
+</div>
+
+<div class="container">
+    <div class="row">
+        {% for foo in image %}
+            <div class="col-sm-3 mt-5">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <img src="{% static 'media/' %}{{ foo.photo }}" alt="" width="200" height="200">
+                        <p>{{ foo.remarks }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-sm-6"></div>
+                            <div class="col-sm-6 text-right">
+                                <form action="deletefurniturephotos" method="get">
+                                    <input type="hidden" value="{{ foo.id }}" id="id" name="id">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{#</header>#}
+</body>
+</html>

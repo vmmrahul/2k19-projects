@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static  %}
+    <meta charset="UTF-8">
+    {% include "headerfiles.html" %}
+    <title>Title</title>
+</head>
+<body>
+{% include "indexheader.html" %}
+{% include 'navbarAdmin.html' %}
+<!-- Button to Open the Modal -->
+<div class="container text-center" style="margin-top: 120px">
+    <div class="bg-danger text-white">
+        <span class="fa fa-plus-circle fa-4x" data-toggle="modal" data-target="#myModal"></span>
+    </div>
+</div>
+<!--   add category Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" style="text-align: center;font-family: 'cursive'">Add Category</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form action="" id="addcategory">
+                    <div class="form-group">
+                        <label for="name" class="fa fa-list-alt">Category Name</label>
+                        <input type="text" data-rule-required="true" name="name" id="name" placeholder="Category Name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="fa fa-list-alt">Description</label>
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="photo" class="fa fa-list-alt">Category Photo</label>
+                        <input type="file" data-rule-required="true" id="photo" name="photo" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" onclick="addcategory()">Add</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{#end of add category modal#}
+
+
+{#show data in table form#}
+<div class="container mt-5">
+    <div class="text-center">
+        <h1><u>Category Data</u></h1>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="bg-info">
+            <tr>
+                <th>S No.</th>
+                <th>Category Name</th>
+                <th>Description</th>
+                <th>photo</th>
+                <th colspan="2">Action</th>
+            </tr>
+            </thead>
+            <tbody id="categorydataview"></tbody>
+        </table>
+    </div>
+</div>
+{#end of  data table form#}
+
+{#edit category modal#}
+<div class="modal" id="editmyModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" style="text-align: center;font-family: 'cursive'">Edit Category</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form action="" id="addcategory">
+                    <div class="form-group">
+                        <label for="editname" class="fa fa-list-alt">Category Name</label>
+                        <input type="text" name="editname" id="editname" placeholder="Category Name" readonly
+                               class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="editdescription" class="fa fa-list-alt">Description</label>
+                        <textarea class="form-control" id="editdescription" name="editdescription"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="editphoto" class="fa fa-list-alt">Category Photo</label>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input type="file" onchange="loadFile(event)" data-rule-required="true" id="editphoto" name="editphoto"
+                                   class="form-control">
+                            </div>
+                            <div class="col-sm-6" >
+                                <img id="editphoto1" width="100" src="" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" onclick="updatecategory()">Save</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{#end of edit category modal#}
+
+{% include 'footer.html' %}
+<script src="{% static 'addcategory.js' %}"></script>
+
+<script>
+    $(document).ready(function () {
+        categorydataview();
+    })
+</script>
+</body>
+</html>

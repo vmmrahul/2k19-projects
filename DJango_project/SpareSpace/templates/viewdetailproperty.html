@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+
+{#    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">#}
+{#<script src="{% static "js/jquery-3.4.1.js" %}"></script>#}
+
+<script src="{% static "js/popper.js" %}"></script>
+<script>
+    var person="";
+    function setperson(value) {
+        person=value;
+        if(person=="single"){
+            document.getElementById("double").checked=false;
+        }
+        if(person=="double"){
+           document.getElementById("single").checked=false;
+        }
+
+    }
+
+function test(){
+alert('test');
+       var checkin = document.getElementById("checkin").value;
+        var checkout = document.getElementById("checkout").value;
+        var extraperson = document.getElementById('extraperson').value;
+        var persons = person;
+        var roomid=document.getElementById('roomid1').value;
+        var checkoutdata = new FormData();
+        checkoutdata.append('checkin', checkin);
+        checkoutdata.append('roomid', roomid);
+        checkoutdata.append('checkout',checkout);
+        checkoutdata.append('person',persons);
+        checkoutdata.append('extraperson',extraperson);
+
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 & this.status == 200) {
+                var output = JSON.parse(this.response);
+                var charges=output['charges'];
+                $('#total').val(charges);
+                alert(charges);
+                if (output == "fail")
+                {
+                    document.getElementById("ans").innerHTML ="Already Booked";
+                }
+                else
+                    {
+                     document.getElementById("ans").innerHTML ="Total Bill is "+charges;
+                }
+            }
+
+        };
+        xmlhttp.open("POST", "checkout", true);
+        xmlhttp.send(checkoutdata);
+}
+
+function proceed() {
+        var checkin = document.getElementById("checkin").value;
+        var checkout = document.getElementById("checkout").value;
+        var extraperson = document.getElementById('extraperson').value;
+        var persons = person;
+        var roomid=document.getElementById('roomid1').value;
+        var total=document.getElementById('total').value;
+        window.location.href='proceedtopayment?rid='+roomid+'&p='+persons+'&ex='+extraperson+'&cin='+checkin+'&cout='+checkout+'&total='+total+'&hid='+document.getElementById("hostid").value+''
+}
+
+function proceed1() {
+        var checkin = document.getElementById("checkin").value;
+        var checkout = document.getElementById("checkout").value;
+        var roomid=document.getElementById('roomid2').value;
+        var total=document.getElementById('total1').value;
+        window.location.href='proceedtopayment1?rid='+roomid+'&cin='+checkin+'&cout='+checkout+'&total='+total+'&hid='+document.getElementById("hostid1").value+''
+}
+
+
+function test1(){
+alert('test1');
+  var checkin = document.getElementById("checkin").value;
+        var checkout = document.getElementById("checkout").value;
+        var roomid=document.getElementById('roomid2').value;
+        var checkoutdata = new FormData();
+        checkoutdata.append('checkin', checkin);
+        checkoutdata.append('roomid', roomid);
+        checkoutdata.append('checkout',checkout);
+
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 & this.status == 200) {
+                var output = JSON.parse(this.response);
+                var charges=output['charges'];
+                $('#total1').val(charges);
+                alert(charges);
+                if (output == "fail")
+                {
+                    document.getElementById("ans").innerHTML ="Already Booked";
+                }
+                else
+                    {
+                     document.getElementById("ans").innerHTML ="Total Bill is "+charges;
+                }
+            }
+
+        };
+        xmlhttp.open("POST", "checkout1", true);
+        xmlhttp.send(checkoutdata);
+}
+
+
+</script>
+
+</head>
+<body>
+{% include 'indexheaderfiles.html' %}
+{% include 'indexnavbaruser.html' %}
+
+<script src="{% static "js/bootstrap.js" %}"></script>
+
+{% if alldata.category == 'PG' or alldata.category == 'Apartment' or alldata.category == 'Flat' or alldata.category == 'Villa' %}
+
+<div class="container" style="margin-top: 10px;">
+    <div class="text-center"><h3 style="color: #a71d2a">{{ alldata.roomname }}</h3></div>
+    <div class="row">
+        <div class="col-sm-5">
+{#            <div class="w3-content w3-section" style="max-width: 500px;"></div>#}
+            <img style="width: 100%; height: 300px; margin-top: 50px;" class="mySlides" src="{% static "media/" %}{{ alldata.coverphoto }}">
+            {% for row in photos %}
+                <img style="width: 100%; height: 300px; margin-top: 50px;" class="mySlides" src="{% static "media/" %}{{ row.photo }}">
+            {% endfor %}
+        </div>
+
+        <div class="col-sm-7">
+           <strong> <h4 style="margin-top: 50px; color: #a71d2a">Description</h4></strong>
+           <strong><p>{{ alldata.description }}</p></strong>
+            <h4 style="margin-top: 50px; color: #a71d2a">Area</h4>
+           <strong> <p>{{ alldata.area }}</p></strong>
+            <h4 style="margin-top: 50px; color: #a71d2a">Price</h4>
+            <div class="row">
+                <div class="col-sm-3">
+                 <strong>Tariffsingle<p>{{ alldata.tariffsingle }}/month</p>
+                                <p>{{alldata.tariffsingleperday }}/day</p></strong>
+                </div>
+                <div class="col-sm-3">
+                 <strong>Tariffdouble<p>{{ alldata.tariffdouble }}/month</p>
+                    <p>{{alldata.tariffdoubleperday }}/day</p></strong>
+                </div>
+                <div class="col-sm-1">
+                <strong>Tariffextraperson<p>{{ alldata.extraperson }}/month</p>
+                    <p>{{alldata.extraperday }}/day</p></strong>
+                </div>
+            </div>
+            <h4 style="margin-top: 50px; color: #a71d2a">Category</h4>
+            <strong><p>{{ alldata.category }}</p></strong>
+            <h4 style="margin-top: 50px; color: #a71d2a">Hosted By</h4>
+            <strong><p>{{ alldata.hostname }}</p></strong>
+            <h4 style="margin-top: 50px; color: #a71d2a">Contact Host</h4>
+            <strong><p>{{ alldata.mobile }}</p></strong>
+            <br><br><br>
+            <div class="form-group">
+             <input type="button"  value="Book Now"  class="btn btn-success text-white" data-toggle="modal"  href="#mybooking" onclick="booking()">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% elif alldata.category == 'Shop' or alldata.category == 'Event' or alldata.category == 'Office' or alldata.category == 'Parking' %}
+
+<div class="container" style="margin-top: 10px;">
+    <div class="text-center"><h3 style="color: #a71d2a">{{ alldata.roomname }}</h3></div>
+    <div class="row">
+        <div class="col-sm-5">
+{#            <div class="w3-content w3-section" style="max-width: 500px;"></div>#}
+            <img style="width: 100%; height: 300px; margin-top: 50px;" class="mySlides" src="{% static "media/" %}{{ alldata.coverphoto }}">
+            {% for row in photos %}
+                <img style="width: 100%; height: 300px; margin-top: 50px;" class="mySlides" src="{% static "media/" %}{{ row.photo }}">
+            {% endfor %}
+        </div>
+
+        <div class="col-sm-7">
+           <strong> <h4 style="margin-top: 50px; color: #a71d2a">Description</h4></strong>
+           <strong><p>{{ alldata.description }}</p></strong>
+            <h4 style="margin-top: 50px; color: #a71d2a">Area</h4>
+           <strong> <p>{{ alldata.area }}</p></strong>
+            <h4 style="margin-top: 50px; color: #a71d2a">Price</h4>
+            <div class="row">
+                <div class="col-sm-3">
+                 <strong>Tariffsingle<p>{{ alldata.tariffsingle }}/month</p>
+                                <p>{{alldata.tariffsingleperday }}/day</p></strong>
+                </div>
+{#                <div class="col-sm-3">#}
+{#                 <strong>Tariffdouble<p>{{ alldata.tariffdouble }}/month</p>#}
+{#                    <p>{{alldata.tariffdoubleperday }}/day</p></strong>#}
+{#                </div>#}
+{#                <div class="col-sm-1">#}
+{#                <strong>Tariffextraperson<p>{{ alldata.extraperson }}/month</p>#}
+{#                    <p>{{alldata.extraperday }}/day</p></strong>#}
+{#                </div>#}
+            </div>
+            <h4 style="margin-top: 50px; color: #a71d2a">Category</h4>
+            <strong><p>{{ alldata.category }}</p></strong>
+            <h4 style="margin-top: 50px; color: #a71d2a">Hosted By</h4>
+            <strong><p>{{ alldata.hostname }}</p></strong>
+            <h4 style="margin-top: 50px; color: #a71d2a">Host Contact</h4>
+            <strong><p>{{ alldata.mobile }}</p></strong>
+            <br><br><br>
+            <div class="form-group">
+             <input type="button"  value="Book Now"  class="btn btn-success text-white" data-toggle="modal"  href="#mybooking" onclick="booking()">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+<script>
+    var slideIndex = 0;
+    carousel();
+
+    function carousel() {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > x.length) {
+            slideIndex = 1
+        }
+        x[slideIndex - 1].style.display = "block";
+        setTimeout(carousel, 2000); // Change image every 2 seconds
+    }
+</script>
+
+
+<div class="container" style="margin-top: 50px">
+<div class="text-left"><h3 style="color: #a71d2a">Related Spaces</h3></div>
+    <div class="row">
+        {% for foo in related %}
+            <div class="col-sm-3 mt-5">
+            <div class="card bg-white">
+                <div class="card-header text-center">
+                    <img src="{% static 'media/' %}{{ foo.coverphoto }}" alt="" width="100px" height="150px">
+                </div>
+                <div class="card-body">
+                <strong><span>{{ foo.roomname }}</span></strong>
+                </div>
+                <div class="card-footer">
+                    <form action="viewdetailproperty" method="get">
+                        <input type="hidden" id="hid" name="hid" value="{{ foo.hid }}">
+                        <input type="hidden" id="roomid" name="roomid" value="{{ foo.roomid }}">
+                        <input type="hidden" id="category" name="category" value="{{ foo.category }}">
+                        <input type="hidden" id="city" name="city" value="{{ foo.city }}">
+                        <button type="submit" class="btn btn-danger form-control">Show Details</button>
+                    </form>
+                </div>
+            </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% if alldata.category == 'PG' or alldata.category == 'Apartment' or alldata.category == 'Flat' or alldata.category == 'Villa' %}
+<div class="modal fade" id="mybooking" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" style="text-align: left">Book Now</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                {#          <button type="button" class="close" data-dismiss="modal">&times;</button>#}
+            </div>
+            <div class="modal-body">
+                <form action=""  id="bookingvalid">
+                    <div class="container">
+                     <div class="form-group">
+                         <label>Room Id</label>
+                         <input type="text" readonly id="roomid1" name="roomid1" value="{{ alldata.roomid }}" class="form-control" >
+                     </div>
+                    <div class="form-group">
+                        <label>Number Of Person</label>
+                    <div class="radio-inline">
+                    <input type="radio" value="single" onchange="setperson(this.value)" name="single" id="single" >One&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" value="double" onchange="setperson(this.value)" name="double" id="double">Two
+                    </div>
+                    </div>
+                     <div class="form-group">
+                         <label for="extraperson">Extraperson</label>
+                         <input type="text" name="extraperson" id="extraperson" class="form-control">
+                     </div>
+                     <div class="form-group">
+                         <label>Check-in</label>
+                         <input type="text" required class="form-control"  id="checkin" name="checkin" data-msg-required="Enter Checkin Date" >
+                     </div>
+                        <div class="form-group">
+                         <label>Check-out</label>
+                         <input type="text" required class="form-control" id="checkout" name="checkout" data-msg-required="Enter Checkout Date" onchange="test()">
+                     </div>
+{#                        <div class="form-group">#}
+{#                            <input type="button" class="btn btn-info" value="Calculate Charges" onclick="test()">#}
+{##}
+{#                        </div>#}
+                        <div class="form-group text-right">
+                            <button type="button" onclick="proceed()" class="btn btn-info" >Next</button>
+                        </div>
+
+                    </div>
+                </form>
+                <h4 id="ans"></h4>
+                <input type="hidden" id="total" >
+                <input type="hidden" id="hostid" value="{{ alldata.hid }}">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% elif alldata.category == 'Shop' or alldata.category == 'Event' or alldata.category == 'Office' or alldata.category == 'Parking' %}
+<div class="modal fade" id="mybooking" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" style="text-align: left">Book Now</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                {#          <button type="button" class="close" data-dismiss="modal">&times;</button>#}
+            </div>
+            <div class="modal-body">
+                <form action=""  id="bookingvalid">
+                    <div class="container">
+                     <div class="form-group">
+                         <label>Room Id</label>
+                         <input type="text" readonly id="roomid2" name="roomid2" value="{{ alldata.roomid }}" class="form-control" >
+                     </div>
+                    <div class="form-group">
+                        <label>Tariff</label>
+                        <strong><p>{{ alldata.tariffsingle }}</p></strong>
+                    </div>
+
+                     <div class="form-group">
+                         <label>Check-in</label>
+                         <input type="text" required class="form-control"  id="checkin" name="checkin" data-msg-required="Enter Checkin Date" >
+                     </div>
+                        <div class="form-group">
+                         <label>Check-out</label>
+                         <input type="text" required class="form-control" id="checkout" name="checkout" data-msg-required="Enter Checkout Date" onchange="test1()">
+                     </div>
+{#                        <div class="form-group">#}
+{#                            <input type="button" class="btn btn-info" value="Calculate Charges" onclick="test1()">#}
+{##}
+{#                        </div>#}
+                        <h4 id="ans"></h4>
+                        <input type="hidden" id="total1" >
+                        <input type="hidden" id="hostid1" value="{{ alldata.hid }}">
+                    </div>
+                </form>
+                <div class="form-group text-right">
+                            <button type="button" onclick="proceed1()" class="btn btn-info" >Next</button>
+                        </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endif %}
+ <link href="{% static "ui/jquery-ui.css" %}" rel="stylesheet">
+<script src="{% static "dist/jquery.validate.js" %}"></script>
+    <script src="{% static "ui/jquery-ui.js" %}"></script>
+
+    <script>
+        $(document).ready(function(){
+           {#$('#bookingvalid').validate();#}
+           $('#checkin').datepicker({
+               changeYear:true,
+               changeMonth:true,
+               dateFormat:"yy-mm-dd",
+               minDate:0
+           });
+
+            $('#checkout').datepicker({
+               changeYear:true,
+               changeMonth:true,
+               dateFormat:"yy-mm-dd",
+               minDate:0
+           })
+
+        });
+
+        function booking() {
+               $('mybooking').modal('show');
+            }
+
+
+    </script>
+</body>
+</html>

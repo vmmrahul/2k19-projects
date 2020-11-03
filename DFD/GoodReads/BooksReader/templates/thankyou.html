@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>thanks</title>
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+    {% include 'indexheaderfile.html' %}
+</head>
+<body>
+
+{% if request.session.Email %}
+    {% include 'indexnavigationlogin.html' %}
+{% elif not request.session.Email %}
+    {% include 'indexnavigation.html' %}
+{% endif %}
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-sm- offset-sm-3">
+            <div class="text-center" style="height: 500px">
+                <h2>"<u>Thank you for shopping with us</u>"</h2>
+                <h5 class="text-left mt-5"><u>Email</u> : <span
+                        class="text-danger">{{ request.session.Email }}</span></h5>
+                <h5 class="text-left mb-5"><u>Your Bill Id</u> : <span class="text-danger">{{ bill_id }}</span></h5>
+                <a href="/" class="btn btn-outline-success mb-5"><strong>Continue Shopping</strong></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "indexfooter.html" %}
+
+</body>
+</html>

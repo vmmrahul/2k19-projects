@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Search Furniture</title>
+    {% include 'indexheaderfiles.html' %}
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    {% include 'jsfiles.html' %}
+    <link rel="stylesheet" href="{% static 'lightbox/dist/css/lightbox.css' %}">
+    <script src="{% static 'lightbox/dist/js/lightbox.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body style="background: linear-gradient(transparent,rgba(234,184,76,0.25)">
+{% if request.session.mobile %}
+    {% include 'indexnavbaruser.html' %}
+{% elif not request.session.mobile %}
+    {% include 'indexnavigation.html' %}
+{% endif %}
+<div class="container-fluid">
+    <br>
+    <br>
+    <h1 class="text-center fa-3x"><u>Category</u></h1>
+    <br>
+    <hr class="bg-danger">
+    <div class="row">
+        {% for foo in categories %}
+            <div class="col-md-3 col-sm-6 mt-4">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <a href="{% static 'media/' %}{{ foo.photo }}" data-lightbox="image-1"><img
+                                src="{% static 'media/' %}{{ foo.photo }}" alt="" width="100%" height="300"></a>
+                    </div>
+                    <div class="card-body text-center">
+                        <h4 class="card-title mybtn">{{ foo.catname }}</h4>
+                    </div>
+                    <div class="card-footer text-center">
+                        {#                        <a href="searchfurniture2?catname={{ foo.catname }}"#}
+                        {#                           class="btn btn-outline-primary form-control"><strong>Show</strong></a>#}
+                        <a class="aba" href="searchfurniture2?catname={{ foo.catname }}">
+                            <span><strong>Show {{ foo.catname }}</strong></span>
+                            <div class="wave"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<br><br><br>
+{% include 'indexfooter.html' %}
+</body>
+</html>

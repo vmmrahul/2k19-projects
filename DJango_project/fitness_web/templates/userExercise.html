@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Exercise</title>
+    {% load static %}
+    <style>
+        body {
+            background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url("{% static 'images/victor-freitas-WvDYdXDzkhs-unsplash.jpg' %}") fixed no-repeat center/cover;
+            color: white;
+        }</style>
+
+    {% include 'userheaderfile.html' %}
+    <style>
+        .error {
+            color: red !important;
+        }
+    </style>
+</head>
+<body>
+{% include 'userNavbar.html' %}
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="text-center">
+        <hr style="background: white">
+        <h2 class="text-white">Exercise</h2>
+        <hr style="background: white">
+    </div>
+    <div class="table-responsive">
+        <table class="table text-white table-light table-hover">
+            <thead class="text-center">
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Calories Burnt</th>
+                {% if request.session.user %}
+                    <th>Done/not</th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for foo in data %}
+                {% if foo.id not in request.session.E %}
+                    <tr>
+                        <td>{{ foo.title }}</td>
+                        <td><marquee dir="ltr">{{ foo.description }}</marquee></td>
+                        <td>{{ foo.caloriesburnt }} Cal</td>
+                        {% if request.session.user %}
+                            <td><a href="userExerciseAction?id={{ foo.id }}" class="btn-outline-success btn"
+                                   onclick="return confirm('are you sure?')">Done</a>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+        {#    {{ request.session.E }}#}
+    </div>
+</div>
+<br>
+<br>
+{% include 'userfoot.html' %}
+{% include 'userfooter.html' %}
+{% include 'footer.html' %}
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+    {% include "jsfiles.html" %}
+    <link rel="stylesheet" href="{% static '/fontawesome-free-5.11.2-web/css/all.css' %}">
+</head>
+<body>
+<div class="container">
+    {% include "NavBarAdmin.html" %}
+    <table class="table table-hover">
+        <th>Category Name</th>
+        <th>Description</th>
+        <th>Photo</th>
+
+        {% for p in ar %}
+            <tr>
+                <td>{{ p.catname }}</td>
+                <td>{{ p.description }}</td>
+                <td>
+                    <img style="max-height:100px;max-weight:100px" src="{% static "media/" %}{{ p.photo }}" alt=""></td>
+
+
+                <td>
+                    <button type="button" class="btn" onclick="deletecategory('{{ p.catname }}')"><i
+                            class="fa fa-trash text-danger fa-2x"></i></button>
+                </td>
+
+                <td>
+                    <a href="editcategory?q={{ p.catname }}">
+                        <i class="fa fa-edit text-black fa-2x"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+<script src="{% static "myjs/category.js" %}"></script>
+</body>
+</html>

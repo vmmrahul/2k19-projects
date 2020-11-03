@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <style>
+
+        .error {
+            color: red;
+        }
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, .4)), url("{% static "images/x21.jpg" %}") fixed no-repeat center center/cover;
+        }
+
+        h1, h5 {
+            color: white;
+            font-family: 'Times New Roman', Arial;
+        {#background-color: darkcyan;#}{#width: fit-content;#}
+        }
+    </style>
+   {% load static %}
+    <!-- Plugins CSS -->
+    <link href="{% static 'website/css/plugins.css' %}" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{% static 'website/css/style.css' %}" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'website/images/favicon.ico' %}">
+    <!-- HTML5 shim and Respond.js' %} for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js' %} doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js' %}"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js' %}"></script>
+    <![endif]-->
+    {% include 'headerfiles.html' %}
+<script>
+    function gettracking() {
+                var trackingdata = new FormData();
+                trackingdata.append('bookingid',document.getElementById("bookingid").value);
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function ()
+                {
+                    if(this.status==200 & this.readyState==4)
+                    {
+                        var response = JSON.parse(this.response);
+                        var remarks = response['remarks']    ;
+                        var dateofupdate = response['dateofupdate'];
+                            document.getElementById("message").innerHTML = remarks+"<br>"+"Dated:"+dateofupdate;
+
+                    }
+                };
+                xmlhttp.open("POST","trackbooking",true);
+                xmlhttp.send(trackingdata);
+
+
+        }
+</script>
+    {% include 'headerfiles.html' %}
+</head>
+<body>
+   {% include "indexnabaruser.html" %}
+{#   {{ d }}#}
+   <center><h3 style="margin-top: 25px;color: white;background-color: darkcyan;font-size: 5rem">BOOKING DETAILS</h3></center><br>
+   <div class="col-sm-10 offset-sm-1">
+   {% if d == "You have no pending Bookings Yet" %}
+      <h1>You have no pending Bookings yet !!</h1>
+   {% elif d == 'You have no success Bookings Yet' %}
+       <h1>You have no successful Bookings yet !!!</h1>
+   {% else %}
+
+       <div style="background: rgb(255,255,255) !important;">
+       {% for row in  d  %}
+           <div class="row" >
+               <div class="col-sm-3">
+                   <label>Pickup State</label>
+                   <p>{{ row.pickupstate }} </p>
+               </div>
+               <div class="col-sm-3">
+                   <label>Pickup City</label>
+                   <p>{{ row.pickupcity }}</p>
+               </div>
+               <div class="col-sm-3">
+                   <label>Pickup Address</label>
+                   <p>{{ row.pickupaddress }} </p>
+               </div>
+               <div class="col-sm-3">
+                   <label>Booking Date</label>
+                   <p>{{ row.dateofbooking }} </p>
+               </div>
+           </div>
+           <div class="row">
+               <div class="col-sm-3">
+                   <label>Dropping State</label>
+                   <p>{{ row.droppingstate }} </p>
+               </div>
+               <div class="col-sm-3">
+                   <label>Dropping City</label>
+                   <p>{{ row.droppingcity }} </p>
+               </div>
+               <div class="col-sm-3">
+                   <label>Dropping Address</label>
+                   <p>{{ row.droppingaddress }} </p>
+               </div>
+               <div class="col-sm-3">
+                   <label>Package Name</label>
+                   <p>{{ row.packagename }} </p>
+               </div>
+           </div>
+           <div class="row">
+               <div class="col-sm-3">
+                   <label>Date of Pickup</label>
+                   <p>{{ row.dateofpickup }} </p>
+               </div>
+               <div class="col-sm-3">
+                   <label>Date of Dropping</label>
+                   <p>{{ row.dateofdropping }} </p>
+               </div>
+               <div class="col-sm-3">
+                   <label>Payment Mode</label>
+                   <p>{{ row.paymentmode }} </p>
+               </div>
+               <div class="col-sm-3">
+                   <label>Amount Paid</label>
+                   <p>{{ row.amountpaid }} </p>
+               </div>
+           </div>
+           <div class="row">
+               <div class="col-sm-3">
+                   <label>Payment Status</label>
+                   <p>{{ row.paymentstatus }} </p>
+               </div>
+               <div class="col-sm-3">
+                   <label> Status</label>
+                   <p>{{ row.status }} </p>
+               </div>
+            <div class="col-sm-3">
+                <label>Booking ID</label>
+                <p>{{ row.bookingid }}</p>
+            </div>
+           </div>
+           {% if row.paymentstatus == 'pending' %}
+           <div class="text-center"><a class="btn"  style="background-color: #fc636b;color: white" onclick="gettracking()">TRACK NOW</a>
+           <br><br>
+           <h4 id="message"></h4>
+           </div>
+           {% endif %}
+           <input type="hidden" id="bookingid" value="{{ row.bookingid }}">
+           <h3>--------------------------------------------------------------------------------------</h3>
+       {% endfor %}
+       </div>
+   {% endif %}
+   </div>
+{% include 'indexfooter.html' %}
+</body>
+</html>

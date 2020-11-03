@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+    <title>Category Wise Search</title>
+</head>
+<body>
+
+<div class="container">
+    <div style="margin-top: 25px;">
+        <input type="search" class="form-control" id="searchcategory" onkeyup="showdata(this.value)" placeholder="Search Category">
+        <div id="makecards"></div>
+    </div>
+</div>
+<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+<script src="{% static 'dist/jquery.validate.js' %}"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="{% static 'myjs/furnituresearch.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        console.log({{ catname|safe }});
+        var availableTags ={{ catname|safe }};
+        $("#searchcategory").autocomplete({
+            source:availableTags
+        });
+
+    });
+    $(document).ready(function () {
+        showdata('')
+    })
+
+</script>
+
+</body>
+</html>

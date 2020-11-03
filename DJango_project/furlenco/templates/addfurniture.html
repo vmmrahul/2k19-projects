@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Add Furniture</title>
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.11.2-web/css/all.css' %}">
+    {% include "jsfiles.html" %}
+    {% include "indexheaderfiles.html" %}
+    <script>
+        $(document).ready(function () {
+            $("#form1").validate();
+        })
+    </script>
+</head>
+<body>
+{% include "afteradminloginnavbar.html" %}
+<div class="container">
+    <div class="container">
+        <br><br>
+        <h1 class="text-center">Add Furniture</h1>
+        <hr>
+        <form id="form1" action="insertfurniture" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="category">Select Furniture Category</label>
+                <select data-rule-required="true" class="form-control" name="catname" id="category">select option
+                    {#                <option value="">----Select Option----</option>#}
+                    {% for foo in ar %}
+                        <option value="{{ foo }}">{{ foo }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="title">Enter Title</label>
+                <input type="text" data-rule-required="true" id="title" class="form-control" name="title">
+            </div>
+
+            <div>
+                <label for="weight">Enter Weight</label>
+                <input type="text" data-rule-required="true" id="weight" class="form-control" name="weight">
+            </div>
+            <div>
+                <label for="dimensions">Enter Dimensions</label>
+                <input type="text" data-rule-required="true" id="dimensions" class="form-control" name="dimensions">
+            </div>
+            <div>
+                <label for="coverphoto">Choose CoverPhoto</label>
+                <input type="file" data-rule-required="true" id="coverphoto" class="form-control" name="coverphoto">
+            </div>
+            <div>
+                <label for="quantity">Enter Quantity</label>
+                <input type="number" data-rule-required="true" id="quantity" class="form-control" name="quantity">
+            </div>
+            <div>
+                <label for="perdayrent">Enter PerDayRent</label>
+                <input type="number" data-rule-required="true" id="perdayrent" class="form-control" name="perdayrent">
+            </div>
+            <div>
+                <label for="permonthrent">Enter PerMonthRent</label>
+                <input type="number" data-rule-required="true" class="form-control" name="permonthrent">
+            </div>
+            <div>
+                <label for="halfyearrent">Enter HalfYearRent</label>
+                <input type="number" data-rule-required="true" class="form-control" name="halfyearrent">
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-success " value="Add">
+
+            </div>
+
+        </form>
+    </div>
+</div>
+</body>
+
+</html>

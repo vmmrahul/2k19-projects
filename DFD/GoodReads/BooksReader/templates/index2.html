@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>ViewBook</title>
+    {% include 'indexheaderfile.html' %}
+    <style>
+        .main {
+            background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .8)), url("{% static 'images/header-bg.jpeg' %}") fixed center no-repeat;
+        }
+
+        .center input {
+            font-size: 20px;
+            border-color: red;
+            opacity: .8;
+            width: 500px;
+            height: 50px;
+            border-radius: 25px 25px 25px 25px;
+        }
+    </style>
+</head>
+<body>
+{% if not request.session.Email %}
+    {% include 'indexnavigation.html' %}
+{% elif request.session.Email %}
+    {% include 'indexnavigationlogin.html' %}
+{% endif %}
+<style>
+    .offerdesign {
+        padding: 10px;
+        border-radius: 35%;
+    }
+
+    .v a {
+        margin-left: 50%;
+    }
+
+    .back {
+    {#background-color: #acff2c;#}
+    }
+</style>
+<header>
+
+    <div class="container-fluid back" style="margin-top: 100px">
+        {#        <marquee behavior="scroll" marquee direction="right">#}
+        {#            <div class="row">#}
+        {#                {% for foo in offer %}#}
+        {#                    <div class="bg-primary ml-2 offerdesign">#}
+        {#                        <div class="v text-white">#}
+        {#                            <a href="#" class="text-white"><p><span >{{ foo.name }}</span><br>No of Books:-{{ foo.noofbooks }}<br>price:-{{ foo.price }}</p></a>#}
+        {#                            <a class="btn btn-outline-dark">Buy</a>#}
+        {#                        </div>#}
+        {#                    </div>#}
+        {#                {% endfor %}#}
+        {#            </div>#}
+        {#        </marquee>#}
+    </div>
+{#    {{ request.session.Email }}#}
+    <div class="container">
+        <div class="form-group ">
+            <div class="row">
+                <div class="center col-sm-6 offset-3">
+                    <input type="text" name="search" id="search"
+                           class="form-control w-10 text-primary font-weight-bold"
+                           placeholder="Search By  Category or publisher" data-rule-required="true">
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<section>
+    <div class="cozntainer">
+        <div class="row" id="ready"></div>
+    </div>
+</section>
+
+
+{% include 'footer.html' %}
+<script src="{% static 'myjs/viewallbooks.js' %}"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    var input = document.getElementById("search");
+    input.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            var search = document.getElementById('search').value;
+            viewbooksincard(search)
+        }
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        viewbooksincard("")
+    })
+</script>
+<script>
+    $(function () {
+        var availableTags = {{ bookdata | safe }};
+        $("#search").autocomplete({
+            source: availableTags
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Admin Login</title>
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static '/fontawesome-free-5.11.2-web/css/all.css' %}">
+    {% include "jsfiles.html" %}
+    {% include "indexheaderfiles.html" %}
+    <script>
+        $(document).ready(function () {
+            $("#form1").validate();
+        })
+    </script>
+    <style>
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
+            url("{% static 'media/patrick-perkins-3wylDrjxH-E-unsplash.jpg' %}") fixed no-repeat center center/cover;
+            height: 100vh;
+        {#opacity: 0.5;#}
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container">
+        <br><br><br><br>
+        <div class="mx-auto w-50" style="background: rgba(0,0,0,0.5);border-radius: 20px;padding: 5%;color: white">
+            <h1 class="text-center">ADMIN LOGIN</h1>
+            <hr class="bg-danger">
+            <form action="checklogin" id="form1" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <i class="fa fa-user fa-2x text-light"><b> Enter Email</b></i>
+                    <input type="email" data-rule-required="true" class="form-control" name="email">
+                </div>
+                <div class="form-group">
+                    <i class="fa fa-key fa-2x text-light"><b> Enter Password</b></i>
+                    <input type="password" data-rule-required="true" class="form-control" name="password">
+                </div>
+                <div>
+                    <span class="text-danger" style=" cursor: pointer  "
+                          onclick="adminforgotpassword()">Forgot Password?</span>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-outline-success w-50">Login</button>
+                </div>
+
+            </form>
+            {{ ar.message }}
+        </div>
+    </div>
+</header>
+
+
+<div class="modal fade" id="forgot">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Forgot Password?<br></h3>
+            </div>
+            <div class="modal-body">
+                <form id="userforgot">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="tel" id="mobile" data-rult-required="true" name="mobile"
+                               placeholder="Enter your mobile number" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-warning" onclick="forgotsms()">Send SMS</button>
+                    </div>
+                </form>
+                <span class="alert-danger" id="msg"></span>
+            </div>
+            <div class="modal-footer">
+                <span class="close" style="cursor:pointer" data-dismiss="modal">Close</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'myjs/addadmin.js' %}"></script>
+</body>
+</html>

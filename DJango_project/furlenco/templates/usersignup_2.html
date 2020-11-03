@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>UserSignup2</title>
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.11.2-web/css/all.css' %}">
+    {% include "indexheaderfiles.html" %}
+    <style>
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
+            url("{% static 'media/fur1.jpg' %}") fixed no-repeat center center/cover;
+            height: 100vh;
+        {#opacity: 0.5;#}
+        }
+    </style>
+
+</head>
+<body>
+<header>
+    {% include 'indexnavbaruser.html' %}
+    <div class="container-fluid">
+        {#    <div class="jumbotron">#}
+        <div class="text-center"><h1>USER SIGNUP</h1>
+        </div>
+        {#    </div>#}
+    </div>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-6">
+                <form id="form" action="">
+                    {#                {% csrf_token %}#}
+                    <div class="form-group">
+                        <i class="fa fa-mobile fa-2x text-black-50"> <b>Mobile Number</b></i>
+                        <input name="mobile" id="mobile" readonly value="{{ request.session.mobile }}"
+                               class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <i class="fa fa-user fa-2x text-black-50"> <b>Name</b></i>
+                        <input type="text" name="name" id="name" data-rule-required="true" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <i class="fa fa-envelope fa-2x text-black-50"><b>Email</b></i>
+                        <input type="email" name="email" id="email" data-rule-required="true" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <i class="fa fa-address-book fa-2x text-black-50"><b>Address</b></i>
+                        <textarea name="address" id="address" data-rule-required="true"
+                                  class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <i class="fa fa-address-card fa-2x text-black-50"><b>Landmark</b></i>
+                        <input type="text" name="landmark" id="landmark" data-rule-required="true"
+                               class="form-control">
+                    </div>
+            </div>
+
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <i class="fa fa-lock fa-2x text-black-50"><b>Password</b></i>
+                    <input type="password" name="password" id="password" data-rule-required="true"
+                           class="form-control">
+                </div>
+                <div class="form-group">
+                    <i class="fa fa-photo fa-2x text-black-50"><b>Photo</b></i>
+                    <input type="file" name="userphoto" required id="userphoto" class="form-control">
+                </div>
+                <div class="form-group ">
+                    <i class="fa fa-sort-numeric-asc fa-2x text-black-50"><b>Pan Number</b></i>
+                    <input type="number" name="pan" id="pan" data-rule-required="true" class="form-control">
+                </div>
+                <div class="form-group">
+                    <i class="fa fa-sort-numeric-asc fa-2x text-black-50"><b>Adhaar</b></i>
+                    <input type="number" name="adhaar" id="adhaar" data-rule-required="true" class="form-control">
+                </div>
+                <div class="form-group">
+                    <i class="fa fa-book fa-2x text-black-50"><b>Remarks</b></i>
+                    <input type="text" name="remarks" id="remarks" data-rule-required="true" class="form-control">
+                </div>
+                <div class="form-group">
+                <input type="button" onclick="usersignup()" value="submit" class="btn btn-info form-control">
+            </div>
+
+            </div>
+
+            </form>
+            <div class="offset-sm-4" id="ans"></div>
+        </div>
+    </div>
+
+    <script src="{% static 'myjs/usersignup.js' %}"></script>
+
+    {% include "jsfiles.html" %}
+</header>
+</body>
+</html>

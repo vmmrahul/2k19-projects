@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>User Login</title>
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet" type="text/css" media="all">
+    <!--//booststrap end-->
+    <!-- font-awesome icons -->
+    <link href="{% static "fontawesome-free-5.11.2-web/css/all.css" %}" rel="stylesheet">
+    <link href="{% static "css/font-awesome.min.css" %}" rel="stylesheet">
+    <!-- //font-awesome icons -->
+    <!--stylesheets-->
+    <link href="{% static "css/style.css" %}" rel='stylesheet' type='text/css' media="all">
+    <!--//stylesheets-->
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,500,600,700" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Patrick+Hand" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+    <link href="{% static "fontawesome-free-5.11.2-web/css/all.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'mycsss/mycsss.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap" rel="stylesheet">
+</head>
+<body onload="hide_otp()">
+{#{% if request.session.user_email %}#}
+{#    {% include 'indexnavigationuser.html' %}#}
+{#{% elif not request.session.user_email %}#}
+{#    {% include 'indexnavigation.html' %}#}
+{#{% endif %}#}
+
+<section id="login">
+    <br>
+    <br>
+    <div class="">
+        <div class="container">
+            <br>
+
+                    <div class="text-center">
+                        <h1 class="comman-title">User Sign-up</h1>
+                    </div>
+            <div id="box">
+                <div id="innderbox">
+
+                    <br>
+                    <form action="" id="otpsend">
+                        <div class="row">
+                            <div class="col-sm-6 off offset-sm-3">
+                                <div class="form-group">
+                                    <i class="fa fa-mobile-alt text-black-50 fa-2x">Mobile</i>
+                                    <input type="tel" placeholder="Enter Mobile" class="form-control"
+                                           data-rule-required="true"
+                                           minlength="10" id="otpmobile" maxlength="10" name="otpmobile">
+                                </div>
+                                <div class="form-group row">
+                                    <div class="offset-sm-5"><input type="button" value="Send OTP"
+                                                                    onclick="senduserotp()"
+                                                                    class="btn btn-info"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <form action="" id="hideform">
+
+                        <div class="col-sm-6 offset-sm-3">
+                            <i class="fa fa-envelope text-black-50">OTP</i>
+                            <input type="number" placeholder="Enter OTP" class="form-control" id="otp" name="otp">
+                        </div>
+                        <div>
+                            <span id="mobile"></span>
+                        </div>
+                        <br>
+                        <div class="col-sm-2 offset-sm-5">
+                            <input type="button" value="Verify" onclick="verifyotp()" class="btn btn-success">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <script src="{% static "myjs/user.js" %}"></script>
+        {% include "jsfiles.html" %}
+
+</body>
+</html>

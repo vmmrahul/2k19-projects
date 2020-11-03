@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+{% include 'headerfiles.html' %}
+  {% include "navbaradmin.html" %}
+<div class="container">
+
+    <form action="insertcategory" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    enter category name
+                    <input type="text" required class="form-control" name="cname">
+                </div>
+                <div class="form-group">
+                    Enter description
+                    <input type="text" required class="form-control" name="description">
+                </div>
+                <div class="form-group">
+                    Select Photo
+                    <input type="file" required class="form-control" name="photo">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn-success" value="Submit">
+                </div>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8"/>
+    <meta name="keywords"
+          content="Land Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!-- //Meta tag Keywords -->
+    {% include 'indexheaderfiles.html' %}
+
+    <script>
+          function addroom() {
+                if($('#addroomsisvalid').valid()){
+                var addroomdata= new FormData();
+                addroomdata.append('roomname',document.getElementById("roomname").value);
+                addroomdata.append('area',document.getElementById("area").value);
+                addroomdata.append('description',document.getElementById("description").value);
+                addroomdata.append('coverphoto',document.getElementById("photo").files[0]);
+                addroomdata.append('tariffsingle',document.getElementById("tariffsingle").value);
+                addroomdata.append('tariffdouble',document.getElementById("tariffdouble").value);
+                addroomdata.append('extraperson',document.getElementById("extraperson").value);
+                addroomdata.append('rating',document.getElementById("rating").value);
+                addroomdata.append('count',document.getElementById("count").value);
+                addroomdata.append('category',document.getElementById("cname").value);
+                var xmlhttp=new XMLHttpRequest();
+                xmlhttp.onreadystatechange=function () {
+                    if(this.readyState==4 & this.status==200){
+                        var response=this.responseText;
+                        if(response=="success")
+                        {
+                            window.location.href="viewrooms";
+                        }
+                        else
+                        {
+                            document.getElementById("ans").innerHTML="Space Already Exists";
+                        }
+                    }
+                };
+                xmlhttp.open("POST","addrooms1",true);
+                xmlhttp.send(addroomdata);
+            }
+        }
+    </script>
+
+</head>
+<body>
+{% include 'navbarhost.html' %}
+<div class="container">
+    <div class="row">
+        <div class=" col-sm-6 offset-sm-3">
+            <form action="" id="addroomsisvalid">
+                {#                {% csrf_token %}#}
+                <div style="margin-top: 100px" >
+                    <h1 class="text-center">Add Space</h1>
+                </div>
+                <div class="form-group">
+                    <label>Room Name</label>
+                    <input required type="text" id="roomname" name="roomname"  placeholder="Enter Room Name"
+                           class="form-control" data-rule-required="true">
+                </div>
+                <div class="form-group">
+                    <label for="area">Area</label>
+                    <input type="text" id="area" name="area" placeholder="Enter Area" class="form-control" data-rule-required="true">
+
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea  id="description" name="description" placeholder="Enter Description" class="form-control" data-rule-required="true"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="file">Upload Coverphoto</label>
+                    <input type="file" id="photo" name="photo" value="photo" required id="photo" data-rule-required="true">
+
+                </div>
+                <div class="form-group">
+                    <label>Tariffsingle</label>
+                    <input type="text" id="tariffsingle" name="tariffsingle" placeholder="Enter Tariffsingle" class="form-control" data-rule-required="true" data-rule-number="true">
+                </div>
+
+                <div class="form-group">
+                   <label>Tariffdouble</label>
+                    <input type="text" id="tariffdouble" name="tariffdouble" placeholder="Enter Tariffdouble" class="form-control" data-rule-required="true" data-rule-number="true">
+                </div>
+
+                <div class="form-group">
+                   <label>Tariff for Extraperson</label>
+                    <input type="text" id="extraperson" name="extraperson" placeholder="Enter Tariff for Extraperson" class="form-control" data-rule-required="true" data-rule-number="true">
+                </div>
+
+                <div class="form-group">
+                   <label>Rating</label>
+                    <input type="text" id="rating" name="rating" class="form-control" data-rule-number="true">
+                </div>
+
+                <div class="form-group">
+                   <label>Count</label>
+                    <input type="text" id="count" name="count" class="form-control" data-rule-number="true">
+                </div>
+
+                <div class="form-group">
+                   <label>Category</label>
+                    <select name="cname" id="cname"  class="form-control" data-rule-required="true">
+                         {% for item in ar %}
+                             <option value="">Select Category</option>
+                             <option value="{{ item.cname }}">{{ item.cname }}</option>
+                         {% endfor %}
+              </select>
+                </div>
+
+                <div class="form-group text-center">
+
+                    <button type="button" class="btn btn-primary" onclick="addroom()">Submit</button>
+                    <h1 id="ans"></h1>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% include 'indexfooter.html' %}
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static  %}
+    <meta charset="UTF-8">
+    <title>Edit Service Provider</title>
+    {% include "indexheader.html" %}
+    <link href="{% static "css/bootstrap.css " %} " rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="text-center">
+        <h1>Edit</h1>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 offset-sm-3">
+            <form method="POST" action="updateserviceprovider" enctype="multipart/form-data" id="addcategory">{% csrf_token %}
+                <div class="form-group">
+                    <label for="editname" class="fa fa-list-alt">Name:</label>
+                    <input type="text" name="name" id="name" placeholder="Name" class="form-control"
+                           value="{{ ar.name }}">
+                </div>
+                <div class="form-group">
+                    <label for="editmobile" class="fa fa-list-alt">Mobile:</label>
+                    <input type="text" name="mobile" id="mobile" placeholder="Mobile" class="form-control"
+                           value="{{ ar.mobile }}">
+                </div>
+                <div class="form-group">
+                    <label for="editaddress" class="fa fa-list-alt">Address:</label>
+                    <input type="text" name="address" id="address" value="{{ ar.address }}"
+                           placeholder="Address" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="edittimings" class="fa fa-list-alt">Timings:</label>
+                    <input type="text" name="timings" id="timings" placeholder="Timings"
+                           value="{{ ar.timings }}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="editprice" class="fa fa-list-alt">Price:</label>
+                    <input type="text" name="price" id="price" placeholder="Price" value="{{ ar.price }}"
+                           class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="editservicearea" class="fa fa-list-alt">Service Areas:</label>
+                    <input type="text" name="servicearea" id="servicearea" placeholder="Service Area"
+                           value="{{ ar.servicearea }}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="editphoto" class="fa fa-list-alt">Photo:</label>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input type="file" onchange="loadFile(event)" data-rule-required="true" id="editphoto"
+                                   name="photo"
+                                   class="form-control">
+                        </div>
+                        <div class="col-sm-6">
+                            <img id="editphoto1" width="100" src="{% static 'media/' %}{{ ar.photo }}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group text-center">
+                    <button class="btn btn-primary">Edit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{#end of edit category modal#}
+
+{% include 'footer.html' %}
+<script src="{% static 'myjs/serviceprovidersignup.js' %}"></script>
+</body>
+</html>

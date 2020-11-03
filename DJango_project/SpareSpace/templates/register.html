@@ -1,0 +1,121 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html lang="zxx">
+
+<head>
+    {% load static %}
+    <title>Land Real Estates Category Bootstrap Responsive website Template | Register :: w3layouts</title>
+    <!-- Meta tag Keywords -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8"/>
+    <meta name="keywords"
+          content="Land Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!-- //Meta tag Keywords -->
+    <script>
+        function hidediv() {
+            document.getElementById("divverify").style.display = 'none';
+        }
+
+        function sendotp() {
+            var mobile = document.getElementById("mobile").value;
+            var xmlhttp;
+            xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 & this.status == 200) {
+                    var response = this.responseText.trim();
+                    if (response == "success") {
+                        document.getElementById("divverify").style.display = 'block';
+
+                    }
+                }
+            };
+            xmlhttp.open('GET', '/sendotp?mobile=' + mobile);
+            xmlhttp.send();
+
+        }
+
+        function verifyotp() {
+            var otp = document.getElementById("otp").value;
+            var mobile = document.getElementById("mobile").value;
+            var xmlhttp;
+            xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 & this.status == 200) {
+                    var response = this.responseText.trim();
+                    if (response == "success") {
+                        window.location.href = "openusersignup2?mobile=" + mobile;
+
+                    } else {
+                        alert("otp not match");
+                    }
+                }
+            };
+            xmlhttp.open('GET', '/verifyotp?otp=' + otp);
+            xmlhttp.send();
+        }
+    </script>
+
+    <!-- Custom-Files -->
+    {% include 'indexheaderfiles.html' %}
+    <!-- //Web-Fonts -->
+</head>
+
+<body onload="hidediv()">
+<!-- header -->
+{% include 'indexnavbarpublic.html' %}
+
+<!-- //header -->
+
+<!-- inner banner -->
+<div class="inner-banner-w3ls py-5" id="home">
+    <div style="height: 400px">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3 mt-5">
+                <div class="form-group">
+                    <label for="mobile" class="text-white">Enter Mobile</label>
+                    <input required type="tel" id="mobile" name="mobile" placeholder="Enter mobile"
+                           class="form-control">
+                </div>
+                <div class="form-group text-center">
+                    <button type="button" class="btn btn-primary" onclick="sendotp()">Send OTP</button>
+                </div>
+                <div id="divverify">
+                    <div class="form-group">
+                        <label for="otp"class="text-white">Enter OTP</label>
+                        <input type="tel" id="otp" name="otp" placeholder="Enter otp" class="form-control">
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="button" class="btn btn-primary" onclick="verifyotp()">Verify OTP</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //inner banner -->
+
+<!-- footer -->
+{% include 'indexfooter.html' %}
+<!-- move top icon -->
+<a href="#home" class="move-top text-center">
+    <span class="fa fa-angle-double-up" aria-hidden="true"></span>
+</a>
+<!-- //move top icon -->
+
+</body>
+
+</html>

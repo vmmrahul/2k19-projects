@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    {% load static %}
+    <title>RENTOMOJO</title>
+    <!-- Meta tag Keywords -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8"/>
+    <meta name="keywords"
+          content="Dcor Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    {% include 'indexheaderfiles.html' %}
+</head>
+
+<body>
+<!-- mian-content -->
+<div class="main-content" id="home">
+    <div class="layer">
+        <!-- header -->
+        {% if request.session.mobile %}
+            {% include 'indexnavbaruser.html' %}
+        {% elif not request.session.mobile %}
+            {% include 'indexnavigation.html' %}
+        {% endif %}
+
+        <!-- //header -->
+        <div class="container">
+            <!-- /banner -->
+            <div class="banner-info-w3layouts">
+                <h3>Out Standing Fruniture</h3>
+                <p class="my-3">Furniture should always be comfortable.And always have a piece of art that someone made
+                    somewhere in the home.
+                </p> <a href="searchfurniture1" class="read-more mt-3 btn">Show Furniture </a></div>
+        </div>
+    </div>
+    <!-- //banner -->
+</div>
+<!--// mian-content -->
+<!-- banner-bottom-wthree -->
+<section class="banner-bottom-wthree py-5" id="about">
+    <div class="container py-md-5 px-lg-5">
+        <div class="content-left-bottom text-center">
+            <h3 class="tittle mb-lg-5 mb-4">About Us<span>.</span></h3>
+        </div>
+        <div class="content-right-bottom mt-md-0 mt-3 text-center">
+            <p class="mt-2">Rentomojo is a furniture company. We enable the urban Indian to live better today
+                in their homes, by giving them award-winning furniture and home decor on rent.
+                All of our furniture is designed in-house by experts.
+                Our furniture is inspired by the Indian urban user and how they live in their homes.
+                Our designs are user-led and inspired by their evolving needs and growing lifestyle.
+                So, with a simple click, one can furnish their entire home, room
+                or corner without traversing multiple stores or websites at a fraction of the time, effort and cost.
+                All decor that we provide is brand new, and never reused for hygiene reasons.
+
+        </div>
+        <div class="row banner-grids mt-lg-5">
+            <div class="col-lg-4 banner-grid">
+                <div class="content-grid-info">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <span class="fa fa-user" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-lg-10">
+                            <h4 class="mb-3">Mission</h4>
+                            <p>Vestibulum ante ipsum primis in faucibus orci luctus.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 banner-grid">
+                <div class="content-grid-info">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <span class="fa fa-eye" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-lg-10">
+                            <h4 class="mb-3">Vission</h4>
+                            <p>Vestibulum ante ipsum primis in faucibus orci luctus.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 banner-grid">
+                <div class="content-grid-info">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <span class="fa fa-tasks" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-lg-10">
+                            <h4 class="mb-3">Work</h4>
+                            <p>Vestibulum ante ipsum primis in faucibus orci luctus.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- //banner-bottom-wthree -->
+<!--/ about -->
+<section class="services py-5" id="services">
+    <div class="container py-md-5">
+        <div class="header pb-lg-3 pb-3 text-center">
+            <h3 class="tittle mb-lg-3 mb-3">Maintenance Services<span>.</span></h3>
+        </div>
+        <div class="row ab-info second mt-lg-4">
+            <div class="col-lg-3 ab-content">
+                <div class="ab-content-inner">
+                    <img src="{% static "images/2.jpg" %}" alt="news image" class="img-fluid">
+                    <div class="ab-info-con">
+                        <h4>Floor Design</h4>
+                        <p>Integer sit amet mattis quam, sit amet ultricies velit ullamcorper.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 ab-content">
+                <div class="ab-content-inner">
+                    <img src="{% static "images/1.jpg" %}" alt="news image" class="img-fluid">
+                    <div class="ab-info-con">
+                        <h4>Commercial Interior</h4>
+                        <p>Integer sit amet mattis quam, sit amet ultricies velit ullamcorper.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 ab-content">
+                <div class="ab-content-inner">
+                    <img src="{% static "images/3.jpg" %}" alt="news image" class="img-fluid">
+                    <div class="ab-info-con">
+                        <h4>Exterior Design</h4>
+                        <p>Integer sit amet mattis quam, sit amet ultricies velit ullamcorper.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 ab-content">
+                <div class="ab-content-inner">
+                    <img src="{% static "images/4.jpg" %}" alt="news image" class="img-fluid">
+                    <div class="ab-info-con">
+                        <h4>Architecture Design</h4>
+                        <p>Integer sit amet mattis quam, sit amet ultricies velit ullamcorper.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--// about -->
+<!--/mid-sec-->
+<section class="mid-sec py-5" id="mid">
+    <div class="container py-lg-5">
+        <div class="row">
+            <div class="col-md-6 mid-right-content text-left mt-4">
+                <div class="row">
+                    <div class="col-md-4 mid-left-img">
+                        <img src="{% static "images/5.jpg" %}" alt="news image" class="img-fluid">
+                    </div>
+                    <div class="col-md-8 mid-right-info">
+                        <h5 class="mb-4">AGENCY INTERIOR</h5>
+                        <p>Lorem Ipsum has been the industry's standard since the 1500s. Praesent ullamcorper dui
+                            turpis.</p>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-md-4 mid-left-img">
+                        <img src="{% static "images/6.jpg" %}" alt="news image" class="img-fluid">
+                    </div>
+                    <div class="col-md-8 mid-right-info">
+                        <h5 class="mb-4">RESIDENTIAL INTERIOR</h5>
+                        <p>Lorem Ipsum has been the industry's standard since the 1500s. Praesent ullamcorper dui
+                            turpis.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mid-left-img">
+                        <img src="{% static "images/7.jpg" %}" alt="news image" class="img-fluid">
+                    </div>
+                    <div class="col-md-8 mid-right-info">
+                        <h5 class="mb-4">COFFESHOP INTERIOR</h5>
+                        <p>Lorem Ipsum has been the industry's standard since the 1500s. Praesent ullamcorper dui
+                            turpis.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mid-left-content text-left pl-lg-4">
+                <img src="{% static "images/indeximg.jpg" %}" alt="news image" class="img-fluid" width="350px"
+                     height="750px">
+            </div>
+        </div>
+    </div>
+</section>
+<!--//mid-sec-->
+<!-- Gallery -->
+<section class="gallery py-5" id="gallery">
+    <div class="container py-md-5">
+        <div class="header text-center">
+            <h3 class="tittle mb-lg-5 mb-3">Our Gallery<span>.</span></h3>
+        </div>
+        <div class="row news-grids text-center">
+            <div class="col-md-4 gal-img">
+                <a href="#gal1"><img src="{% static "images/g1.jpg" %}" alt="news image" class="img-fluid"></a>
+            </div>
+            <div class="col-md-4 gal-img">
+                <a href="#gal2"><img src="{% static "images/g2.jpg" %}" alt="news image" class="img-fluid"></a>
+            </div>
+            <div class="col-md-4 gal-img">
+                <a href="#gal3"><img src="{% static "images/g3.jpg" %}" alt="news image" class="img-fluid"></a>
+            </div>
+            <div class="col-md-4 gal-img">
+                <a href="#gal4"><img src="{% static "images/g4.jpg" %}" alt="news image" class="img-fluid"></a>
+            </div>
+            <div class="col-md-4 gal-img">
+                <a href="#gal5"><img src="{% static "images/g5.jpg" %}" alt="news image" class="img-fluid"></a>
+            </div>
+
+            <div class="col-md-4 gal-img">
+                <a href="#gal6"><img src="{% static "images/g6.jpg" %}" alt="news image" class="img-fluid"></a>
+            </div>
+
+        </div>
+
+        <!-- popup-->
+        <div id="gal1" class="pop-overlay animate">
+            <div class="popup">
+                <img src="{% static "images/g1.jpg" %}" alt="Popup Image" class="img-fluid"/>
+                <p class="mt-4">Nulla viverra pharetra se, eget pulvinar neque pharetra ac int. placerat placerat
+                    dolor.</p>
+                <a class="close" href="#gallery">&times;</a>
+            </div>
+        </div>
+        <!-- //popup -->
+
+        <!-- popup-->
+        <div id="gal2" class="pop-overlay animate">
+            <div class="popup">
+                <img src="{% static "images/g2.jpg" %}" alt="Popup Image" class="img-fluid"/>
+                <p class="mt-4">Nulla viverra pharetra se, eget pulvinar neque pharetra ac int. placerat placerat
+                    dolor.</p>
+                <a class="close" href="#gallery">&times;</a>
+            </div>
+        </div>
+        <!-- //popup -->
+        <!-- popup-->
+        <div id="gal3" class="pop-overlay animate">
+            <div class="popup">
+                <img src="{% static "images/g3.jpg" %}" alt="Popup Image" class="img-fluid"/>
+                <p class="mt-4">Nulla viverra pharetra se, eget pulvinar neque pharetra ac int. placerat placerat
+                    dolor.</p>
+                <a class="close" href="#gallery">&times;</a>
+            </div>
+        </div>
+        <!-- //popup3 -->
+        <!-- popup-->
+        <div id="gal4" class="pop-overlay animate">
+            <div class="popup">
+                <img src="{% static "images/g4.jpg" %}" alt="Popup Image" class="img-fluid"/>
+                <p class="mt-4">Nulla viverra pharetra se, eget pulvinar neque pharetra ac int. placerat placerat
+                    dolor.</p>
+                <a class="close" href="#gallery">&times;</a>
+            </div>
+        </div>
+        <!-- //popup -->
+        <!-- popup-->
+        <div id="gal5" class="pop-overlay animate">
+            <div class="popup">
+                <img src="{% static "images/g5.jpg" %}" alt="Popup Image" class="img-fluid"/>
+                <p class="mt-4">Nulla viverra pharetra se, eget pulvinar neque pharetra ac int. placerat placerat
+                    dolor.</p>
+                <a class="close" href="#gallery">&times;</a>
+            </div>
+        </div>
+        <!-- //popup -->
+        <!-- popup-->
+        <div id="gal6" class="pop-overlay animate">
+            <div class="popup">
+                <img src="{% static "images/g6.jpg" %}" alt="Popup Image" class="img-fluid"/>
+                <p class="mt-4">Nulla viverra pharetra se, eget pulvinar neque pharetra ac int. placerat placerat
+                    dolor.</p>
+                <a class="close" href="#gallery">&times;</a>
+            </div>
+        </div>
+        <!-- //popup -->
+
+    </div>
+</section>
+<!--// gallery -->
+<!--/testimonials-->
+<section class="testimonials py-5" id="testimonials">
+    <div class="container py-md-3">
+        <div class="header-wthree text-center">
+            <h3 class="tittle mb-lg-5 mb-3"> Client Reviews<span>.</span></h3>
+        </div>
+        <div class="row">
+            <div class="col-md-6 test-info-w3ls text-left">
+                <p><span class="fa fa-quote-left"></span> Lorem Ipsum has been the industry's standard since the 1500s.
+                    Praesent ullamcorper dui turpis.Nulla pellentesque mi non laoreet eleifend. Integer porttitor
+                    mollisar lorem, at molestie arcu pulvinar ut. <span class="fa fa-quote-right"></span></p>
+
+                <div class="test-img text-right mb-3">
+                    <img src="{% static "images/te2.jpg" %}" class="img-fluid" alt="user-image">
+                </div>
+                <h3 class="my-md-2 my-3 text-right">Jenifer Burns</h3>
+
+                <ul class="list-unstyled w3ls-icons clients text-right">
+                    <li>
+                        <a href="#">
+                            <span class="fa fa-star"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fa fa-star"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fa fa-star"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fa fa-star-half-o"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6 test-info-w3ls text-left">
+                <p><span class="fa fa-quote-left"></span> Lorem Ipsum has been the industry's standard since the 1500s.
+                    Praesent ullamcorper dui turpis.Nulla pellentesque mi non laoreet eleifend. Integer porttitor
+                    mollisar lorem, at molestie arcu pulvinar ut. <span class="fa fa-quote-right"></span></p>
+
+                <div class="test-img text-right mb-3">
+                    <img src="{% static "images/te3.jpg" %}" class="img-fluid" alt="user-image">
+                </div>
+                <h3 class="my-md-2 my-3 text-right"> Abraham Smith</h3>
+
+                <ul class="list-unstyled w3ls-icons clients text-right">
+                    <li>
+                        <a href="#">
+                            <span class="fa fa-star"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fa fa-star"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fa fa-star"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fa fa-star-half-o"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!--//testimonials-->
+{#    contact#}
+{#    contact#}
+<!-- footer -->
+{% include 'indexfooter.html' %}
+<!-- //footer -->
+
+</body>
+</html>0

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+
+</head>
+<body>
+ {% include "navbaradmin.html" %}
+ {% include 'headerfiles.html' %}
+<div class="container-fluid">
+    <div class="page-header" style="margin-top: 60px; color: #ff6b6b">
+        <h1 class="text-center">Admin Dashboard</h1>
+    </div>
+   <h1 class="text-center" style="margin-top: 50px;">Welcome {{ request.session.adminemail }}</h1>
+</div>
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Add Admin</title>
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.11.2-web/css/all.css' %}">
+    {% include "jsfiles.html" %}
+    {% include "indexheaderfiles.html" %}
+</head>
+<body>
+{#<header>#}
+{% include "afteradminloginnavbar.html" %}
+<br>
+<div class="container text-center">
+    <h1><u>ADD</u></h1>
+    <div class="bg-primary text-red">
+        <span class="fa fa-user fa-5x" data-toggle="modal" data-target="#myModal"></span>
+    </div>
+</div>
+{#</header>#}
+<!-----Add Admin Model--->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Admin</h4>
+                <button type="button" class="close" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body">
+                <form id="addadmin" action="">
+                    <div class="form-group">
+                        <i class="fa fa-envelope text-black-50"> Enter Email</i>
+                        <input type="email" data-rule-required="true" class="form-control" name="email" id="email">
+                    </div>
+                    <div class="form-group">
+                        <i class="fa fa-lock"> Enter Password</i>
+                        <input type="password" data-rule-required="true" class="form-control" name="password"
+                               id="password">
+                    </div>
+                    <div class="form-group">
+                        Select Type
+                        <select required class="form-control" name="type" id="type">
+                            <option>Admin</option>
+                            <option>Sub Admin</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <i class="fa fa-mobile">Enter Mobile Number</i>
+                        <input type="number" data-rule-number="true" minlength="10" maxlength="10" class="form-control"
+                               name="mobile" id="mobile">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" value="submit" class="btn btn-primary offset-sm-4 col-sm-4 "
+                                onclick="addadmin()">Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-5">
+    <div class="text-center">
+        <h1><u>Admins</u></h1>
+    </div>
+    <hr>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="bg-light">
+            <tr>
+                <th>S.No.</th>
+                <th>Email</th>
+                <th>Type</th>
+                <th>Mobile Number</th>
+                <th colspan="2">Action</th>
+            </tr>
+            </thead>
+            <tbody id="admindataview"></tbody>
+        </table>
+    </div>
+</div>
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Admin</h4>
+                <button type="button" class="close" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body">
+                <form id="addadmin" action="">
+                    <div class="form-group">
+                        <i class="fa fa-envelope text-black-50"> Enter Email</i>
+                        <input type="email" data-rule-required="true" class="form-control" name="email" id="email">
+                    </div>
+                    <div class="form-group">
+                        <i class="fa fa-lock"> Enter Password</i>
+                        <input type="password" data-rule-required="true" class="form-control" name="password"
+                               id="password">
+                    </div>
+                    <div class="form-group">
+                        Select Type
+                        <select required class="form-control" name="type" id="type">
+                            <option>Admin</option>
+                            <option>Sub Admin</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <i class="fa fa-mobile">Enter Mobile Number</i>
+                        <input type="number" data-rule-number="true" minlength="10" maxlength="10" class="form-control"
+                               name="mobile" id="mobile">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" value="submit" class="btn btn-primary offset-sm-4 col-sm-4 "
+                                onclick="addadmin()">Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="editadminmyModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Admin</h4>
+                <button type="button" class="close" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body">
+                <form id="addadmin" action="">
+                    <div class="form-group">
+                        <i class="fa fa-list-alt text-black-50">Email</i>
+                        <input type="text" readonly placeholder="Enter Email " data-rule-required="true"
+                               id="editemail"
+                               class="form-control" name="editemail">
+                    </div>
+
+                    <div class="form-group">
+                        <i class="fa fa-address-card text-black-50"> Password</i>
+                        <input type="password" class="form-control" data-rule-required="true"
+                               id="editpassword" name="editpassword">
+                    </div>
+                    <div class="form-group">
+                        Select Type
+                        <select required class="form-control" name="edittype" id="edittype">
+                            <option>Admin</option>
+                            <option>Sub Admin</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <i class="fa fa-mobile"> Enter Mobile Number</i>
+                        <input type="number" data-rule-number="true" minlength="10" maxlength="10" class="form-control"
+                               name="editmobile" id="editmobile">
+                    </div>
+                    <br>
+                    <div class=" form-group">
+                        <button type="button" class="btn btn-primary offset-sm-4 col-sm-4" value="Submit"
+                                onclick="saveadmin()">Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'jsfiles.html' %}
+<script src="{% static 'myjs/addadmin.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        admindataview();
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ViewFoods</title>
+    {% load static %}
+    {% include 'headerfile.html' %}
+</head>
+<body>
+{% include 'adminNavbarhead.html' %}
+
+<div class="container">
+    <div class="text-center">
+        <h2>All Foods</h2>
+        <hr style="background: black">
+    </div>
+
+    <div class="alert alert-success">
+        <strong>Result --> {{ data | length }}</strong>
+    </div>
+    <div class="table-responsive">
+        <table class="table text-center table-hover myTable">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Calorie</th>
+                <th>Carbs</th>
+                <th>Protein</th>
+                <th>Fats</th>
+                <th>Delete</th>
+                <th>Edit</th>
+            </tr>
+            </thead>
+            <tbody class="">
+            {% for foo in data %}
+                <tr>
+                    <td>{{ foo.name }}</td>
+                    <td>{{ foo.description }}</td>
+                    <td>{{ foo.calories }}</td>
+                    <td>{{ foo.carbs }}</td>
+                    <td>{{ foo.protein }}</td>
+                    <td>{{ foo.fats }}</td>
+                    <td><a href="deletefood?id={{ foo.id }}" class="btn btn-outline-danger" onclick="return confirm('are you sure to delete this?')"><i class="fa fa-trash"></i></a>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-warning" onclick="editmodal({{ foo | safe }})"><i class="fa fa-edit"></i></button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="modal" id="editfood">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Food</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="editfood" method="post">{% csrf_token %}
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="hidden" name="id" id="id">
+                        <input type="text" required class="form-control" placeholder="Food Name" name="name" id="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="Calories">Calories</label>
+                        <input type="text" required class="form-control" placeholder="Calories" name="Calories"
+                               id="Calories">
+                    </div>
+                    <div class="form-group">
+                        <label for="Description">Description</label>
+                        <textarea class="form-control" required name="Description" id="Description" ></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="Fats">Fats</label>
+                        <input type="text" required class="form-control" placeholder="Fats" name="Fats" id="Fats">
+                    </div>
+                    <div class="form-group">
+                        <label for="Protein">Protein</label>
+                        <input type="text" required class="form-control" placeholder="Protein" name="Protein"
+                               id="Protein">
+                    </div>
+                    <div class="form-group">
+                        <label for="Carbs">Carbs</label>
+                        <input type="text" required class="form-control" placeholder="Carbs" name="Carbs" id="Carbs">
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-outline-primary w-25">Submit</button>
+                    </div>
+                    <div class="form-group">
+                        {% if result %}
+                            {% if result == 'INVALID QUERY' %}
+                                <div class="alert alert-danger">
+                                    <strong>There is any Prob</strong>
+                                </div>
+                            {% else %}
+                                <div class="alert alert-success">
+                                    <strong>{{ result }} !!!</strong>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'adminNaverfooter.html' %}
+{% include 'footer.html' %}
+<script src="{% static 'myjs/adminNavbar.js' %}"></script>
+<script>
+    function editmodal(obj) {
+        $('#id').val(obj.id);
+        $('#name').val(obj.name);
+        $('#Calories').val(obj.calories);
+        $('#Description').val(obj.description);
+        $('#Fats').val(obj.fats);
+        $('#Protein').val(obj.protein);
+        $('#Carbs').val(obj.carbs);
+        $('#editfood').modal('show');
+    }
+</script>
+</body>
+</html>

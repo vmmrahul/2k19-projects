@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static  %}
+    <meta charset="UTF-8">
+    <title>Show Category</title>
+    <link href="{% static "css/bootstrap.css " %} " rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.11.2-web/css/all.css' %}">
+
+</head>
+<body>
+<div class="container">
+    {% include "adminheader.html" %}
+    <table class="table">
+        {% for p in ar %}
+            <tr>
+                <td>{{ p.catname }}</td>
+                <td>{{ p.description }}</td>
+                 <td><img style="max-height: 100px;max-width: 100px" src="{% static "media/" %}{{ p.photo }}" alt=""></td>
+                <td><a href="removecategory?q={{ p.catname }}"><i class="fa fa-trash text-black-50 fa-2x"></i></a> </td>
+                <td><a href="editcategory?q={{ p.catname }}"><i class="fa fa-edit text-black-50 fa-2x"> </i> </a></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+
+</div>
+</body>
+</html>

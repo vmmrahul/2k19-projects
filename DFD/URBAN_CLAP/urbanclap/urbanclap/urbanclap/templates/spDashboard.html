@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static  %}
+    <meta charset="UTF-8">
+    <title>Service Provider Dashboard</title>
+    {% include 'headerfiles.html' %}
+    <link href="{% static "autocompletefiles/jquery-ui.css" %}" rel="stylesheet">
+    <script src="{% static "autocompletefiles/jquery-ui.js" %}"></script>
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <style>
+        header {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, .4), rgba(0, 0, 0, .5)), url("{% static 'images/g5.jpg' %}") no-repeat center center/cover;
+        }
+
+        .searchBox {
+            position: absolute !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, 50%) !important;
+            background: #2f3640 !important;
+            height: 60px !important;
+            border-radius: 40px !important;
+            padding: 10px !important;
+
+        }
+
+        .searchBox:hover > .searchInput {
+            width: 240px !important;
+            padding: 0 6px !important;
+        }
+
+        .searchBox:hover > .searchButton {
+            background: white !important;
+            color: #2f3640 !important;
+        }
+    </style>
+</head>
+<body>
+{% include 'navbarSP.html' %}
+{% include 'indexheader.html' %}
+<header>
+    {#    <div class="form-group col-7 mt-8">#}
+    {#        <input type="text" class="form-control" placeholder="Search City" id="city" data-rule-required="true">#}
+    {#    </div>#}
+
+</header>
+
+{% include 'footer.html' %}
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+</head>
+<body>
+{#Admin view space#}
+{% include 'headerfiles.html' %}
+ <div class="container table-responsive">
+       <table class="table" >
+       <thead>
+       <tr>
+{#           <th>Room Id</th>#}
+           <th>Room&nbsp;Name</th>
+           <th>Area</th>
+{#           <th>Description</th>#}
+           <th>Coverphoto</th>
+           <th>Tariffsingle</th>
+           <th>Tariffdouble</th>
+           <th>Extraperson</th>
+{#           <th>Rating</th>#}
+{#           <th>Count</th>#}
+           <th>Category</th>
+       </tr>
+       </thead>
+          {% for p in ar %}
+              <tr>
+{#              <td>{{ p.roomid }}</td>#}
+              <td><a href="viewspacedetails?q={{ p.roomid }}">{{ p.roomname }}</a></td>
+              <td>{{ p.area }}</td>
+{#              <td>{{ p.description }}</td>#}
+              <td><img src="{% static "media/" %}{{ p.coverphoto }}" style="width: 50px; height: 50px"></td>
+              <td>{{ p.tariffsingle }}</td>
+              <td>{{ p.tariffdouble }}</td>
+              <td>{{ p.extraperson }}</td>
+{#              <td>{{ p.rating }}</td>#}
+{#              <td>{{ p.count }}</td>#}
+               <td>{{ p.category }}</td>
+
+              </tr>
+          {% endfor %}
+
+      </table>
+   </div>
+
+
+</body>
+</html>

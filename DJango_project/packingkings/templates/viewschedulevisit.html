@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% include "headerfiles.html" %}
+    {#    <link href="https://fonts.googleapis.com/css?family=Ultra&display=swap" rel="stylesheet">#}
+    <link rel="stylesheet" href="{% static "fontawesome-free-5.11.2-web/css/all.css" %}">
+    <style>
+        h3, label {
+        {#font-family: 'Ultra', serif; ;#} color: #005ba4;
+        }
+
+    </style>
+
+</head>
+<body>
+{% include "navigationadmin.html" %}
+<br>
+<div style="background: rgba(0,0,0,0.5)">
+    <h3 class="text-center h3 text-white p-3"
+        style="margin-top: 25px; font-family: 'Ultra',cursive;text-decoration: underline red;background: rgba(90,165,77,0.93)">
+        SCHEDULE VISIT</h3><br>
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-light">
+                <tr class="bg-dark text-white">
+                    <th>BOOKING ID</th>
+                    <th>BOOKERNAME</th>
+                    <th>PICKUP CITY</th>
+                    <th>DROPPING CITY</th>
+                    <th>PICKUP DATE</th>
+                    <th>DROPPING DATE</th>
+                </tr>
+                {% for row in ar %}
+                    <tr>
+                        <td>{{ row.bookingid }}</td>
+                        <td>{{ row.bookername }}</td>
+                        <td>{{ row.pickupcity }}</td>
+                        <td>{{ row.droppingcity }}</td>
+                        <td>{{ row.dateofpickup }}</td>
+                        <td>{{ row.dateofdropping }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

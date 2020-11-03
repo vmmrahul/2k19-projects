@@ -1,0 +1,151 @@
+{% load static %}
+    <script>
+        $(document).ready(function () {
+            $('.icon').click(function () {
+                $('.search').toggleClass('active')
+            })
+        })
+    </script>
+    <style>
+        .search {
+            width: 30px;
+            height: 30px;
+            background: #FFFFFF;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+            transition: width 0.5s;
+            overflow: hidden;
+            margin-left: 10px;
+        }
+
+        .search.active {
+            width: 200px;
+        }
+
+        .search input {
+            width: calc(100% - 20px);
+            border: none;
+            outline: none;
+        {#padding: 10px;#} color: #666666;
+        }
+
+        .icon {
+            transition: 0.5s;
+            border-radius: 4px;
+        }
+
+        .search.active.icon {
+            background: #ff355a;
+        }
+
+        a:hover {
+            color: #ffc107;
+        }
+
+        nav a {
+            color: white;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        nav a:hover {
+            color: #ffc107;
+        }
+    </style>
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area">
+
+        <!-- Top Header Area -->
+        <div class="top-header-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="top-header-content d-flex align-items-center justify-content-between">
+                            <!-- Logo -->
+                            <div class="logo">
+                                <a href="/"><img src="{% static 'images/navbar/logo.png' %}" alt=""></a>
+                            </div>
+
+                            <!-- Login Search Area -->
+                            <div class="login-search-area d-flex align-items-center">
+                                <!-- Login -->
+                                <div class="login d-flex">
+                                    <a href="userlogout">Logout</a>
+                                </div>
+                                <!-- Search Form -->
+                                <div class="search-form">
+                                    <form action="#" method="post">
+                                        {% csrf_token %}
+                                        <input type="search" name="search" id="search" class="form-control" placeholder="Search">
+                                        <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navbar Area -->
+        <div class="newspaper-main-menu" id="stickyMenu">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <!-- Menu -->
+                    <nav class="classy-navbar justify-content-between" id="newspaperNav">
+
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a href="/"><img src="{% static 'img/core-img/logo.png' %}" alt=""></a>
+                        </div>
+
+                        <!-- Navbar Toggler -->
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+
+                        <!-- Menu -->
+                        <div class="classy-menu">
+
+                            <!-- close btn -->
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+                            <!-- Nav Start -->
+                            <div class="classynav">
+                                <ul>
+                                    <li><a href="/">Home</a></li>
+                                    <li><a href="/?select=International">International</a></li>
+                                    <li><a href="/?select=National">National</a></li>
+                                    <li><a href="/?select=Business">Business</a></li>
+                                    <li><a href="/?select=AutoMobiles">AutoMobiles</a></li>
+                                    <li><a href="/?select=Science">Science</a></li>
+                                    <li><a href="/?select=Entertainment">Entertainment</a></li>
+                                    <li><a href="/?select=sports">Sports</a></li>
+                                    <li><a href="/?select=Cities">Cities</a></li>
+                                    <li><a href="readblog">Blog</a></li>
+                                </ul>
+                            </div>
+                            <!-- Nav End -->
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+
+<script>
+    var input = document.getElementById("search");
+    input.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            var output = document.getElementById('search').value;
+            var rp = output.replace(" ", "%20");
+            alert(output);
+            window.location.href = 'searchcont?searchdata=' + rp;
+        }
+    });
+</script>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static  %}
+    <meta charset="UTF-8">
+    <title>Ratings</title>
+    {% include "headerfiles.html" %}
+    {% include 'indexheader.html' %}
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="{% static 'rate/src/jquery.star.rating.js' %}"></script>
+    <style>
+        @font-face {
+            font-family: 'Material Icons';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Material Icons'), local('MaterialIcons-Regular'), url(https://fonts.gstatic.com/s/materialicons/v7/2fcrYFNaTjcS6g4U3t-Y5UEw0lE80llgEseQY3FEmqw.woff2) format('woff2'), url(https://fonts.gstatic.com/s/materialicons/v7/2fcrYFNaTjcS6g4U3t-Y5RV6cRhDpPC5P4GCEJpqGoc.woff) format('woff');
+        }
+
+        .material-icons {
+            font-family: 'Material Icons';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            word-wrap: normal;
+            -moz-font-feature-settings: 'liga';
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        i {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+{% include 'navbarUser.html' %}
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <tr>
+                <thead><strong>Your Booking Details</strong></thead>
+
+            </tr>
+            {% for foo in msg %}
+                <tr>
+                    <td> Booking ID</td>
+                    <td>{{ foo.bid }}</td>
+                </tr>
+                <tr>
+                    <td>Booking Date</td>
+                    <td>{{ foo.dateofbooking }}</td>
+                </tr>
+                <tr>
+                    <td>Your Email</td>
+                    <td>{{ foo.email }}</td>
+                </tr>
+                <tr>
+                    <td>Price</td>
+                    <td>{{ foo.price }}</td>
+                </tr>
+                <tr>
+                    <td>Payment Status</td>
+                    <td style="color: red">{{ foo.paymentstatus }}</td>
+                </tr>
+                </table></div>
+            {% endfor %}
+    <br>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h3>Give your Reviews</h3>
+                    <div class="rating text-warning"></div>
+                    <form action="" id="ratep">
+                        <div class="form-group">
+                            <input type="hidden" value="{{ msg.0.bid }}" id="bid" name="bid">
+                            <input type="hidden" value="{{ msg.0.email }}" id="useremail" name="useremail">
+                            <input type="hidden" value="{{ msg.0.spemail }}" id="email" name="email">
+                            <input type="hidden" value="{{ msg.0.business }}" id="business" name="business">
+                            <label for="description">Please Give Your Reviews</label>
+                            <textarea data-rule-required="true" type="text" value="" class="form-control"
+                                      id="description"
+                                      name="description"
+                                      required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-warning" onclick="rate()">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-8">
+                    <h2 class="text-center mb-5">Customer reviews</h2>
+                    <div class="form-group">
+                            <div class="mb-3">
+                                <div id="reviewscus"></div>
+{#                                <span class="font-weight-bold text-primary h5"></span><br>#}
+{#                                <span class="font-weight-bold text-warning"></span><br>#}
+{#                                <span class="font-weight-bold text-dark"></span>#}
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                $(document).ready(function () {
+                    $('.rating').addRating();
+                })
+            </script>
+
+        </div>
+    </section>
+</div>
+
+<script src="{% static 'myjs/rating.js' %}"></script>
+<script src="{% static 'dist/jquery.validate.js' %}"></script>
+
+<script>
+    $(document).ready(function () {
+        customerrtig('{{ msg.0.spemail | safe }}')
+    })
+</script>
+
+<style>
+    .error {
+        color: red;
+    }
+</style>
+</body>
+</html>

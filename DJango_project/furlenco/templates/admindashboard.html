@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.11.2-web/css/all.css' %}">
+    {% include "jsfiles.html" %}
+    {% include "indexheaderfiles.html" %}
+        <style>
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
+            url("{% static 'media/backimg.jpg' %}") fixed no-repeat center center/cover;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+<header>
+<div class="container">
+
+
+        {% include "adminworknavbar.html" %}
+
+        {#    <a href="addcategory">Add Category</a>#}
+        {##}
+        {#    <a href="showcategory">show Category</a>#}
+        <h1 class="text-center text-danger fa-4x">WELCOME</h1>
+        <div class="text-center text-black-50 fa-3x">
+            {{ request.session.adminemail }}
+
+        </div>
+
+
+</div>
+</header>
+</body>
+</html>

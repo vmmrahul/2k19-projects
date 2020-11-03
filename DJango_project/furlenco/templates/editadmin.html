@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    {% include "header.html" %}
+    <form action="saveadmin" method="post">
+    {% csrf_token %}
+
+        <div class="form-group">
+            Enter Email
+            <input readonly type="text" value="{{ ar.email  }}" required class="form-control" name="email">
+
+        </div>
+
+         <div class="form-group">
+            Enter Password
+            <input type="password" required value="{{ ar.password }}"class="form-control" name="password">
+
+        </div>
+
+         <div class="form-group">
+            Select Type
+            <select required name="type" class="form-control">
+                {% if ar.type == Admin %}
+
+                    <option selected>Admin</option>
+                    <option>Sub-Admin</option>
+                {% else %}
+                    <option>Admin</option>
+                    <option selected>Sub-Admin</option>
+                {% endif %}
+            </select>
+
+
+        </div>
+
+         <div class="form-group">
+            Enter Mobile Number
+            <input type="number" required value="{{ ar.mobile}}"class="form-control" name="mobile">
+
+        </div>
+         <div class="form-group">
+            <input type="submit"  class="btn btn-success" value="Save">
+
+        </div>
+    </form>
+
+
+
+</body>
+</html>

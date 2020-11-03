@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+    <script>
+        function signup() {
+            if ($('#usersignupvalid').valid()) {
+                var usersignupdata = new FormData();
+                usersignupdata.append('mobile', document.getElementById("mobile").value);
+                usersignupdata.append('email', document.getElementById("email").value);
+                usersignupdata.append('password', document.getElementById("password").value);
+                usersignupdata.append('name', document.getElementById("name").value);
+                usersignupdata.append('address', document.getElementById("address").value);
+                usersignupdata.append('photo', document.getElementById("photo").files[0]);
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+
+                    if (this.readyState == 4 & this.status == 200) {
+                        var response = this.responseText;
+                        if (response == "success") {
+                            window.location.href = 'userlogin';
+                        } else {
+                            document.getElementById("ans").innerHTML = "User Already Exists";
+                        }
+
+                    }
+                };
+                xmlhttp.open('POST', "usersignup2", true);
+                xmlhttp.send(usersignupdata);
+            }
+        }
+    </script>
+    {% include 'indexheaderfiles.html'%}
+</head>
+<body>
+{% include 'indexnavbarpublic.html' %}
+<div class="container">
+    <div class="row">
+        <div class=" col-sm-6 offset-sm-3">
+            <form action="" id="usersignupvalid">
+                {#                {% csrf_token %}#}
+                <div style="margin-top: 100px" >
+                    <h1 class="text-center">User Signup</h1>
+                </div>
+                <div class="form-group">
+                    <label for="mobile">Enter Mobile</label>
+                    <input required type="tel" id="mobile" name="mobile" value="{{ mobile }}" placeholder="Enter mobile"
+                           class="form-control" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Email" class="form-control">
+
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Password" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Name" class="form-control">
+
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="address" placeholder="Address" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="photo">Photo</label>
+                    <input type="file" id="photo" name="photo" placeholder="File" class="form-control">
+
+                </div>
+
+                <div class="form-group text-center">
+
+                    <button type="button" class="btn btn-primary" onclick="signup()">Submit</button>
+                    <h1 id="ans"></h1>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% include 'indexfooter.html' %}
+</body>
+</html>

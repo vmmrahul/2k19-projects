@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    {% include 'indexheaderfiles.html' %}
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap" rel="stylesheet">
+</head>
+<body>
+
+{% include 'indexnavbaruser.html' %}
+<div class="container">
+    <div class="form-group text-center">
+        <h1 ><span class="display-3 text-danger" style="font-family: 'Great Vibes', cursive;">S</span>pare <span class="display-3 text-danger" style="font-family: 'Great Vibes', cursive;">S</span>paces</h1>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        {% for foo in ar %}
+            <div class="col-sm-4 mt-2">
+            <div class="card bg-white">
+                <div class="card-header text-center">
+                    <img src="{% static 'media/' %}{{ foo.coverphoto }}" alt="" width="250" height="250">
+                </div>
+                <div class="card-body">
+                    <span><strong>Room Name:-</strong>{{ foo.roomname }}</span>
+                    <br>
+                    <span><strong>Area:-</strong>{{ foo.area }}</span>
+                </div>
+                <div class="card-footer">
+                    <a href="viewdetailproperty?hid={{ foo.hid }}&roomid={{ foo.roomid }}&category={{ foo.category }}&city={{ foo.city }}" class="btn btn-outline-danger form-control">View Detail</a>
+                </div>
+            </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>

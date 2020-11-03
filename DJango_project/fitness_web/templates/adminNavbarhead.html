@@ -1,0 +1,78 @@
+<div class="wrapper">
+    <!-- Sidebar Holder -->
+    <nav id="sidebar">
+        <div id="dismiss">
+            <i class="fas fa-arrow-left"></i>
+        </div>
+
+        <div class="sidebar-header">
+            <h3 class="font-weight-bold">FitNess</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+{#            <p class="text-capitalize">{{ request.session.admin.0 }}</p>#}
+            <li>
+                <a href="dashBoard" class="mainmenu">DashBoard</a>
+            </li>
+            <li class="">
+                <a href="#news" class="dropdown-toggle mainmenu" data-toggle="collapse" aria-expanded="false">Food</a>
+                <ul class="collapse list-unstyled " id="news">
+                    <li><a href="addfood">Add Food</a></li>
+                    <li><a href="viewFoods">View Food</a></li>
+                </ul>
+            </li>
+            <li class="">
+                <a href="#Departments" class="dropdown-toggle mainmenu" data-toggle="collapse" aria-expanded="false">Exercise</a>
+                <ul class="collapse list-unstyled " id="Departments">
+                    <li><a href="addExercise">Add Exercise</a></li>
+                    <li><a href="viewExercise">View Exercise</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Page Content Holder -->
+    <div id="content">
+
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+
+                <div class="navbar-header">
+                    <button type="button" id="sidebarCollapse" class="btn mybtn navbar-btn">
+                        <i class="fas fa-align-left"></i>
+                        <span>Menu</span>
+                    </button>
+                </div>
+                <div class="dropdown dropleft ">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        User <i class="fas fa-user-tie"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        {#                        <a class="dropdown-item" href="#">Link 1</a>#}
+                        {#                        <a class="dropdown-item" href="#">Link 2</a>#}
+                        <a class="dropdown-item" href="logoutamin">Logout <i
+                                class="text-danger fas fa-sign-out-alt float-right"></i></a>
+                    </div>
+                </div>
+
+
+{#                <div class="collapse navbar-collapse" id="navbarSupportedContent">#}
+{#                    <ul class="nav navbar-nav ml-auto">#}
+{#                        <li class="nav-item active">#}
+{#                            <a class="nav-link" href="#">Page</a>#}
+{#                        </li>#}
+{#                        <li class="nav-item">#}
+{#                            <a class="nav-link" href="#">Page</a>#}
+{#                        </li>#}
+{#                        <li class="nav-item">#}
+{#                            <a class="nav-link" href="#">Page</a>#}
+{#                        </li>#}
+{#                        <li class="nav-item">#}
+{#                            <a class="nav-link" href="#">Page</a>#}
+{#                        </li>#}
+{#                    </ul>#}
+{#                </div>#}
+            </div>
+        </nav>
+
+

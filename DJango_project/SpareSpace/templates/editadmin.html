@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+    <form action="save" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    Email
+                    <input type="email" readonly required class="form-control" name="email" value="{{ ar.email }}">
+                </div>
+                <div class="form-group">
+                    Enter Type
+                    <label>&nbsp;&nbsp;&nbsp;{{ ar.type }}</label>
+                    <select name="type" class="form-control">
+                        <option value="superadmin">Super Admin</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    Enter Mobile
+                    <input type="number" required class="form-control" name="mobile" value="{{ ar.mobile }}">
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Submit" class="btn-success">
+                </div>
+        </div>
+            <div class="col-sm-4"></div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

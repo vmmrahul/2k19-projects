@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css"%}">
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+    <script src="{% static "js/jquery-3.4.1.js" %}"></script>
+    <script src="{% static "js/popper.js" %}"></script>
+    <script src="{% static "js/bootstrap.js" %}"></script>
+    <script src="{% static "dist/jquery.validate.js" %}"></script>
+    <style>
+        .error
+        {
+            color: red;
+        }
+    </style>
+    <script>
+        function forget() {
+          $("myModal").modal('show');
+
+        }
+
+        function userlogin() {
+            if($('#userloginvalid').valid())
+            {
+                var userlogindata=new FormData();
+                userlogindata.append('email',document.getElementById("email").value);
+                userlogindata.append('password',document.getElementById("password").value);
+                var xmlhttp=new XMLHttpRequest();
+                xmlhttp.onreadystatechange=function () {
+                    if(this.readyState==4 & this.status==200)
+                    {
+                        var response=this.responseText;
+                        {#alert(response);#}
+                        if(response =="success")
+                        {
+                            window.location.href='userdashboard';
+                        }
+                        else
+                        {
+                            document.getElementById("ans").innerHTML="Invalid username or password";
+                        }
+                    }
+
+                };
+                xmlhttp.open("POST","userlogin1",true);
+                xmlhttp.send(userlogindata);
+            }
+
+        }
+    </script>
+</head>
+
+
+<body>
+  <div class="container-fluid">
+    <div class="jumbotron">
+        <h1 class="text-center">User Login</h1>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 offset-sm-3">
+            <form action="" id="userloginvalid">
+                    {% csrf_token %}
+                     <div class="form-group">
+                    <label for="mobile">Enter Email</label>
+                    <input data-rule-required="true" type="email" id="email" name="email" placeholder="Enter email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input data-rule-required="true" type="password" id="password" name="password" placeholder="Enter Password" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="button" class="btn btn-success" value="Login" onclick="userlogin()">
+                    <a onclick="forget()"  data-toggle="modal"  href="#myModal" style=" margin-left: 220px">Forgot Password?</a>
+
+                    <label id="ans"></label>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" style="text-align: left">Recover Password</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+{#          <button type="button" class="close" data-dismiss="modal">&times;</button>#}
+        </div>
+        <div class="modal-body">
+            <form action="forgot" method="post">
+                {% csrf_token %}
+                <div class="container-fluid">
+                    <div class="form-group">
+                      <label>Enter Email</label>
+                      <input type="email" name="email" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <label>Enter Mobile</label>
+                      <input type="tel" name="mobile" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-success" value="Recover">
+                        <label>{{ ar.message }}</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

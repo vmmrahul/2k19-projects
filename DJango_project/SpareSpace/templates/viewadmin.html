@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css"%}">
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+
+    <script src="{% static "js/jquery-3.4.1.js" %}"></script>
+    <script src="{% static "js/bootstrap.js" %}"></script>
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+    <script>
+        function confirmdelete(id) {
+            var result=confirm("Are u sure to delete admin?");
+            if(result)
+            {
+                window.location.href='removeadmin?q='+id;
+            }
+
+
+        }
+
+        function editadmin(id) {
+            var xmlhttp=new XMLHttpRequest();
+            xmlhttp.onreadystatechange=function () {
+                if(this.status==200 & this.readyState==4)
+                {
+                    var output=JSON.parse(this.response);
+                    var email=output["email"];
+                    var type=output["type"];
+                    var mobile=output["mobile"];
+                    document.getElementById("email").value=email;
+                    document.getElementById("type").value=type;
+                    document.getElementById("mobile").value=mobile;
+                    $("mymodal").modal('show');
+                }
+
+            };
+            xmlhttp.open('GET',"/editadmin?q="+id);
+            xmlhttp.send();
+
+        }
+
+        function saveadmin()
+        {
+            var changeadmin=new FormData();
+            changeadmin.append('email',document.getElementById("email").value);
+            changeadmin.append('type',document.getElementById("type").value);
+            changeadmin.append('mobile',document.getElementById("mobile").value);
+            var xmlhttp=new XMLHttpRequest();
+            xmlhttp.onreadystatechange=function () {
+                if(this.status==200 & this.readyState==4)
+                {
+                    var output=this.responseText;
+                    if(output=="success")
+                    {
+                        window.location.href="viewadmin";
+                    }
+                }
+            };
+             xmlhttp.open("POST","saveadmin",true);
+             xmlhttp.send(changeadmin);
+        }
+
+    </script>
+</head>
+<body>
+   {% include 'navbaradmin.html' %}
+     <div class="container table-responsive">
+     <div class="jumbotron">
+         <h1 style="text-align: center">View Admin</h1>
+     </div>
+     <br>
+
+{#      {{ request.session.adminemail }}#}
+         <table class="table" border="4">
+         <tr>
+             <th class="text-center">Email</th>
+             <th class="text-center">Type</th>
+             <th class="text-center">Mobile</th>
+
+            {% if type != 'subadmin' %}
+                <th colspan="2" class="text-center">Action</th>
+            {% endif %}
+         </tr>
+
+             {% for p in ar %}
+             <tr>
+                 <td style="text-align: center">{{ p.email }}</td>
+                 <td style="text-align: center">{{ p.type }}</td>
+                 <td style="text-align: center">{{ p.mobile }}</td>
+                 {% if type != "subadmin" %}
+                     <td><a onclick="editadmin('{{ p.email }}')" data-toggle="modal" href="#mymodal"><img src="{% static "myphotos/e1.jpeg" %}" style="height: 25px; width: 25px"></a></td>
+                     <td><a onclick="confirmdelete('{{ p.email }}')"><img style="width: 25px; height: 25px" src="{% static "myphotos/d1.jpg" %}" ></a></td>
+                  {% endif %}
+             </tr>
+             {% endfor %}
+         </table>
+     </div>
+
+<div class="modal fade" id="mymodal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" style="text-align: left">Edit Admin</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+        </div>
+        <div class="modal-body">
+            <form action="" id="editadminvalid">
+
+                <div class="container-fluid">
+                    <div class="form-group">
+                    Email
+                    <input type="email" id="email" readonly required class="form-control" name="email">
+                </div>
+                <div class="form-group">
+                    Enter Type
+                    <select name="type" id="type" class="form-control">
+                        <option value="subadmin">Sub Admin</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    Enter Mobile
+                    <input type="number" id="mobile" required class="form-control" name="mobile">
+                </div>
+
+                <div class="form-group">
+                    <input type="button" value="Submit" class="btn-success" onclick="saveadmin()">
+                </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <script>
+        function editprofile(hid) {
+            if ($('#editprofilevalid').valid()) {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if (this.status == 200 & this.readyState == 4) {
+                        var output = JSON.parse(this.response);
+                        var hid=output["hid"];
+                        var hostname = output["hostname"];
+                        var email = output["email"];
+                        var city = output["city"];
+                        var mobile = output["mobile"];
+                        var photo = output["photo"];
+                        var description = output["description"];
+                        var location = output["location"];
+                        document.getElementById("name").value = hostname;
+                        document.getElementById("email").value = email;
+                        document.getElementById("city").value = city;
+                        document.getElementById("mobile").value = mobile;
+                        document.getElementById("image").src="static/media/"+photo;
+                        document.getElementById("description").value=description;
+                        document.getElementById("location").value=location;
+                        $("editprofile").modal('show');
+                    }
+                }
+
+
+            };
+            xmlhttp.open('GET',"/editprofile?q="+hid);
+            xmlhttp.send();
+        }
+
+        function saveprofile()
+        {
+            var editprofiledata=new FormData();
+            editprofiledata.append('hid',document.getElementById("id").value);
+            editprofiledata.append('hostname',document.getElementById("name").value);
+            editprofiledata.append('email',document.getElementById("email").value);
+            editprofiledata.append('city',document.getElementById("city").value);
+            editprofiledata.append('mobile',document.getElementById("mobile").value);
+            editprofiledata.append('photo',document.getElementById("photo").files[0]);
+            editprofiledata.append('description',document.getElementById("description").value);
+            editprofiledata.append('location',document.getElementById("location").value);
+            var xmlhttp=new XMLHttpRequest();
+            xmlhttp.onreadystatechange=function () {
+                if(this.status==200 & this.readyState==4)
+                {
+                    var output=this.responseText;
+                    if(output=="success")
+                    {
+                        window.location.href="viewprofile";
+                    }
+                }
+            };
+             xmlhttp.open("POST","savehostprofile",true);
+             xmlhttp.send(editprofiledata);
+        }
+
+
+
+    </script>
+</head>
+<body>
+{% include 'indexheaderfiles.html' %}
+{% include 'navbarhost.html' %}
+ <div class="container table-responsive">
+     <div class="page-header">
+         <h1 style="text-align: center">View Profile</h1>
+     </div>
+     <table class="table" border="4">
+
+         <tr>
+             <th>Name</th>
+             <th>Email</th>
+             <th>City</th>
+              <th>Mobile</th>
+              <th>Photo</th>
+              <th>Description</th>
+              <th>location</th>
+              <th>Action</th>
+         </tr>
+
+
+
+              {% for row in ar%}
+                 <tr>
+                  <td>{{ row.hostname }}</td>
+                  <td>{{ row.email }}</td>
+                  <td>{{ row.city }}</td>
+                  <td>{{ row.mobile }}</td>
+                  <td><img src="{%static "media/"%}{{ row.photo }}" style="width: 50px; height: 50px"></td>
+                  <td>{{ row.description }}</td>
+                  <td>{{ row.location }}</td>
+                  <td><a onclick="editprofile('{{ row.hid }}')" data-toggle="modal" href="#editprofile"><img src="{% static "myphotos/e1.jpeg" %}" style="height: 25px; width: 25px"></a></td>
+{#                  <td><a onclick="confirmdelete('{{ p.email }}')"><img style="width: 25px; height: 25px" src="{% static "myphotos/d1.jpg" %}" ></a></td>#}
+                  </tr>
+              {% endfor %}
+
+
+         </table>
+ </div>
+
+
+<div class="modal fade" id="editprofile" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" style="text-align: left">Edit Profile</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+        </div>
+        <div class="modal-body">
+            <form action="" id="editprofilevalid">
+                <div class="form-group">
+                    <label for="id">Name</label>
+                    <input data-rule-required="true" type="hidden" id="id" name="id"  class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input data-rule-required="true" type="text" id="name" name="name" placeholder="Enter name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input data-rule-required="true" type="email" id="email" name="email" placeholder="Enter Email" class="form-control">
+
+                </div>
+
+                <div class="form-group">
+                    <label for="city">Select City</label>
+                    <select name="city" id="city" class="form-control" data-rule-required="true" style="padding-top: 0px; padding-bottom: 0px">
+                        <option value="">Select City</option>
+                        <option value="amritsar">Amritsar</option>
+                        <option value="jalandhar">Jalandhar</option>
+                        <option value="ludhiana">Ludhiana</option>
+                        <option value="chandigarh">Chandigarh</option>
+                    </select>
+
+                </div>
+                <div class="form-group">
+                    <label for="mobile">Enter Mobile</label>
+                    <input type="text" id="mobile" name="mobile" placeholder="Mobile" class="form-control" data-rule-required="true" data-rule-number="true">
+                </div>
+
+                <div class="form-group">
+                   <div class="row">
+                            <div class="col-sm-6">
+                                  <label for="file">Upload Photo</label>
+                                  <input type="file" name="photo" value="photo"  id="photo" data-rule-required="true">
+                            </div>
+                           <div class="col-sm-6">
+                                <img  id="image" style="width: 30px;height: 30px ">
+                            </div>
+                   </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Enter Description</label>
+                    <textarea name="description" class="form-control" id="description" data-rule-required="true"></textarea>
+                </div>
+
+                     <div class="form-group">
+
+                              <label for="location">Location</label>
+                              <input type="text" name="location" placeholder="Enter Location" id="location" class="form-control" data-rule-required>
+
+
+                        </div>
+
+                <div class="form-group text-center">
+
+                    <input type="button" class="btn btn-primary" onclick="saveprofile()" value="Edit">
+
+                </div>
+
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

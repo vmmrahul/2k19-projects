@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Foods</title>
+    {% load static %}
+    <style>
+        body {
+            background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url("{% static 'images/victor-freitas-WvDYdXDzkhs-unsplash.jpg' %}") fixed no-repeat center/cover;
+            color: white;
+        }</style>
+
+    {% include 'userheaderfile.html' %}
+    <style>
+        .error {
+            color: red !important;
+        }
+    </style>
+</head>
+<body>
+{% include 'userNavbar.html' %}
+<br>
+<br>
+<br>
+
+
+<div class="container">
+    <div class="text-center">
+        <hr style="background:white">
+        <h2 class="text-white">Foods</h2>
+        <hr style="background:white">
+    </div>
+    {##}
+    {#    <div class="alert alert-success">#}
+    {#        <strong>Result --> {{ data | length }}</strong>#}
+    {#    </div>#}
+    <div class="table-responsive">
+        <table class="table text-center table-hover text-white ">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Calorie/g</th>
+                <th>Carbs/g</th>
+                <th>Protein/g</th>
+                <th>Fats/g</th>
+                {% if request.session.user %}
+                    <th>Edit</th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody class="">
+            {% for foo in data %}
+                <tr>
+                    <td>{{ foo.name }}</td>
+                    <td>{{ foo.description }}</td>
+                    <td>{{ foo.calories }}</td>
+                    <td>{{ foo.carbs }}</td>
+                    <td>{{ foo.protein }}</td>
+                    <td>{{ foo.fats }}</td>
+                    {% if request.session.user %}
+                        <td>
+                            <button onclick="addtocart({{ foo |safe }})" class="btn btn-primary">Eat</button>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="modal" id="addqty">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="userfoodAction" method="get">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="qty">Qty</label>
+                        <input type="hidden" readonly id="id" name="id">
+                        <input type="number" min="1" id="qty" name="qty" placeholder="QTY in Gram or g" required
+                               class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include 'userfoot.html' %}
+{% include 'userfooter.html' %}
+{% include 'footer.html' %}
+
+<script>
+    function addtocart(obj) {
+        {#alert(obj);#}
+        $('#id').val(obj.id)
+        $('#addqty').modal('show');
+    }
+</script>
+</body>
+</html>

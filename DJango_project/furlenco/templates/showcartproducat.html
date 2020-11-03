@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>showcartproducat</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'ui/jquery-ui.css' %}">
+    {% include "indexheaderfiles.html" %}
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
+</head>
+<body>
+{% if request.session.mobile %}
+    {% include 'indexnavbaruser.html' %}
+{% elif not request.session.mobile %}
+    {% include 'indexnavigation.html' %}
+{% endif %}
+<div class="container-fluid">
+    <div class="text-center">
+        <h1><u>Cart</u></h1>
+    </div>
+</div>
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr class="bg-dark text-white text-center">
+                <th>Title</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Rent Type</th>
+                <th colspan="2">Date From-to</th>
+                <th>month</th>
+                <th>photo</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody class="text-center">
+            {% for foo in datalist %}
+                <tr>
+                    <td>{{ foo.title }}</td>
+                    <td>{{ foo.totalprice }}</td>
+                    <td>{{ foo.qty }}</td>
+                    <td>{{ foo.renttype }}</td>
+                    <td class="text-primary">{{ foo.fromss }}</td>
+                    <td class="text-primary">{{ foo.tos }}</td>
+                    <td>{{ foo.chosedaymonth }}</td>
+                    <td><img src="{% static 'media/' %}{{ foo.photo }}" alt="" width="100" height="100"></td>
+                    <td>
+                        <a href="delete_from_cart?fid={{ foo.fid }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr class="bg-warning text-white">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="text-right"><h4>Total :-</h4></td>
+                <td><h5>{{ totalprice }}/-</h5></td>
+                <td class="text-right">
+                    {% if totalprice > 0 %}
+                        <a href="processtopay" class=" btn btn-success"><strong>Process to Pay</strong></a>
+                    {% else %}
+                        <a href="searchfurniture1" class="btn btn-success"><strong> Continew Shoping</strong></a>
+                    {% endif %}
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+        <div class="text-center">
+            {% if totalprice <= 0 %}
+                <div class="alert alert-danger" role="alert">
+                    <h5>Opps! No Furniture Found Press Below Button To </h5>
+                </div>
+            {% endif %}
+            <a href="searchfurniture1" class="btn btn-outline-primary mb-2"><strong>Continew Shoping</strong></a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

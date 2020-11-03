@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static  %}
+    <meta charset="UTF-8">
+    <title>Service Provider Details</title>
+    {% include 'headerfiles.html' %}
+    {% include 'jsfiles.html' %}
+    {% include 'indexheader.html' %}
+
+    <script src="{% static 'rate/src/jquery.star.rating.js' %}"></script>
+    <style>
+        @font-face {
+            font-family: 'Material Icons';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Material Icons'), local('MaterialIcons-Regular'), url(https://fonts.gstatic.com/s/materialicons/v7/2fcrYFNaTjcS6g4U3t-Y5UEw0lE80llgEseQY3FEmqw.woff2) format('woff2'), url(https://fonts.gstatic.com/s/materialicons/v7/2fcrYFNaTjcS6g4U3t-Y5RV6cRhDpPC5P4GCEJpqGoc.woff) format('woff');
+        }
+
+        .material-icons {
+            font-family: 'Material Icons';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            word-wrap: normal;
+            -moz-font-feature-settings: 'liga';
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        i {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+{% if request.session.useremail %}
+    {% include 'navbarUser.html' %}
+{% elif not request.session.useremail %}
+    {% include 'navigationbarindex.html' %}
+{% elif request.session.adminemail %}
+    {% include 'navbarAdmin.html' %}
+{% endif %}
+<div class="container" style="margin-top: 10%">
+    <div class="text-center">
+        <h1 style="margin-top: 30px;color: #a71d2a"><u>{{ detail.0.name }}</u></h1>
+    </div>
+    <div class="row">
+         <div class="font-weight-bold" style="margin-top: 50px;color: #a71d2a">Name: <span
+                    class="text-dark font-weight-bold">{{ detail.0.name }}</span></div>
+
+        <div class="col-sm-6">
+            <img src="static/media/{{ detail.0.photo }}" alt="no image" width="400px" height="400px">
+        </div>
+        <div class="col-sm-6">
+            <div class="font-weight-bold" style="margin-top: 20px;color: #a71d2a">Name: <span
+                    class="text-dark font-weight-bold">{{ detail.0.name }}</span></div>
+            <div class="font-weight-bold" style="margin-top: 50px;color: #a71d2a">Mobile: <span
+                    class="text-dark font-weight-bold">{{ detail.0.mobile }}</span></div>
+            <div class="font-weight-bold" style="margin-top: 20px;color: #a71d2a">Business: <span
+                    class="text-dark">{{ detail.0.business }}</span>
+            </div>
+            <div class="font-weight-bold" style="margin-top: 20px;color: #a71d2a">Address: <span
+                    class="text-dark">{{ detail.0.address }}</span>
+            </div>
+            <div class="font-weight-bold" style="margin-top: 20px;color: #a71d2a">City: <span
+                    class="text-dark">{{ detail.0.city }}</span>
+            </div>
+            <div class="font-weight-bold" style="margin-top: 20px;color: #a71d2a">Timings: <span
+                    class="text-dark">{{ detail.0.timings }}</span>
+            </div>
+            <div class="form-group">
+                <a href="bookdetails?email={{ detail.0.email }}" style="margin-top: 40px" class="btn btn-warning form-control w-25"><strong>Book</strong></a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<hr>
+{#<section>#}
+{#    <div class="container">#}
+{#        <div class="row">#}
+{#            <div class="col-sm-4">#}
+{#                <h3>Give your Reviews</h3>#}
+{#                <div class="rating text-warning"></div>#}
+{#                <form action="" id="ratep">#}
+{#                    <div class="form-group">#}
+{#                        <input type="hidden" value="{{ detail.0.email }}" id="email" name="email">#}
+{#                        <input type="hidden" value="{{ detail.0.business }}" id="business" name="business">#}
+{#                        <label for="description">Reviews</label>#}
+{#                        <textarea data-rule-required="true" type="text" value="" class="form-control" id="description"#}
+{#                                  name="description"#}
+{#                                  required></textarea>#}
+{#                    </div>#}
+{#                    <div class="form-group">#}
+{#                        <button type="button" class="btn btn-warning" onclick="rate()">Submit</button>#}
+{#                    </div>#}
+{#                </form>#}
+{#            </div>#}
+{#            <div class="col-sm-8">#}
+{#                <h2 class="text-center mb-5">Customer reviews</h2>#}
+{#                <div class="form-group">#}
+{#                    {% for foo in ratinglist %}#}
+{#                        <div class="mb-3">#}
+{#                            <span class="font-weight-bold text-primary h5">{{ foo.useremail }}</span><br>#}
+{#                            <span class="font-weight-bold text-warning">{{ foo.rating }}</span><br>#}
+{#                            <span class="font-weight-bold text-dark">{{ foo.description }}</span>#}
+{#                        </div>#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <script>#}
+{#            $(document).ready(function () {#}
+{#                $('.rating').addRating();#}
+{#            })#}
+{#        </script>#}
+{#    </div>#}
+{#</section>#}
+<hr>
+
+<div class="container">
+    <div class="text-centre">
+        <h3 style="color: #a71d2a">Related Service Providers</h3>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        {% for foo in datalist %}
+
+            <div class="col-sm-4">
+                <div class="card mt-5" style="width: 18rem;">
+                    <div class="text-center mt-3">
+                        <img src="{% static 'media/' %}{{ foo.photo }}" alt="" width="200" height="200"><br>
+                        <span class=""><strong>{{ foo.name }}</strong></span><br>
+                        <span class=""><strong><u>{{ foo.email }}</u></strong></span><br>
+                        <input type="hidden" value="{{ foo.business }}" name="business" id="business"><br>
+
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title " style="text-align: center">{{ foo.business }} </h5>
+                        <a href="spdetails?email={{ foo.email }}&catname={{ foo.catname }}&city={{ foo.city }}&index=index"
+                           type="submit" class="btn btn-info mt-2">Show
+                            Details</a></div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<script src="{% static 'dist/jquery.validate.js' %}"></script>
+
+</body>
+</html>

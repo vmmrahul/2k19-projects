@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static  %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static 'clock/dist/bootstrap-clockpicker.css' %}">
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'clock/dist/jquery-clockpicker.js' %}"></script>
+</head>
+<body>
+<div class="input-group clockpicker">Time From:
+    <input id="fromtime" type="text" class="" value="09:30">
+    <span class="input-group-addon">
+        <span class="glyphicon glyphicon-time"></span>
+    </span>
+</div>
+<script type="text/javascript">
+    $('.clockpicker').clockpicker();
+</script>
+
+</body>
+</html>

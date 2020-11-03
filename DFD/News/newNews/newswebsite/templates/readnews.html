@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>The News Paper - News &amp; Lifestyle Magazine Template</title>
+    <link rel="stylesheet" href="{% static 'website/style.css' %}">
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'img/core-img/favicon.ico' %}">
+
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="{% static 'scss/style.scss' %}">
+
+</head>
+
+<body>
+{% if request.session.user_email %}
+    {% include 'indexnavigationuser.html' %}
+{% elif not request.session.user_email %}
+    {% include 'navexmple.html' %}
+{% endif %}
+<br>
+<div class="container p-sm-3" style="background: rgba(255,255,255,0.9)">
+    {#    <h2 class="text-left font-weight-bold font-italic p-sm-5 rounded-pill" style="border: 1px solid #ffc107; background-image: linear-gradient(transparent 70%, #ffc107)">{{ title }}</h2>#}
+    <div class="display-4 font-weight-bolder">{{ title }}</div>
+    <hr>
+    <div>
+        <p id="readnews"></p>
+    </div>
+</div>
+
+<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'js/popper.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+{% include 'indexfooter.html' %}
+<script>
+    $(document).ready(function () {
+        document.getElementById('readnews').innerHTML = "{{ description | safe }}";
+    });
+</script>
+
+
+</body>
+</html>

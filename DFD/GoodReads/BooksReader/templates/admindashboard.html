@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load  staticfiles %}
+
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    {% include "header.html" %}
+</head>
+<body>
+{% include "navigationbar.html" %}
+<h1> WELCOME {{ request.session.adminEmail }}</h1>
+{#{{ ar.message }}#}
+</body>
+</html>

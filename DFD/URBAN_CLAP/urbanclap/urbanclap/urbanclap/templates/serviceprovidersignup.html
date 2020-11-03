@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static  %}
+
+    <meta charset="UTF-8">
+    <title>servicer provider signup</title>
+
+    {% include 'headerfiles.html' %}
+    {% include 'jsfiles.html' %}
+    {#    <script>#}
+    {##}
+    {#        $(document).ready(function () {#}
+    {#            $("#form1").validate();#}
+    {#        })#}
+    {#    </script>#}
+    <style>
+        header {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, .4), rgba(0, 0, 0, .5)), url("{% static 'images/yoga.jpg' %}") no-repeat center center/cover;
+        }
+    </style>
+    {% include 'indexheader.html' %}
+</head>
+
+<body class="text-white">
+
+{% if request.session.serviceprovideremail %}
+    {% include 'navbarSP.html' %}
+{% elif not request.session.serviceprovideremail %}
+    {% include 'navigationbarindex.html' %}
+{% endif %}
+
+
+<header>
+    <div class="container-fluid" style="margin-top: 100px">
+        <div class="text-center">
+            <h1 class="text-black-50"><u>Service Provider Signup</u></h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <form id="serviceprovidersignup" action="">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" data-rule-required="true"
+                               class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" data-rule-required="true"
+                               class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile">Mobile Number</label>
+                        <input name="mobile" maxlength="10" minlength="10" id="mobile" data-rule-required="true"
+                               class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="business">Business</label>
+                        <input type="text" name="business" id="business" data-rule-required="true"
+                               class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="catname">Category Name</label>
+                        <select data-rule-required="true" name="catname" id="catname" class="form-control">
+                            {% for item in ar %}
+                                <option> {{ item.catname }} </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+
+                </div>
+
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <textarea name="address" id="address" data-rule-required="true" class="form-control"></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="timings">Timings</label>
+                                <input name="timings" id="timings" data-rule-required="true" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="fees">Fees</label>
+                                <input name="fees" type="num" id="fees" data-rule-required="true" class="form-control">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <select class="form-control" name="city" id="city" data-rule-required="true">--Select
+                                    City--
+                                    <option>Amritsar</option>
+                                    <option>Bengaluru</option>
+                                    <option>Chandigarh</option>
+                                    <option>Delhi</option>
+                                    <option>Gurdaspur</option>
+                                    <option>Mumbai</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="area">Service Areas</label>
+                                <input name="area" id="area" data-rule-required="true" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="photo">Photo</label>
+                        <input type="file" id="photo" name="photo" class="form-control" data-rule-required="true">
+                    </div>
+                    <div class="form-group">
+                        <input type="button" style="text-align: center" value="Sign Up" onclick="signup()"
+                               class="btn btn-info float-right form-control">
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+
+        <div class="offset-sm-4" id="ans">
+
+        </div>
+    </div>
+    {% include 'footer.html' %}
+</header>
+<script src="{% static 'myjs/serviceprovidersignup.js' %}"></script>
+</body>
+
+
+</html>

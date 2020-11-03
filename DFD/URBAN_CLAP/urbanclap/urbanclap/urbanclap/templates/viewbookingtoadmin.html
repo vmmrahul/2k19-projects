@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Booking TO Admin</title>
+    {% include "headerfiles.html" %}
+    {% include 'indexheader.html' %}
+
+{#    <script>#}
+{#        function sendemail(mobile, email, bid, sent) {#}
+{#            var formdata = new FormData();#}
+{#            formdata.append('mobile', mobile);#}
+{#            formdata.append('email', email);#}
+{#            formdata.append('bid', bid);#}
+{##}
+{#            if (sent) {#}
+{#                var xml = new XMLHttpRequest();#}
+{#                xml.onreadystatechange = function () {#}
+{#                    if (this.readyState == 4 && this.status == 200) {#}
+{#                        var output = this.response;#}
+{#                        if (output == 'success') {#}
+{#                            alert("Email sent successfully !!");#}
+{#                            document.getElementById('showme').innerText = "Email sent already !!";#}
+{#                            document.getElementById('showme').disabled = true;#}
+{##}
+{##}
+{#                        } else {#}
+{#                            alert("Oops network error !! Email not sent !!");#}
+{#                        }#}
+{#                    }#}
+{#                };#}
+{#                xml.open('POST', 'sendratingmsgandemail', true);#}
+{#                xml.send(formdata);#}
+{##}
+{#            }#}
+{#        }#}
+{#    </script>#}
+
+</head>
+<body>
+{% include 'navbarAdmin.html' %}
+<div class="container-fluid" style="margin-top: 150px">
+    <div class="table-responsive">
+        {% if msg.0.status == 'accepted' %}
+            <h5 style="text-align: center;">Accepted Bookings</h5>
+        {% elif msg.0.status == 'pending' %}
+            <h5 style="text-align: center;">Pending Bookings</h5>
+        {% endif %}
+
+        <table class="table table-hover">
+
+            <thead class="bg-light">
+            <tr>
+                <th>Booking ID</th>
+                <th>User Email</th>
+                <th>User Contact No.</th>
+                <th>Service Provider Email</th>
+                <th>Status</th>
+                <th>Payment Status</th>
+
+                {% if msg.0.status == 'accepted' %}
+                    <th>Send Request</th>
+                {% endif %}
+
+
+            </tr>
+            </thead>
+            <tbody id="viewbooking">
+            {% for foo in msg %}
+                <tr>
+                    <td>{{ foo.bid }}</td>
+                    <td>{{ foo.email }}</td>
+                    <td>{{ foo.mobile }}</td>
+                    <td>{{ foo.spemail }}</td>
+                    <td>{{ foo.status }}</td>
+                    <td>{{ foo.paymentstatus }}</td>
+                    {% if foo.status == 'accepted' %}
+                        <td>
+                            <a id="showme"
+                                    href="sendratingmsgandemail?mobile={{ foo.mobile }}&email={{ foo.email }}&bid={{ foo.bid }}"
+                                    class="btn btn-success text-white">Send Email For Reviews
+                            </a>
+                        </td>
+                    {% endif %}
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html lang="zxx">
+
+<head>
+    <title>Land Real Estates Category Bootstrap Responsive website Template | Login :: w3layouts</title>
+    {% load static %}
+    <!-- Meta tag Keywords -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8"/>
+    <meta name="keywords"
+          content="Land Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!-- //Meta tag Keywords -->
+    {% include 'indexheaderfiles.html' %}
+    <!-- //Web-Fonts -->
+
+    {#    myscript tags#}
+    <style>
+        .error {
+            color: red;
+        }
+
+        .modal-dialog {
+            z-index: 99999 !important;
+        }
+    </style>
+    <script>
+        function forget() {
+            $("myModal").modal('show');
+
+        }
+
+        function userlogin() {
+            if ($('#userloginvalid').valid()) {
+                var userlogindata = new FormData();
+                userlogindata.append('email', document.getElementById("email").value);
+                userlogindata.append('password', document.getElementById("password").value);
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 & this.status == 200) {
+                        var response = this.responseText;
+                        if (response == "success") {
+                            window.location.href = '/';
+                        } else {
+                            document.getElementById("ans").innerHTML = "Invalid username or password";
+                        }
+                    }
+
+                };
+                xmlhttp.open("POST", "userlogin1", true);
+                xmlhttp.send(userlogindata);
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+<!-- header -->
+{#{{ request.session.useremail }}#}
+{% if request.session.useremail %}
+    {% include 'indexnavbaruser.html' %}
+{% elif not request.session.useremail %}
+    {% include 'indexnavbarpublic.html' %}
+{% endif %}
+<!-- //header -->
+
+<!-- inner banner -->
+<div class="inner-banner-w3ls py-5" id="home">
+    <div class="container py-xl-5 py-lg-3">
+        <!-- login  -->
+        <div class="modal-body my-5 pt-4">
+            <h3 class="title-w3 mb-5 text-center text-wh font-weight-bold">Login Now</h3>
+
+            <div class="row">
+                <div class="col-sm-4 offset-sm-4">
+                    <form action="" id="userloginvalid">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="email" class="text-white">Enter Email</label>
+                            <input data-rule-required="true" type="email" id="email" name="email"
+                                   placeholder="Enter email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="text-white">Password</label>
+                            <input data-rule-required="true" type="password" id="password" name="password"
+                                   placeholder="Enter Password" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="button" class="btn btn-danger w-100" value="Login" onclick="userlogin()">
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6">
+                                <label id="ans" class="text-white"></label>
+                            </div>
+                            <div class="col-sm-6 text-right">
+                                <a onclick="forget()" data-toggle="modal" class="text-white" href="#myModal">Forgot
+                                    Password?</a>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- //login -->
+    </div>
+</div>
+<!-- //inner banner -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" style="text-align: left">Recover Password</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                {#          <button type="button" class="close" data-dismiss="modal">&times;</button>#}
+            </div>
+            <div class="modal-body">
+                <form action="forgot" method="post">
+                    {% csrf_token %}
+                    <div class="container">
+                        <div class="form-group">
+                            <label>Enter Mobile</label>
+                            <input type="tel" name="mobile" required class="form-control" style="border: 2px solid lightskyblue;border-radius: 4px;">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-success" value="Recover">
+                            <label>{{ ar.message }}</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% include 'indexfooter.html' %}
+
+<!-- move top icon -->
+<a href="#home" class="move-top text-center">
+    <span class="fa fa-angle-double-up" aria-hidden="true"></span>
+</a>
+<!-- //move top icon -->
+
+</body>
+
+</html>

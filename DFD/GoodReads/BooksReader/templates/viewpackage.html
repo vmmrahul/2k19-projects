@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% include "navigationbar.html" %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>View Package</title>
+
+
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+
+</head>
+<body>
+<div class="container">
+    <table class="table table-danger table-striped table-hover">
+        <thead>
+        <tr>
+            <th>P.Id</th>
+            <th>Name</th>
+            <th>Number of Books</th>
+            <th>Validity</th>
+            <th>Delete</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for r in ans %}
+            <tr>
+                <td>{{ r.pid }}</td>
+                <td>{{ r.name }}</td>
+                <td>{{ r.numberofbooks }}</td>
+                <td>{{ r.validity }}</td>
+                 <td>{{ r.price }}</td>
+
+                <td><a href="deletepackage?q={{ r.pid }}"><img style="width:25px;height:25px" src="{% static "del.png" %}"></a></td>
+              <td><a href="editpackage?q={{ r.pid }}"><img style="width:25px;height:25px" src="{% static "edit.png" %}"></a></td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

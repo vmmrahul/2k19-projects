@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static  %}
+    <meta charset="UTF-8">
+    <title>User Dashboard</title>
+    {#    <link rel="stylesheet" href="{% static "css/searchbar.css" %}">#}
+
+    <style>
+        .searchBox {
+            position: absolute !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, 50%) !important;
+            background: #2f3640 !important;
+            height: 60px !important;
+            border-radius: 40px !important;
+            padding: 10px !important;
+
+        }
+
+        .searchButton {
+            color: white !important;
+            float: right !important;
+            width: 40px !important;
+            height: 40px !important;
+            border-radius: 50% !important;
+            background: #2f3640 !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            transition: 0.4s !important;
+        }
+
+        .searchInput {
+            border: none !important;
+            background: none !important;
+            outline: none !important;
+            float: left !important;
+            padding: 0 !important;
+            color: white !important;
+            font-size: 16px !important;
+            transition: 0.4s !important;
+            line-height: 40px !important;
+            width: 0px !important;
+
+        }
+        .searchBox:hover > .searchInput {
+            width: 240px !important;
+            padding: 0 6px !important;
+        }
+
+        .searchBox:hover > .searchButton {
+            background: white !important;
+            color: #2f3640 !important;
+        }
+
+        {% include "navbarUser.html" %}
+
+    </style>
+    <style>
+        header {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, .4), rgba(0, 0, 0, .5)), url("{% static 'images/home2.jpg' %}") no-repeat center center/cover;
+        }
+    </style>
+</head>
+<body>
+        {% include "indexheader.html" %}
+<header>
+    {#    <div class="form-group col-7 mt-8">#}
+    {#        <input type="text" class="form-control" placeholder="Search City" id="city" data-rule-required="true">#}
+    {#    </div>#}
+
+    <div class="searchBox">
+
+        <input class="searchInput" type="text" name="" placeholder="Search City...">
+        <button class="searchButton">
+            <i class="fas fa-search">
+
+            </i>
+        </button>
+    </div>
+
+
+</header>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static  %}
+    <meta charset="UTF-8">
+    <title>Add Services</title>
+    {% include 'headerfiles.html' %}
+    {% include 'navbarSP.html' %}
+    <script src="{% static 'myjs/serviceprovidersignup.js' %}"></script>
+    <style>
+        header {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, .4), rgba(0, 0, 0, .5)), url("{% static 'images/g5.jpg' %}") no-repeat center center/cover;
+        }
+    </style>
+    <script>
+        function addservice() {
+            var formdata = new FormData();
+            formdata.append('spemail', document.getElementById('spemail').value);
+            formdata.append('services', document.getElementById('services').value);
+            formdata.append('description', document.getElementById('description').value);
+            formdata.append('price', document.getElementById('price').value);
+            formdata.append('photo', document.getElementById('photo').files[0]);
+            {#formdata.append('csrfmiddlewaretoken', '{{ csrf_token }}');#}
+            var xml = new XMLHttpRequest();
+            xml.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var output = this.response;
+                    {#alert(output);#}
+                    if (output == 'success') {
+                        alert(output);
+                        window.location.href = 'spDashboard'
+                    }
+                    {#     else {#}
+                    {#    document.getElementById('result').innerHTML = 'Invalid Email or Password'#}
+                    {#    #}
+
+                }
+            };
+            xml.open('POST', 'insertservices', true);
+            xml.send(formdata)
+        }
+    </script>
+
+</head>
+<body>
+{% include 'indexheader.html' %}
+<header>
+<div class="container-fluid" style="margin-top: 100px">
+    <div class="container">
+         <div class="text-center">
+                    <h1 class="text-primary"><u>Add Services</u></h1>
+                </div>
+    </div>
+    <div class="container">
+        <form id="form1" action="#" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm-6 offset-sm-3">
+                    <div class="form-group">
+                        <label for="spemail">Email</label>
+                        <input name="spemail" id="spemail" readonly value="{{ request.session.serviceprovideremail }}"
+                               class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Services</label>
+                        <input type="text" name="services" id="services" data-rule-required="true"
+                               class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea name="description" id="description" data-rule-required="true"
+                                  class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="number" name="price" id="price" data-rule-required="true"
+                               class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="photo">Photo</label>
+                        <input type="file" id="photo" name="photo" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="button" style="text-align: center" value="Add" onclick="addservice()"
+                               class="btn btn-info"/>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+</header>
+{% include 'footer.html' %}
+
+</body>
+</html>

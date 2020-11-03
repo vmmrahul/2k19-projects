@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Booking Details</title>
+    {% include "headerfiles.html" %}
+    {% include 'indexheader.html' %}
+</head>
+<body>
+{% include 'navbarSP.html' %}
+
+<div class="container-fluid" style="margin-top: 150px" >
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="bg-light">
+            <tr>
+                <th>Booking ID</th>
+                <th>Email</th>
+                <th>Date Of Booking</th>
+                <th>Time From</th>
+                <th>Time To</th>
+                <th>Place</th>
+                <th>Status</th>
+                <th>Payment Status</th>
+                <th colspan="2">Action</th>
+            </tr>
+            </thead>
+            <tbody id="viewbookingdetails">
+            {% for foo in msg %}
+                <tr>
+                    <td>{{ foo.bid }}</td>
+                    <td>{{ foo.email }}</td>
+                    <td>{{ foo.dateofbooking }}</td>
+                    <td>{{ foo.timefrom }}</td>
+                    <td>{{ foo.timeto }}</td>
+                    <td>{{ foo.place }}</td>
+                    <td>{{ foo.status }}</td>
+                    <td>{{ foo.paymentstatus }}</td>
+                    <td><a href="acceptbooking?bid={{ foo.bid }}&status=accepted" type="button" class="btn btn-success">Accept</a></td>
+                    <td><a href="rejectbooking?bid={{ foo.bid }}&status=rejected" type="button" class="btn btn-danger">Reject</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

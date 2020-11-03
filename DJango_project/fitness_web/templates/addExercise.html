@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AddExercise</title>
+    {% load static %}
+    {% include 'headerfile.html' %}
+</head>
+<body>
+{% include 'adminNavbarhead.html' %}
+
+<div class="container">
+    <div class="text-center">
+        <h1>Exercise</h1>
+        <hr style="background: black">
+    </div>
+    <form action="addExercise" method="post">{% csrf_token %}
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" required placeholder="Title" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="caloriesburnt">Calories Burnt</label>
+            <input type="text" name="caloriesburnt" required id="caloriesburnt" placeholder="Calories Burnt"
+                   class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="Description">Description</label>
+            <textarea name="Description" id="Description" required placeholder="Description"
+                      class="form-control"></textarea>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-outline-primary w-25">Submit</button>
+        </div>
+        <br>
+        <br>
+        <div class="form-group">
+            {% if result %}
+                {% if result == 'INVALID QUERY' %}
+                    <div class="alert alert-danger">
+                        <strong>There is any Prob</strong>
+                    </div>
+                {% else %}
+                    <div class="alert alert-success">
+                        <strong>{{ result }} !!!</strong>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </form>
+</div>
+
+
+{% include 'adminNaverfooter.html' %}
+{% include 'footer.html' %}
+<script src="{% static 'myjs/adminNavbar.js' %}"></script>
+</body>
+</html>
